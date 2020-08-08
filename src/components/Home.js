@@ -19,6 +19,7 @@ import PortafolioComponent from "./Portafolio";
 import RequestTypeComponent from "./RequestType";
 import ComercialAComponent from "./ComercialAreas";
 import TechnicalAComponent from "./TechnicalArea";
+import AsignarComponent from "./Asignar";
 
 
 const styles = theme => ({
@@ -33,13 +34,11 @@ const styles = theme => ({
         marginRight: 'auto',
     },
     toolbarMargin: theme.mixins.toolbar,
-
     menu: {
        marginTop:'35px',
     }
 
 });
-
 
 
 const Home= withStyles(styles)  (
@@ -54,16 +53,18 @@ const Home= withStyles(styles)  (
             ),
             MenuItems2: ({closeMenu}) => (
               <div>
-                  <MenuItem onClick={closeMenu}>Portafolio</MenuItem>
-                  <MenuItem onClick={closeMenu} >Clientes</MenuItem>
-                  <MenuItem onClick={closeMenu}>Áreas comercial</MenuItem>
-                  <MenuItem onClick={closeMenu}>Estado de solicitud</MenuItem>
-                  <MenuItem onClick={closeMenu}>Tipo de solicitud</MenuItem>
-                  <MenuItem onClick={closeMenu}>Área técnica</MenuItem>
-                  <MenuItem onClick={closeMenu}>Asignar cliente</MenuItem>
+
+                  <MenuItem onClick={closeMenu} component={Link} to="/">Portafolio</MenuItem>
+                  <MenuItem onClick={closeMenu} component={Link} to="/client">Clientes</MenuItem>
+                  <MenuItem onClick={closeMenu} component={Link} to="/coa">Área comercial</MenuItem>
+                  <MenuItem onClick={closeMenu} component={Link} to="/status">Estado de solicitud</MenuItem>
+                  <MenuItem onClick={closeMenu} component={Link} to="/reqtyp">Tipo de solicitud</MenuItem>
+                  <MenuItem onClick={closeMenu} component={Link} to="/tea">Área técnica</MenuItem>
+                  <MenuItem onClick={closeMenu} component={Link} to="/asign">Asignar cliente</MenuItem>
 
                 </div>
             ),
+
 
         };
         state = {anchor:null, anchor2: null};
@@ -76,8 +77,8 @@ const Home= withStyles(styles)  (
             <div>
                 <AppBar position="static" elevation={0}>
                     <Toolbar>
-                        <img className={classes.flex} src="logo.png" alt="Logo Intelix" style={{"width": "160px", "height": "45px"}}/>
-
+                            <img src={require("./img/logo.png")} alt="Logo Intelix" style={{paddingTop: "20px", paddingLeft:"20px", paddingBottom:"10px", width: "160px", height: "40px"}}/>
+                            <span className={classes.flex}></span>
                             <IconButton className={classes.menuButton} color="contrast" onClick={e=> this.setState(({anchor: e.currentTarget}))} edge="end">
                                 <AccountCircle/>
                             </IconButton>
@@ -99,22 +100,111 @@ const Home= withStyles(styles)  (
                     </Toolbar>
                 </AppBar>
 
-                <h1>Page Component</h1>
-
                 <div className={classes.toolbarMargin}/>
             </div>
 
         )
     }
-}
+  }
 );
 
-const HomeComponent = withStyles(styles)(
-    ({ classes, ...props }) => (
-        <div className={classes.root}>
-            <Home{...props} />
-        </div>
-    )
-);
+const HomeComponent = withStyles(styles) (({classes}) => (
+    <div className={classes.root}>
+        <Router>
+            <Route
+                exact
+                path="/"
+                render={() => (
+                    <div>
+                        <Home/>
+                        <div>
+                            <PortafolioComponent/>
+                        </div>
+                    </div>
+                )}
+            />
+            <Route
+                exact
+                path="/client"
+                render={() => (
+                    <div>
+                        <Home/>
+                        <div>
+                            <ClientComponent/>
+                        </div>
+                    </div>
+                )}
+            />
+
+            <Route
+                exact
+                path="/coa"
+                render={() => (
+                    <div>
+                        <Home/>
+                        <div>
+                            <ComercialAComponent/>
+                        </div>
+                    </div>
+                )}
+            />
+
+            <Route
+                exact
+                path="/status"
+                render={() => (
+                    <div>
+                        <Home/>
+                        <div>
+                            <StatusComponent/>
+                        </div>
+                    </div>
+                )}
+            />
+
+            <Route
+                exact
+                path="/reqtyp"
+                render={() => (
+                    <div>
+                        <Home/>
+                        <div>
+                            <RequestTypeComponent/>
+                        </div>
+                    </div>
+                )}
+            />
+
+            <Route
+                exact
+                path="/tea"
+                render={() => (
+                    <div>
+                        <Home/>
+                        <div>
+                            <TechnicalAComponent/>
+                        </div>
+                    </div>
+                )}
+            />
+
+            <Route
+                exact
+                path="/asign"
+                render={() => (
+                    <div>
+                        <Home/>
+                        <div>
+                            <AsignarComponent/>
+                        </div>
+                    </div>
+                )}
+            />
+
+        </Router>
+
+    </div>
+
+));
 
 export default HomeComponent;
