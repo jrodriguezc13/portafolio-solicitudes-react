@@ -32,6 +32,7 @@ const styles = theme => ({
     menuButton: {
         marginLeft: 'auto',
         marginRight: 'auto',
+        padding: '10px'
     },
     toolbarMargin: theme.mixins.toolbar,
     menu: {
@@ -75,9 +76,9 @@ const Home= withStyles(styles)  (
 
         return (
             <div>
-                <AppBar position="static" elevation={0}>
+                <AppBar position="static" elevation={0} style={{background: "#2E3B55"}}>
                     <Toolbar>
-                            <img src={require("./img/logo.png")} alt="Logo Intelix" style={{paddingTop: "20px", paddingLeft:"20px", paddingBottom:"10px", width: "160px", height: "40px"}}/>
+                            <img src={require("./img/logo.png")} alt="Logo Intelix" style={{paddingTop: "10px", paddingLeft:"20px", paddingBottom:"10px", width: "160px", height: "30px"}}/>
                             <span className={classes.flex}></span>
                             <IconButton className={classes.menuButton} color="contrast" onClick={e=> this.setState(({anchor: e.currentTarget}))} edge="end">
                                 <AccountCircle/>
