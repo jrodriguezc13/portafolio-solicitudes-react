@@ -1,17 +1,16 @@
-import React from "react";
-
+import React, {Component} from "react";
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles"
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-
 // Icons
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import SetingsIcon from '@material-ui/icons/Settings';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 // Components
 import ClientComponent from "./Clientes";
@@ -24,65 +23,98 @@ import TechnicalAComponent from "./TechnicalArea";
 
 const styles = theme => ({
     root: {
-        marginTop: theme.spacing.unit *3,
-        width: '100%'
+        flexGrow: 1,
     },
     flex: {
         flex: 1
     },
     menuButton: {
-        marginRight: theme.spacing(2)
+        marginLeft: 'auto',
+        marginRight: 'auto',
     },
-    mantenimiento: {
-        display: 'flex',
-        [theme.breakpoints.up('md')]: {
-            display: 'none',}
-    },
-    grow: {
-        flexGrow: 1,
-    },
+    toolbarMargin: theme.mixins.toolbar,
+
+    menu: {
+       marginTop:'35px',
+    }
 
 });
 
 
-class HomeComponent extends React.Component {
 
+const Home= withStyles(styles)  (
+    class extends Component {
+        static defaultProps = {
+            MenuItems: ({closeMenu}) => (
+                <div>
+                    <MenuItem onClick={closeMenu}>Usuario</MenuItem>
+                    <MenuItem onClick={closeMenu}>Perfil</MenuItem>
+                    <MenuItem onClick={closeMenu}>Cerrar sesión</MenuItem>
+                </div>
+            ),
+            MenuItems2: ({closeMenu}) => (
+              <div>
+                  <MenuItem onClick={closeMenu}>Portafolio</MenuItem>
+                  <MenuItem onClick={closeMenu} >Clientes</MenuItem>
+                  <MenuItem onClick={closeMenu}>Áreas comercial</MenuItem>
+                  <MenuItem onClick={closeMenu}>Estado de solicitud</MenuItem>
+                  <MenuItem onClick={closeMenu}>Tipo de solicitud</MenuItem>
+                  <MenuItem onClick={closeMenu}>Área técnica</MenuItem>
+                  <MenuItem onClick={closeMenu}>Asignar cliente</MenuItem>
+
+                </div>
+            ),
+
+        };
+        state = {anchor:null, anchor2: null};
+        closeMenu = () => this.setState({anchor: null, anchor2: null});
 
     render(){
-        const {classes} = this.props;
+        const {classes, MenuItems, MenuItems2} = this.props;
+
         return (
             <div>
                 <AppBar position="static" elevation={0}>
                     <Toolbar>
-                        <img src="src/components/img/logo.png" alt="Logo Intelix" />
-                        <IconButton  color="contrast" ><MenuIcon/></IconButton>
-                        <Typography  type="title" color="inherit">
-                            Portafolio de Solicitudes
-                        </Typography>
-                        <div>
-                            <IconButton color="contrast" onClick={this.props.login} position="right">
+                        <img className={classes.flex} src="logo.png" alt="Logo Intelix" style={{"width": "160px", "height": "45px"}}/>
+
+                            <IconButton className={classes.menuButton} color="contrast" onClick={e=> this.setState(({anchor: e.currentTarget}))} edge="end">
                                 <AccountCircle/>
                             </IconButton>
-                            <IconButton color="contrast" edge="end">
-                                <SetingsIcon/>
+
+                            <Menu className={classes.menu} anchorEl={this.state.anchor} open={Boolean(this.state.anchor)}
+                                  onClose={this.closeMenu} aria-label="User">
+                                <MenuItems closeMenu={this.closeMenu} />
+                            </Menu>
+
+
+                            <IconButton className={classes.menuButton} color="contrast"  onClick={e=> this.setState(({anchor2: e.currentTarget}))}  edge="end">
+                                <SettingsIcon/>
                             </IconButton>
-                        </div>
+                            <Menu className={classes.menu} anchorEl={this.state.anchor2} open={Boolean(this.state.anchor2)}
+                                 aria-label="Mantenimiento" onClose={this.closeMenu}>
+                                <MenuItems2 closeMenu={this.closeMenu} />
+                            </Menu>
+
                     </Toolbar>
                 </AppBar>
 
                 <h1>Page Component</h1>
-               
-                <img src="src/components/img/logo.png" alt="Logo Intelix" />
-                <div>
-                <ClientComponent/>
-                <ComercialAComponent/>
-                <RequestTypeComponent/>
-                <StatusComponent/>
-                </div>
+
+                <div className={classes.toolbarMargin}/>
             </div>
 
         )
     }
 }
+);
 
-export default HomeComponent
+const HomeComponent = withStyles(styles)(
+    ({ classes, ...props }) => (
+        <div className={classes.root}>
+            <Home{...props} />
+        </div>
+    )
+);
+
+export default HomeComponent;
