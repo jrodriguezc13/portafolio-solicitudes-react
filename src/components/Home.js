@@ -1,11 +1,12 @@
 import React, {Component} from "react";
+import './assets/css/Home.css';
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles"
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Divider from '@material-ui/core/Divider';
 // Icons
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -37,7 +38,7 @@ const styles = theme => ({
     toolbarMargin: theme.mixins.toolbar,
     menu: {
        marginTop:'35px',
-    }
+    },
 
 });
 
@@ -47,20 +48,29 @@ const Home= withStyles(styles)  (
         static defaultProps = {
             MenuItems: ({closeMenu}) => (
                 <div>
-                    <MenuItem onClick={closeMenu}>Usuario</MenuItem>
+                   <p className="titulop">Usuario</p>
+                    <Divider/>
                     <MenuItem onClick={closeMenu}>Perfil</MenuItem>
+                    <Divider/>
                     <MenuItem onClick={closeMenu}>Cerrar sesión</MenuItem>
                 </div>
             ),
             MenuItems2: ({closeMenu}) => (
               <div>
-
+                  <p className="titulop">Mantenimiento</p>
+                  <Divider/>
                   <MenuItem onClick={closeMenu} component={Link} to="/">Portafolio</MenuItem>
+                  <Divider/>
                   <MenuItem onClick={closeMenu} component={Link} to="/client">Clientes</MenuItem>
+                  <Divider/>
                   <MenuItem onClick={closeMenu} component={Link} to="/coa">Área comercial</MenuItem>
+                  <Divider/>
                   <MenuItem onClick={closeMenu} component={Link} to="/status">Estado de solicitud</MenuItem>
+                  <Divider/>
                   <MenuItem onClick={closeMenu} component={Link} to="/reqtyp">Tipo de solicitud</MenuItem>
+                  <Divider/>
                   <MenuItem onClick={closeMenu} component={Link} to="/tea">Área técnica</MenuItem>
+                  <Divider/>
                   <MenuItem onClick={closeMenu} component={Link} to="/asign">Asignar cliente</MenuItem>
 
                 </div>
@@ -80,12 +90,12 @@ const Home= withStyles(styles)  (
                     <Toolbar>
                             <img src={require("./img/logo.png")} alt="Logo Intelix" style={{paddingTop: "10px", paddingLeft:"20px", paddingBottom:"10px", width: "160px", height: "30px"}}/>
                             <span className={classes.flex}></span>
-                            <IconButton className={classes.menuButton} color="contrast" onClick={e=> this.setState(({anchor: e.currentTarget}))} edge="end">
+                            <IconButton className={classes.menuButton} color="contrast" onClick={e=> this.setState(({anchor: e.currentTarget}))} aria-label="cuenta" edge="end">
                                 <AccountCircle/>
                             </IconButton>
 
                             <Menu className={classes.menu} anchorEl={this.state.anchor} open={Boolean(this.state.anchor)}
-                                  onClose={this.closeMenu} aria-label="User">
+                                  onClose={this.closeMenu}>
                                 <MenuItems closeMenu={this.closeMenu} />
                             </Menu>
 
