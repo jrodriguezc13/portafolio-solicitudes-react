@@ -1,15 +1,17 @@
 import React, {Component} from "react";
 import './assets/css/Home.css';
+
+// React Material-UI
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles"
+import { withStyles } from "@material-ui/core/styles";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Divider from '@material-ui/core/Divider';
+import Tooltip from '@material-ui/core/Tooltip';
 // Icons
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -86,23 +88,27 @@ const Home= withStyles(styles)  (
 
         return (
             <div>
-                <AppBar position="static" elevation={0} style={{background: "#2E3B55"}}>
+                <AppBar position="static" elevation={0} style={{background: "#e9e9e9"}}>
                     <Toolbar>
-                            <img src={require("./img/logo.png")} alt="Logo Intelix" style={{paddingTop: "10px", paddingLeft:"20px", paddingBottom:"10px", width: "160px", height: "30px"}}/>
+                            <img src={require("./img/logo.png")} alt="Logo Intelix" className="img"/>
                             <span className={classes.flex}></span>
-                            <IconButton className={classes.menuButton} color="contrast" onClick={e=> this.setState(({anchor: e.currentTarget}))} aria-label="cuenta" edge="end">
+
+                            <Tooltip title="Cuenta">
+                              <IconButton className={classes.menuButton} color="contrast" onClick={e=> this.setState(({anchor: e.currentTarget}))} aria-label="cuenta" edge="end">
                                 <AccountCircle/>
-                            </IconButton>
+                              </IconButton>
+                            </Tooltip>
 
                             <Menu className={classes.menu} anchorEl={this.state.anchor} open={Boolean(this.state.anchor)}
                                   onClose={this.closeMenu}>
                                 <MenuItems closeMenu={this.closeMenu} />
                             </Menu>
 
-
-                            <IconButton className={classes.menuButton} color="contrast"  onClick={e=> this.setState(({anchor2: e.currentTarget}))}  edge="end">
+                            <Tooltip title="Manteniminto">
+                              <IconButton className={classes.menuButton} color="contrast"  onClick={e=> this.setState(({anchor2: e.currentTarget}))}  edge="end">
                                 <SettingsIcon/>
-                            </IconButton>
+                              </IconButton>
+                            </Tooltip>
                             <Menu className={classes.menu} anchorEl={this.state.anchor2} open={Boolean(this.state.anchor2)}
                                  aria-label="Mantenimiento" onClose={this.closeMenu}>
                                 <MenuItems2 closeMenu={this.closeMenu} />
