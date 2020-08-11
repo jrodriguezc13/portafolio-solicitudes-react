@@ -1,18 +1,15 @@
 import React from 'react';
-
 import StatefulTables from "./Tables";
-class ClientComponent extends React.Component {
-    render() {
-        return (
-            <div>
-                <p>Clientes </p>
-                <StatefulTables/>
 
-            </div>
 
-        )
-
-    }
+const Client = (props) => {
+    let content = (
+        <div>
+            <h3>Client Page</h3>
+            <StatefulTables/>
+        </div>
+    )
+    return content;
 }
 
-export default ClientComponent
+export default Client;

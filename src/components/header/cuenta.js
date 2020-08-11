@@ -22,7 +22,7 @@ const Cuenta = (props) => {
                     <AccountCircleIcon/>
                     </IconButton>
             </Tooltip>
-            <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose} TransitionComponent={Fade}>
+            <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose} TransitionComponent={Fade} style={{"margin-top": "35px"}}>
                   <MenuItem onClick={handleClose}>
                     <ListItemIcon >
                         <PersonIcon fontSize="small" />

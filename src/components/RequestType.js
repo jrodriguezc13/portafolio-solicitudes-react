@@ -1,17 +1,14 @@
 import React from 'react';
 import StatefulTables from "./Tables";
 
-class RequestTypeComponent extends React.Component {
-    render() {
-        return (
-            <div>
-                <h2>Request Type Page</h2>
-                <StatefulTables/>
-            </div>
 
-        )
-
-    }
+const RequestType = (props) => {
+    let content = (
+        <div>
+            <h2>Request Type Page</h2>
+            <StatefulTables/>
+        </div>
+    )
+    return content
 }
-
-export default RequestTypeComponent
+export default RequestType

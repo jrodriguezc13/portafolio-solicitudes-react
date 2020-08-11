@@ -1,13 +1,13 @@
 import React from 'react';
 
 
-class StatusComponent extends React.Component {
-    render() {
-        return (
-            <h2>Status Page</h2>
-        )
-
-    }
+const Status = (props) => {
+    let content = (
+        <div>
+            <h3>Status Page</h3>
+        </div>
+    )
+    return content
 }
 
-export default StatusComponent
+export default Status;

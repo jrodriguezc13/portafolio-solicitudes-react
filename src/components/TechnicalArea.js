@@ -1,13 +1,13 @@
 import React from 'react';
 
 
-class TeechnicalAComponent extends React.Component {
-    render() {
-        return (
-            <h2>Technical A Page</h2>
-        )
-
-    }
+const TechnicalA = (props) => {
+    let content = (
+        <div>
+            <h3>Technical A Page</h3>
+        </div>
+    )
+    return content
 }
 
-export default TeechnicalAComponent
+export default TechnicalA;

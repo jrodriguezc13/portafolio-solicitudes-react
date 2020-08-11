@@ -1,13 +1,12 @@
 import React from 'react';
 
-
-class AsignarComponent extends React.Component {
-    render() {
-        return (
-            <h2>Asignar Cliente Page</h2>
-        )
-
-    }
+const Asignar = (props) => {
+    let content = (
+        <div>
+            <h3>Asignar Page</h3>
+        </div>
+    )
+    return content
 }
 
-export default AsignarComponent
+export default Asignar;
