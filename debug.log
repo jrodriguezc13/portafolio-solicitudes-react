@@ -1,1 +1,20 @@
-[0810/164447.071:ERROR:file_io.cc(134)] WriteFile: Se está cerrando la canalización. (0xE8)
+[0809/140048.590:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0809/140048.591:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0809/140048.591:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0809/140048.591:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0810/104912.175:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0810/104912.176:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0810/104912.176:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0810/104912.176:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0810/150205.810:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0810/150205.909:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0810/150205.911:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0810/150205.911:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0811/093032.345:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0811/093032.347:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0811/093032.347:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0811/093032.347:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0811/095625.945:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0811/095625.946:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0811/095625.946:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[0811/095625.946:ERROR:crash_report_database_win.cc(469)] failed to stat report
