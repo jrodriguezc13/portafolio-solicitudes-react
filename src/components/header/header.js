@@ -25,6 +25,7 @@ const Header = (props) => {
                 <Mantenimiento/>
               </Toolbar>
             </AppBar>
+            <div className={classes.offset}/>
         </div>
     );
     return content;
