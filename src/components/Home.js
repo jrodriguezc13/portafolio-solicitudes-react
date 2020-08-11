@@ -45,7 +45,13 @@ const styles = theme => ({
 
     MenuItem: {
         fontFamily: '"Montserrat"',
+    },
+    Titulo: {
+        height: "15px",
+        fontWeight: "bold",
+        fontSize: "15px",
     }
+
 
 });
 
