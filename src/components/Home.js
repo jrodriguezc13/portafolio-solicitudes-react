@@ -43,6 +43,10 @@ const styles = theme => ({
        marginTop:'35px',
     },
 
+    MenuItem: {
+        fontFamily: '"Montserrat"',
+    }
+
 });
 
 
