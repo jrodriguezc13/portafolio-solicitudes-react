@@ -120,7 +120,7 @@ const Home= withStyles(styles)  (
                                 <MenuItems closeMenu={this.closeMenu} />
                             </Menu>
 
-                            <Tooltip title="Manteniminto">
+                            <Tooltip title="Mantenimiento">
                               <IconButton  color="primary"  onClick={e=> this.setState(({anchor2: e.currentTarget}))}  edge="end">
                                 <SettingsIcon/>
                               </IconButton>
