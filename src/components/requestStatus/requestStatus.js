@@ -1,8 +1,8 @@
-import Header from './header/header';
+import Header from '../header/header';
 
 import React from 'react'
 
-const Home = (props) => {
+const RequestStatus = (props) => {
     let content = (
         <div>
             <Header/>
@@ -12,4 +12,4 @@ const Home = (props) => {
 }
 
 
-export default Home;
+export default RequestStatus;
