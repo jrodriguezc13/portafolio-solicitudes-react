@@ -1,10 +1,15 @@
 import React from 'react';
-
+import StatefulTables from "./Tables";
 
 class PortafolioComponent extends React.Component {
     render() {
         return (
-            <h3>Portafolio Page</h3>
+            <div>
+                <h3>Portafolio Page</h3>
+                <StatefulTables/>
+
+            </div>
+
         )
 
     }

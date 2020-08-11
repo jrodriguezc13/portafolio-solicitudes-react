@@ -1,6 +1,6 @@
 .titulop{
     padding: 0 16px;
-    height: 20px;
+    height: 15px;
     font-weight: bold;
     font-size: 15px;
 }
@@ -11,5 +11,19 @@
     padding-bottom: 10px;
     width: 160px;
     height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.toolbar {
+    position: fixed;
+    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+    height: 64px;
+
+}
+
+.spacer{
+    width:10px;
 }
 

@@ -1,10 +1,15 @@
 import React from 'react';
 
-
+import StatefulTables from "./Tables";
 class ClientComponent extends React.Component {
     render() {
         return (
-            <h2>Client's Page</h2>
+            <div>
+                <p>Clientes </p>
+                <StatefulTables/>
+
+            </div>
+
         )
 
     }

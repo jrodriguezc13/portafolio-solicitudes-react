@@ -1,6 +1,7 @@
 import React, {Component} from "react";
+// Themes
 import './assets/css/Home.css';
-
+import {customTheme} from "./Theme";
 // React Material-UI
 import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
@@ -10,10 +11,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
+import {MuiThemeProvider} from '@material-ui/core';
+
+
 // Icons
 import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
+import PersonIcon from '@material-ui/icons/Person';
+import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
 // Components
 import ClientComponent from "./Clientes";
@@ -32,11 +38,6 @@ const styles = theme => ({
     flex: {
         flex: 1
     },
-    menuButton: {
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        padding: '10px'
-    },
     toolbarMargin: theme.mixins.toolbar,
     menu: {
        marginTop:'35px',
@@ -50,11 +51,20 @@ const Home= withStyles(styles)  (
         static defaultProps = {
             MenuItems: ({closeMenu}) => (
                 <div>
+
                    <p className="titulop">Usuario</p>
                     <Divider/>
-                    <MenuItem onClick={closeMenu}>Perfil</MenuItem>
+                    <MenuItem onClick={closeMenu}>
+                        <PersonOutlinedIcon/> <span className="spacer"></span>
+                        Perfil
+                    </MenuItem>
                     <Divider/>
-                    <MenuItem onClick={closeMenu}>Cerrar sesión</MenuItem>
+
+                    <MenuItem onClick={closeMenu}>
+                        <PowerSettingsNewIcon/> <span className="spacer"></span>
+                        Cerrar sesión
+                    </MenuItem>
+
                 </div>
             ),
             MenuItems2: ({closeMenu}) => (
@@ -88,14 +98,16 @@ const Home= withStyles(styles)  (
 
         return (
             <div>
-                <AppBar position="static" elevation={0} style={{background: "#e9e9e9"}}>
-                    <Toolbar>
-                            <img src={require("./img/logo.png")} alt="Logo Intelix" className="img"/>
+              <MuiThemeProvider theme={customTheme}>
+                <AppBar position="fixed" elevation={0} style={{background: "#f7f7f7"}}>
+                    <Toolbar className="toolbar">
+                         <img src={require("./img/logo.png")} alt="Logo Intelix" className="img"/>
+
                             <span className={classes.flex}></span>
 
                             <Tooltip title="Cuenta">
-                              <IconButton className={classes.menuButton} color="contrast" onClick={e=> this.setState(({anchor: e.currentTarget}))} aria-label="cuenta" edge="end">
-                                <AccountCircle/>
+                              <IconButton  color="primary" onClick={e=> this.setState(({anchor: e.currentTarget}))} aria-label="cuenta" edge="end">
+                                <PersonIcon/>
                               </IconButton>
                             </Tooltip>
 
@@ -105,7 +117,7 @@ const Home= withStyles(styles)  (
                             </Menu>
 
                             <Tooltip title="Manteniminto">
-                              <IconButton className={classes.menuButton} color="contrast"  onClick={e=> this.setState(({anchor2: e.currentTarget}))}  edge="end">
+                              <IconButton  color="primary"  onClick={e=> this.setState(({anchor2: e.currentTarget}))}  edge="end">
                                 <SettingsIcon/>
                               </IconButton>
                             </Tooltip>
@@ -118,6 +130,7 @@ const Home= withStyles(styles)  (
                 </AppBar>
 
                 <div className={classes.toolbarMargin}/>
+              </MuiThemeProvider>
             </div>
 
         )
