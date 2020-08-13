@@ -11,15 +11,5 @@ export default makeStyles(theme => ({
         flexGrow: 1,
     },
     appBarSpacer: theme.mixins.toolbar,
-    paper: {
-        padding: theme.spacing(2),
-        display: "flex",
-        overflow: "auto",
-        flexDirection: "row",
-        marginTop: "10px",
-    },
-    rootPaper: {
-        flexGrow: 1,
-    },
 
 }));
