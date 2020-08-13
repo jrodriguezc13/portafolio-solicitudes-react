@@ -13,10 +13,9 @@ const Header = (props) => {
 
     const classes = useStyles();
     let content = (
-        <div className={classes.root}>
+        
              <AppBar position="fixed" color="primary">
-              <Toolbar>
-              
+              <Toolbar>              
               <img className= { classes.menu } src={logo} alt="Logo Intelix" />
                 <Typography className={classes.title} type="title" color="inherit" variant="subtitle2">
                     Portafolio de Solicitudes
@@ -25,8 +24,8 @@ const Header = (props) => {
                 <Mantenimiento/>
               </Toolbar>
             </AppBar>
-            <div className={classes.offset}/>
-        </div>
+            
+        
     );
     return content;
 };
