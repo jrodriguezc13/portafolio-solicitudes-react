@@ -1,9 +1,9 @@
-import useStyles from './paperTitle.styles';
+import useStyles from './asignarCliente.styles';
 import { Typography, Paper } from '@material-ui/core';
 import React from 'react'
-import Search from './search';
 
-const PaperTitle = (props) => {
+
+const PaperTitleAssign = (props) => {
 
     const classes = useStyles();
 
@@ -11,10 +11,10 @@ const PaperTitle = (props) => {
        
           <Paper className={classes.paper} elevation={0}>
                 <Typography type="title" color="primary" variant="h6"
-            className={classes.root} gutterBottom> 
+            className={classes.rootPaper} gutterBottom> 
                     {props.title}
                 </Typography>
-                <Search/>
+                
           </Paper>
 
     )
@@ -22,4 +22,4 @@ const PaperTitle = (props) => {
 }
 
 
-export default PaperTitle;
+export default PaperTitleAssign;

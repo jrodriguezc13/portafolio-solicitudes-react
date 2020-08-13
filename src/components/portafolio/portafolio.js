@@ -3,7 +3,7 @@ import React from 'react'
 import useStyles from './portafolio.styles';
 import Container from '@material-ui/core/Container';
 import Grid from "@material-ui/core/Grid";
-import PaperTitle from '../paperTitle/paperTitle'
+import PaperTitle from './paperTitlePortafolio';
 
 const Portafolio = (props) => {
     const classes = useStyles();
