@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import useStyles from './tables.styles';
+import {Tooltip, Table, TableBody, TableCell, TableHead, TableRow, TableContainer, TablePagination, TableSortLabel} from '@material-ui/core';
+import IconButton from "@material-ui/core/IconButton";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 
-import { makeStyles } from '@material-ui/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 const fetchData = () =>
     new Promise(resolve => {
@@ -54,53 +52,56 @@ const fetchData = () =>
             }
         ];
 
-        setTimeout(() => resolve(items), 1000);
+        setTimeout(() => resolve(items), 100);
     });
 
-const usePaperStyles = makeStyles(theme => ({
-    root: { margin: "10px", textAlign: 'center' }
-}));
 
-const useProgressStyles = makeStyles(theme => ({
-    progress: { margin: "10px" }
-}));
 
-function MaybeLoading({ loading }) {
-    const classes = useProgressStyles();
-    return loading ? (
-        <CircularProgress className={classes.progress} />
-    ) : null;
-}
 
-export default function StatefulTables() {
-    const classes = usePaperStyles();
+
+
+const AreaTables = (props) => {
+
+    const classes = useStyles();
 
     const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(true);
-
     useEffect(() => {
         fetchData().then(items => {
             setItems(items);
-            setLoading(false);
         });
     }, []);
 
-    return (
-        <Paper className={classes.root}>
-            <Table>
+    let content = (
+        <TableContainer>
+            <Table className={classes.table} size="small">
                 <TableHead>
                     <TableRow>
+                        <TableCell>Actions</TableCell>
                         <TableCell>Name</TableCell>
                         <TableCell>Created</TableCell>
-                        <TableCell align="right">High</TableCell>
-                        <TableCell align="right">Low</TableCell>
-                        <TableCell align="right">Average</TableCell>
+                        <TableCell align="center">High</TableCell>
+                        <TableCell align="center">Low</TableCell>
+                        <TableCell align="center">Average</TableCell>
                     </TableRow>
-                </TableHead>
+                 </TableHead>
                 <TableBody>
                     {items.map(item => {
                         return (
                             <TableRow key={item.id}>
+                                <TableCell>
+                                    <Tooltip title="Editar">
+                                        <IconButton color="primary">
+                                            <EditIcon/>
+                                        </IconButton>
+                                    </Tooltip>
+                                   <Tooltip title="Eliminar">
+                                       <IconButton color="primary">
+                                           <DeleteIcon/>
+                                       </IconButton>
+                                   </Tooltip>
+
+                                </TableCell>
+
                                 <TableCell component="th" scope="row">
                                     {item.name}
                                 </TableCell>
@@ -113,7 +114,12 @@ export default function StatefulTables() {
                     })}
                 </TableBody>
             </Table>
-            <MaybeLoading loading={loading} />
-        </Paper>
-    );
+
+        </TableContainer>
+    )
+
+    return content
 }
+
+export default AreaTables;
+

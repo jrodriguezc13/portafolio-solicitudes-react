@@ -32,7 +32,7 @@ const Mantenimiento = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
                 TransitionComponent={Fade}
-              >
+                style={{"margin-top": "35px"}}>
                 <MenuItem onClick={handleClose} component={Link} to="/">
                 <Typography variant="inherit">Portafolio</Typography>
                 </MenuItem>
