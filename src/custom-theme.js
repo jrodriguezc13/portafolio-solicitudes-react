@@ -3,7 +3,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
     palette: {
         primary: {
-            // Purple and green play nicely together.
+            // Intelix turquoise and text white
             main: '#00bcb5',
             contrastText: '#fff'
         },
