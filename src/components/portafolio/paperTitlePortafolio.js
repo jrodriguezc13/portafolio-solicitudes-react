@@ -1,9 +1,10 @@
-import useStyles from './paperTitle.styles';
+import useStyles from './portafolio.styles';
 import { Typography, Paper } from '@material-ui/core';
-import React from 'react'
-import Search from './search';
+import React from 'react';
+import FilterListIcon from '@material-ui/icons/FilterList';
 
-const PaperTitle = (props) => {
+
+const PaperTitlePortafolio = (props) => {
 
     const classes = useStyles();
 
@@ -11,10 +12,11 @@ const PaperTitle = (props) => {
        
           <Paper className={classes.paper} elevation={0}>
                 <Typography type="title" color="primary" variant="h6"
-            className={classes.root} gutterBottom> 
+            className={classes.rootPaper} gutterBottom> 
                     {props.title}
                 </Typography>
-                <Search/>
+                <FilterListIcon color="primary"/>
+                
           </Paper>
 
     )
@@ -22,4 +24,4 @@ const PaperTitle = (props) => {
 }
 
 
-export default PaperTitle;
+export default PaperTitlePortafolio;
