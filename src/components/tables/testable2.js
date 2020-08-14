@@ -11,10 +11,10 @@ import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SearchIcon from '@material-ui/icons/Search';
-
+/*
 const fetchData = () =>
     new Promise(resolve => {
-        const items = [
+        const items =  [
             {
                 id: 1,
                 name: 'First Item',
@@ -58,23 +58,25 @@ const fetchData = () =>
         ];
 
         setTimeout(() => resolve(items), 100);
-    });
+    });*/
 
 
 
 
 
 
-const AreaTables = (props) => {
+const AreaTables3 = (props) => {
 
     const classes = useStyles();
-
+    
+    
+    /*
     const [items, setItems] = useState([]);
     useEffect(() => {
         fetchData().then(items => {
             setItems(items);
         });
-    }, []);
+    }, []);*/
 
 
     let content = (
@@ -89,7 +91,7 @@ const AreaTables = (props) => {
                         <TableCell align="center">Low</TableCell>
                         <TableCell align="center">Average</TableCell>
                     </TableRow>
-                 </TableHead>
+                </TableHead>
                 <TableBody>
                     {items.map(item => {
                         return (
@@ -100,11 +102,11 @@ const AreaTables = (props) => {
                                             <EditIcon/>
                                         </IconButton>
                                     </Tooltip>
-                                   <Tooltip title="Eliminar">
-                                       <IconButton color="primary">
-                                           <DeleteIcon/>
-                                       </IconButton>
-                                   </Tooltip>
+                                    <Tooltip title="Eliminar">
+                                        <IconButton color="primary">
+                                            <DeleteIcon/>
+                                        </IconButton>
+                                    </Tooltip>
 
                                 </TableCell>
 
@@ -127,5 +129,5 @@ const AreaTables = (props) => {
     return content
 }
 
-export default AreaTables;
+export default AreaTables3;
 

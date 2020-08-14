@@ -60,7 +60,7 @@ export default function MaterialTableDemo() {
             },
         ],
         data: [
-           /* {
+            {
                 name: 'Mehmet',
                 surname: 'Baran',
                 birthYear: 1987,
@@ -71,13 +71,12 @@ export default function MaterialTableDemo() {
                 surname: 'Baran',
                 birthYear: 2017,
                 birthCity: 34,
-            },*/
+            },
         ],
     })
 
     return (
         <MaterialTable
-            size="small"
             icons={tableIcons}
            columns={state.columns}
             data={state.data}

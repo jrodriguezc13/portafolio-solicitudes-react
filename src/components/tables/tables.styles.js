@@ -9,5 +9,9 @@ export default makeStyles(theme => ({
         margin: "auto",
     },
 
+    search:{
+        align: "right",
+    }
+
 
 }));
