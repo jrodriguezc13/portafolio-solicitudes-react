@@ -3,6 +3,7 @@ import useStyles from './comercialAreas.styles';
 import Container from '@material-ui/core/Container';
 import Grid from "@material-ui/core/Grid";
 import PaperTitle from '../paperTitle/paperTitle';
+import TableApp from '../tableApp/tableApp'
 
 import React from 'react'
 
@@ -19,6 +20,9 @@ const ComercialAreas = (props) => {
             <Grid item xs={12} md={12} lg={12}>
             <PaperTitle title={"Áreas comerciales"}/>
             
+            </Grid>
+            <Grid item xs={12} md={12} lg={12}>
+                <TableApp/>
             </Grid>
             
             </Grid>
