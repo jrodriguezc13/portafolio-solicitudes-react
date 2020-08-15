@@ -4,7 +4,8 @@ import Container from '@material-ui/core/Container';
 import Grid from "@material-ui/core/Grid";
 import PaperTitle from '../paperTitle/paperTitle';
 import TableAppComercialAreas from './tableAppComercialAreas';
-import { useHttpGet } from "../../hooks/useHttpGet";
+import {useHttpGet} from "../../hooks/useHttpGet";
+
 
 import React, { useState } from 'react'
 
