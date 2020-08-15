@@ -6,7 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from "@material-ui/core/TableBody";
 import Table from "@material-ui/core/Table";
-import Tooltip from '@material-u/core/Tooltip';
+import Tooltip from '@material-ui/core/Tooltip';
 import Paper from "@material-ui/core/Paper";
 import TablePagination from '@material-ui/core/TablePagination';
 import EditIcon from "@material-ui/icons/Edit";
@@ -80,9 +80,9 @@ const TableAppTechnicalArea = (props) => {
          count={data.length}
          rowsPerPage={rowsPerPage}
          page={page}
-         labelRowsPerPage= "Filas por paginas"
+         labelRowsPerPage= "Filas por páginas"
          SelectProps={{
-            inputProps: { 'aria-label': 'Filas por pagina' },
+            inputProps: { 'aria-label': 'Filas por página' },
             native: true,
           }}
          onChangePage={handleChangePage}
