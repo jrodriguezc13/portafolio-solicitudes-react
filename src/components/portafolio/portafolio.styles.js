@@ -21,5 +21,16 @@ export default makeStyles(theme => ({
     rootPaper: {
         flexGrow: 1,
     },
+    table: {
+        maxHeight: 440,
+        overflow: 'auto',
+
+
+    },
+
+    cellSmall: {
+        minWidth: 100
+    }
+
 
 }));

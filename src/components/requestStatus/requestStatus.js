@@ -3,11 +3,17 @@ import useStyles from './requestStatus.styles';
 import Container from '@material-ui/core/Container';
 import Grid from "@material-ui/core/Grid";
 import PaperTitle from '../paperTitle/paperTitle';
+import TableAppRequestStatus from './tableAppRequestStatus';
+import { useHttpGet } from "../../hooks/useHttpGet";
 
-import React from 'react'
+import React, { useState } from 'react';
 
 const RequestStatus = (props) => {
     const classes = useStyles();
+    const [cb, setCb] = useState(true);
+    const [isLoading, fetchedData] = useHttpGet("status", [
+    cb,
+  ]);
     let content = (
         <div className={classes.root}>
             <Header/>
@@ -20,7 +26,9 @@ const RequestStatus = (props) => {
             <PaperTitle title={"Estados de solicitud"}/>
             
             </Grid>
-            
+            <Grid item xs={12} md={12} lg={12}>
+                    <TableAppRequestStatus fetchedData={fetchedData}/>
+            </Grid>
             </Grid>
 
             </Container>
