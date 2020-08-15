@@ -11,5 +11,16 @@ export default makeStyles(theme => ({
         flexGrow: 1,
     },
     appBarSpacer: theme.mixins.toolbar,
+    root: {
+        maxHeight: 440,
+        overflow: 'auto',
+
+
+    },
+
+    cellSmall: {
+        minWidth: 100
+    }
+
 
 }));
