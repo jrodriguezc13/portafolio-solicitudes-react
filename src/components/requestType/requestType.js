@@ -3,11 +3,17 @@ import useStyles from './requestType.styles';
 import Container from '@material-ui/core/Container';
 import Grid from "@material-ui/core/Grid";
 import PaperTitle from '../paperTitle/paperTitle';
+import { useHttpGet } from "../../hooks/useHttpGet";
+import TableAppRequestType from './tableAppRequestType';
 
-import React from 'react'
+import React, { useState } from 'react';
 
 const RequestType = (props) => {
     const classes = useStyles();
+    const [cb, setCb] = useState(true);
+    const [isLoading, fetchedData] = useHttpGet("request", [
+    cb,
+  ]);
     let content = (
         <div className={classes.root}>
             <Header/>
@@ -20,7 +26,9 @@ const RequestType = (props) => {
             <PaperTitle title={"Tipos de solicitud"}/>
             
             </Grid>
-            
+            <Grid item xs={12} md={12} lg={12}>
+                    <TableAppRequestType fetchedData={fetchedData}/>
+            </Grid>
             </Grid>
 
             </Container>

@@ -3,11 +3,17 @@ import useStyles from './technicalArea.styles';
 import Container from '@material-ui/core/Container';
 import Grid from "@material-ui/core/Grid";
 import PaperTitle from '../paperTitle/paperTitle';
+import TableAppTechnicalArea from './tableAppTechnicalArea';
+import { useHttpGet } from "../../hooks/useHttpGet";
 
-import React from 'react'
+import React, { useState } from 'react'
 
 const TechnicalArea = (props) => {
     const classes = useStyles();
+    const [cb, setCb] = useState(true);
+    const [isLoading, fetchedData] = useHttpGet("technical", [
+    cb,
+  ]);
     let content = (
         <div className={classes.root}>
             <Header/>
@@ -20,7 +26,9 @@ const TechnicalArea = (props) => {
             <PaperTitle title={"Áreas técnicas"}/>
             
             </Grid>
-            
+            <Grid item xs={12} md={12} lg={12}>
+                    <TableAppTechnicalArea fetchedData={fetchedData}/>
+                </Grid>
             </Grid>
 
             </Container>
