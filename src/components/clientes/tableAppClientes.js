@@ -11,14 +11,48 @@ import TablePagination from '@material-ui/core/TablePagination';
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import AddCliente from './addClient';
+import axios from "axios";
 
 
 const TableAppClientes = (props) => {
     const classes = useStyles();
     const data = props.fetchedData === null ? [] : props.fetchedData.data;
+
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    console.log(data);
+
+    const [open, setOpen] = useState(false);
+
+    function handleOnClose() {
+      setOpen(false)
+    }
+  
+    const handleOnOpen = (id) => {
+      setOpen(true)
+      console.log(id)
+
+      const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3050/api/v1/',
+        timeout: 1000,
+        headers: { 'Accept': 'application/json' }
+    });
+    axiosInstance
+        .get("clientes/" + id)
+        .then((res) => {
+          props.setId(res.data.cliId);
+          props.setName(res.data[0].cliName);
+          props.setContactName(res.data.cliContactName);
+          props.setContactEmail(res.data.cliContactEmail);
+          props.setHolisticManagerName(res.data.cliHolisticManagerName);
+          props.setHolisticManagerEmail(res.data.cliHolisticManagerEmail);
+          console.log(res.data[0].cliName);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
 
     const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -29,6 +63,22 @@ const TableAppClientes = (props) => {
     setPage(0);
     };
     
+    const handleEdit = (id) => {
+      axios
+        .get("http://localhost:3050/api/v1/clientes/" + id)
+        .then((res) => {
+          props.setId(res.data.cliId);
+          props.setName(res.data.cliName);
+          props.setContactName(res.data.cliContactName);
+          props.setContactEmail(res.data.cliContactEmail);
+          props.setHolisticManagerName(res.data.cliHolisticManagerName);
+          props.setHolisticManagerEmail(res.data.cliHolisticManagerEmail);
+          console.log(res.data.cliName);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
 
     let content = (
   <Paper className={classes.table} elevation={0}>
@@ -57,7 +107,7 @@ const TableAppClientes = (props) => {
                         </IconButton>
                         <IconButton                 
                           color="primary"
-                          className={classes.icons}>
+                          className={classes.icons} onClick={() => handleOnOpen(task.cliId)}>
                           <EditIcon />
                         </IconButton>
                       </TableCell>
@@ -82,6 +132,18 @@ const TableAppClientes = (props) => {
           }}
          onChangePage={handleChangePage}
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
+         <AddCliente cb={props.cb} setCb={props.setCb} id={props.id}
+                setId={props.setId}
+                name={props.name}
+                setName={props.setName}
+                contactName={props.contactName}
+                setContactName={props.setContactName}
+                contactEmail={props.contactEmail}
+                setContactEmail={props.setContactEmail}
+                holisticManagerName={props.holisticManagerName}
+                setHolisticManagerName={props.setHolisticManagerName}
+                holisticManagerEmail={props.holisticManagerEmail}
+                setHolisticManagerEmail={props.setHolisticManagerEmail} open={open} onClose={handleOnClose} />
   </Paper>
     )
     return content;
