@@ -24,6 +24,9 @@ const Clientes = (props) => {
   const [contactEmail, setContactEmail] = useState("");
   const [holisticManagerName, setHolisticManagerName] = useState("");
   const [holisticManagerEmail, setHolisticManagerEmail] = useState("");
+
+      // Búsqueda de datos
+      const [search, setSearch] = useState('');
   
   function handleOnClose() {
     setOpen(false)
@@ -47,11 +50,11 @@ const Clientes = (props) => {
 
             <Grid container justify= 'center' spacing={2}>
                 <Grid item xs={12} md={12} lg={12}>
-                  <PaperTitle title={"Clientes"}/>
+                  <PaperTitle title={"Clientes"} search={search} setSearch={setSearch}/>
             
                 </Grid>
               <Grid item xs={12} md={12} lg={12}>
-                    <TableAppClientes fetchedData={fetchedData} 
+                    <TableAppClientes fetchedData={fetchedData} search={search} setSearch={setSearch}
                                       cb={cb} setCb={setCb}
                                       id={id}
                                       setId={setId}
