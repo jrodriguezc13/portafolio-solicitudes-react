@@ -1,5 +1,5 @@
 import React from 'react';
-import useStyles from './comercialAreas.styles';
+import useStyles from './technicalArea.styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from "axios";
 
-const ModalDeleteComercialArea = (props) => {
+const ModalDeleteTechnicalArea = (props) => {
 
     const classes = useStyles();
 
@@ -22,7 +22,7 @@ const ModalDeleteComercialArea = (props) => {
         });
 
         axiosInstance
-            .put("comercialareas/" + id)
+            .put("technical/" + id)
             .then((res) => { 
               props.setCb(!props.cb);
               props.onClose();
@@ -38,7 +38,7 @@ const ModalDeleteComercialArea = (props) => {
         <DialogTitle id="form-dialog-title">Eliminar</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Desea eliminar {props.name} de Áreas comerciales?
+            Desea eliminar {props.name} de Áreas tecnicas?
           </DialogContentText>         
           <div className={classes.buttons}>
           <Button onClick={props.onClose} color="primary">
@@ -59,4 +59,4 @@ const ModalDeleteComercialArea = (props) => {
     return content;
 }
 
-export default ModalDeleteComercialArea;
+export default ModalDeleteTechnicalArea;
