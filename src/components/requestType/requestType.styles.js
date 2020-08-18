@@ -20,6 +20,30 @@ export default makeStyles(theme => ({
 
     cellSmall: {
         minWidth: 100
+    },
+    fab: {
+        position: 'absolute',
+        bottom: theme.spacing(10),
+        right: theme.spacing(5),
+    },
+    margin: {
+        margin: theme.spacing(1),
+    },
+    buttons: {
+        flex: '0 0 auto',
+        display: 'flex',
+        padding: '8px',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    },
+    span: {
+        color: '#dc3545!important',
+        marginBottom: '0.5 rem!important',
+        display: 'block!important',
+        fontWeight: 'bold',
+        fontSize: '10px',
+
     }
 
 

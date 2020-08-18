@@ -14,7 +14,7 @@ const PaperTitle = (props) => {
             className={classes.root} gutterBottom> 
                     {props.title}
                 </Typography>
-                <Search/>
+                <Search search={props.search} setSearch={props.setSearch}/>
           </Paper>
 
     )

@@ -6,20 +6,51 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from "@material-ui/core/TableBody";
 import Table from "@material-ui/core/Table";
-import Tooltip from '@material-ui/core/Tooltip';
 import Paper from "@material-ui/core/Paper";
 import TablePagination from '@material-ui/core/TablePagination';
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import ModalRequestStatus from './modalRequestStatus';
+import axios from "axios";
 
 
 const TableAppRequestStatus = (props) => {
     const classes = useStyles();
     const data = props.fetchedData === null ? [] : props.fetchedData.data;
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    console.log(data);
+    
+    const [open, setOpen] = useState(false);
+
+    function handleOnClose() {
+          setOpen(false)
+          props.setId(null);
+          props.setName('');
+         
+    }
+
+    const handleOnOpen = (id) => {
+      setOpen(true)
+      console.log(id)
+
+      const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3050/api/v1/',
+        timeout: 1000,
+        headers: { 'Accept': 'application/json' }
+    });
+    axiosInstance
+        .get("status/" + id)
+        .then((res) => {
+          props.setId(res.data[0].estId);
+          props.setName(res.data[0].estName);
+          console.log(res.data[0].estName);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
 
     const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -46,25 +77,19 @@ const TableAppRequestStatus = (props) => {
                 {(rowsPerPage > 0
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
-                ).map((task) => (
+                ).filter(task => !props.search || task.estName.includes(props.search)).map((task) => (
                   <TableRow key={task.estId} hover>
                       <TableCell align="center" className={classes.cellSmall} size="small">
-                          <Tooltip title="Eliminar">
-                              <IconButton
-                                  color="primary"
-                                  className={classes.icons}>
-                                  <DeleteIcon />
-                              </IconButton>
-                          </Tooltip>
-
-                          <Tooltip title="Editar">
-                              <IconButton
-                                  color="primary"
-                                  className={classes.icons}>
-                                  <EditIcon />
-                              </IconButton>
-                          </Tooltip>
-
+                        <IconButton                        
+                          color="primary"
+                          className={classes.icons}>
+                          <DeleteIcon />
+                        </IconButton>
+                        <IconButton                 
+                          color="primary"
+                          className={classes.icons} onClick={() => handleOnOpen(task.estId)}>
+                          <EditIcon />
+                        </IconButton>
                       </TableCell>
                       <TableCell align="center" size="small">{task.estName}</TableCell>                    
                   </TableRow>
@@ -78,13 +103,18 @@ const TableAppRequestStatus = (props) => {
          count={data.length}
          rowsPerPage={rowsPerPage}
          page={page}
-         labelRowsPerPage= "Filas por páginas"
+         labelRowsPerPage= "Filas por paginas"
          SelectProps={{
-            inputProps: { 'aria-label': 'Filas por página' },
+            inputProps: { 'aria-label': 'Filas por pagina' },
             native: true,
           }}
          onChangePage={handleChangePage}
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
+         <ModalRequestStatus cb={props.cb} setCb={props.setCb} id={props.id}
+                setId={props.setId}
+                name={props.name}
+                setName={props.setName}
+                 open={open} onClose={handleOnClose} />
   </Paper>
     )
     return content;

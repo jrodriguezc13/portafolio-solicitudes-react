@@ -1,4 +1,4 @@
-import {fade, makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => ({
 
@@ -22,45 +22,29 @@ export default makeStyles(theme => ({
     cellSmall: {
         minWidth: 100
     },
-
-    search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: fade(theme.palette.primary.main, 0.25),
-        },
-        marginLeft: 0,
-        width: '40%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            width: 'auto',
-        },
-    },
-    searchIcon: {
-        padding: theme.spacing(0, 2),
-        height: '100%',
+    fab: {
         position: 'absolute',
-        pointerEvents: 'none',
+        bottom: theme.spacing(10),
+        right: theme.spacing(5),
+    },
+    margin: {
+        margin: theme.spacing(1),
+    },
+    buttons: {
+        flex: '0 0 auto',
         display: 'flex',
+        padding: '8px',
         alignItems: 'center',
         justifyContent: 'center',
+
     },
-    inputRoot: {
-        color: 'inherit',
-    },
-    inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
-    },
+    span: {
+        color: '#dc3545!important',
+        marginBottom: '0.5 rem!important',
+        display: 'block!important',
+        fontWeight: 'bold',
+        fontSize: '10px',
+
+    }
 
 }));

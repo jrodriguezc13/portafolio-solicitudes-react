@@ -6,20 +6,51 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableBody from "@material-ui/core/TableBody";
 import Table from "@material-ui/core/Table";
-import Tooltip from '@material-ui/core/Tooltip';
 import Paper from "@material-ui/core/Paper";
 import TablePagination from '@material-ui/core/TablePagination';
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import ModalComercialAreas from './modalComercialAreas';
+import axios from "axios";
 
 
 const TableAppComercialAreas = (props) => {
     const classes = useStyles();
     const data = props.fetchedData === null ? [] : props.fetchedData.data;
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    console.log(data);
+
+    const [open, setOpen] = useState(false);
+
+    function handleOnClose() {
+          setOpen(false)
+          props.setId(null);
+          props.setName('');
+         
+    }
+
+    const handleOnOpen = (id) => {
+      setOpen(true)
+      console.log(id)
+
+      const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3050/api/v1/',
+        timeout: 1000,
+        headers: { 'Accept': 'application/json' }
+    });
+    axiosInstance
+        .get("comercialareas/" + id)
+        .then((res) => {
+          props.setId(res.data[0].coaId);
+          props.setName(res.data[0].coaName);
+          console.log(res.data[0].coaName);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
 
     const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -46,26 +77,19 @@ const TableAppComercialAreas = (props) => {
                 {(rowsPerPage > 0
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
-                ).map((task) => (
+                ).filter(task => !props.search || task.coaName.includes(props.search)).map((task) => (
                   <TableRow key={task.coaId} hover>
                       <TableCell align="center" className={classes.cellSmall} size="small">
-                          <Tooltip title="Eliminar">
-                              <IconButton
-                                  color="primary"
-                                  className={classes.icons}>
-                                  <DeleteIcon />
-                              </IconButton>
-                          </Tooltip>
-
-                          <Tooltip title="Editar">
-                              <IconButton
-                                  color="primary"
-                                  className={classes.icons}>
-                                  <EditIcon />
-                              </IconButton>
-                          </Tooltip>
-
-
+                        <IconButton                        
+                          color="primary"
+                          className={classes.icons}>
+                          <DeleteIcon />
+                        </IconButton>
+                        <IconButton                 
+                          color="primary"
+                          className={classes.icons} onClick={() => handleOnOpen(task.coaId)}>
+                          <EditIcon />
+                        </IconButton>
                       </TableCell>
                       <TableCell align="center" size="small">{task.coaName}</TableCell>                    
                   </TableRow>
@@ -79,13 +103,18 @@ const TableAppComercialAreas = (props) => {
          count={data.length}
          rowsPerPage={rowsPerPage}
          page={page}
-         labelRowsPerPage= "Filas por páginas"
+         labelRowsPerPage= "Filas por paginas"
          SelectProps={{
-            inputProps: { 'aria-label': 'Filas por página' },
+            inputProps: { 'aria-label': 'Filas por pagina' },
             native: true,
           }}
          onChangePage={handleChangePage}
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
+         <ModalComercialAreas cb={props.cb} setCb={props.setCb} id={props.id}
+                setId={props.setId}
+                name={props.name}
+                setName={props.setName}
+                 open={open} onClose={handleOnClose} />
   </Paper>
     )
     return content;
