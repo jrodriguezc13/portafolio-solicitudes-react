@@ -8,7 +8,7 @@ import TableAppClientes from './tableAppClientes';
 import { useHttpGet } from "../../hooks/useHttpGet";
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import AddCliente from './addClient';
+import ModalClient from './modalClient';
 
 
 const Clientes = (props) => {
@@ -27,6 +27,11 @@ const Clientes = (props) => {
   
   function handleOnClose() {
     setOpen(false)
+    setName('')
+    setContactName('');
+    setContactEmail('');
+    setHolisticManagerName('');
+    setHolisticManagerEmail('');
   }
 
   function handleOnOpen() {
@@ -41,34 +46,34 @@ const Clientes = (props) => {
             <Container maxWidth="lg" className={classes.container}>
 
             <Grid container justify= 'center' spacing={2}>
-            <Grid item xs={12} md={12} lg={12}>
-            <PaperTitle title={"Clientes"}/>
+                <Grid item xs={12} md={12} lg={12}>
+                  <PaperTitle title={"Clientes"}/>
             
-            </Grid>
-            <Grid item xs={12} md={12} lg={12}>
+                </Grid>
+              <Grid item xs={12} md={12} lg={12}>
                     <TableAppClientes fetchedData={fetchedData} 
-                cb={cb} setCb={setCb}
-                id={id}
-                setId={setId}
-                name={name}
-                setName={setName}
-                contactName={contactName}
-                setContactName={setContactName}
-                contactEmail={contactEmail}
-                setContactEmail={setContactEmail}
-                holisticManagerName={holisticManagerName}
-                setHolisticManagerName={setHolisticManagerName}
-                holisticManagerEmail={holisticManagerEmail}
-                setHolisticManagerEmail={setHolisticManagerEmail}/>
-                    <Grid>
-            <Fab className={classes.fab} color="primary" aria-label="add" onClick={handleOnOpen}>
-                <AddIcon />
-            </Fab>
-            </Grid>
-            </Grid>
+                                      cb={cb} setCb={setCb}
+                                      id={id}
+                                      setId={setId}
+                                      name={name}
+                                      setName={setName}
+                                      contactName={contactName}
+                                      setContactName={setContactName}
+                                      contactEmail={contactEmail}
+                                      setContactEmail={setContactEmail}
+                                      holisticManagerName={holisticManagerName}
+                                      setHolisticManagerName={setHolisticManagerName}
+                                      holisticManagerEmail={holisticManagerEmail}
+                                      setHolisticManagerEmail={setHolisticManagerEmail}/>
+              <Grid>
+                    <Fab className={classes.fab} color="primary" aria-label="add" onClick={handleOnOpen}>
+                        <AddIcon />
+                    </Fab>
+              </Grid>
+              </Grid>
             
             </Grid>
-            <AddCliente cb={cb} setCb={setCb} id={id}
+            <ModalClient cb={cb} setCb={setCb} id={id}
                 setId={setId}
                 name={name}
                 setName={setName}

@@ -36,6 +36,14 @@ export default makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'center',
 
+    },
+    span: {
+        color: '#dc3545!important',
+        marginBottom: '0.5 rem!important',
+        display: 'block!important',
+        fontWeight: 'bold',
+        fontSize: '10px',
+
     }
 
 

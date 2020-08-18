@@ -11,7 +11,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
-import AddCliente from './addClient';
+import ModalClient from './modalClient';
 import axios from "axios";
 
 
@@ -25,8 +25,15 @@ const TableAppClientes = (props) => {
     const [open, setOpen] = useState(false);
 
     function handleOnClose() {
-      setOpen(false)
+          setOpen(false)
+          props.setId(null);
+          props.setName('');
+          props.setContactName('');
+          props.setContactEmail('');
+          props.setHolisticManagerName('');
+          props.setHolisticManagerEmail('');
     }
+
   
     const handleOnOpen = (id) => {
       setOpen(true)
@@ -40,12 +47,12 @@ const TableAppClientes = (props) => {
     axiosInstance
         .get("clientes/" + id)
         .then((res) => {
-          props.setId(res.data.cliId);
+          props.setId(res.data[0].cliId);
           props.setName(res.data[0].cliName);
-          props.setContactName(res.data.cliContactName);
-          props.setContactEmail(res.data.cliContactEmail);
-          props.setHolisticManagerName(res.data.cliHolisticManagerName);
-          props.setHolisticManagerEmail(res.data.cliHolisticManagerEmail);
+          props.setContactName(res.data[0].cliContactName);
+          props.setContactEmail(res.data[0].cliContactEmail);
+          props.setHolisticManagerName(res.data[0].cliHolisticManagerName);
+          props.setHolisticManagerEmail(res.data[0].cliHolisticManagerEmail);
           console.log(res.data[0].cliName);
         })
         .catch((err) => {
@@ -61,23 +68,6 @@ const TableAppClientes = (props) => {
     const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
-    };
-    
-    const handleEdit = (id) => {
-      axios
-        .get("http://localhost:3050/api/v1/clientes/" + id)
-        .then((res) => {
-          props.setId(res.data.cliId);
-          props.setName(res.data.cliName);
-          props.setContactName(res.data.cliContactName);
-          props.setContactEmail(res.data.cliContactEmail);
-          props.setHolisticManagerName(res.data.cliHolisticManagerName);
-          props.setHolisticManagerEmail(res.data.cliHolisticManagerEmail);
-          console.log(res.data.cliName);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     };
 
     let content = (
@@ -132,7 +122,7 @@ const TableAppClientes = (props) => {
           }}
          onChangePage={handleChangePage}
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
-         <AddCliente cb={props.cb} setCb={props.setCb} id={props.id}
+         <ModalClient cb={props.cb} setCb={props.setCb} id={props.id}
                 setId={props.setId}
                 name={props.name}
                 setName={props.setName}
