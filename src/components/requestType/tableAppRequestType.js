@@ -13,6 +13,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 import ModalRequestType from './modalRequestType';
 import axios from "axios";
+import ModalDeleteRequestType from './modalDeleteRequestType';
 
 
 const TableAppRequestType = (props) => {
@@ -23,6 +24,34 @@ const TableAppRequestType = (props) => {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     
     const [open, setOpen] = useState(false);
+    const [openDelete, setOpenDelete] = React.useState(false);
+
+    const handleClickOpenDelete = (id) => {
+      setOpenDelete(true);
+      console.log(id)
+
+      const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3050/api/v1/',
+        timeout: 2000,
+        headers: { 'Accept': 'application/json' }
+    });
+    axiosInstance
+        .get("request/" + id)
+        .then((res) => {
+          props.setId(res.data[0].typId);
+          props.setName(res.data[0].typName);         
+          console.log(res.data[0].typName);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+  
+    const handleCloseDelete = () => {
+      setOpenDelete(false);
+      props.setId(null);
+      props.setName('');
+    };
 
     function handleOnClose() {
           setOpen(false)
@@ -37,7 +66,7 @@ const TableAppRequestType = (props) => {
 
       const axiosInstance = axios.create({
         baseURL: 'http://localhost:3050/api/v1/',
-        timeout: 1000,
+        timeout: 2000,
         headers: { 'Accept': 'application/json' }
     });
     axiosInstance
@@ -82,7 +111,7 @@ const TableAppRequestType = (props) => {
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <IconButton                        
                           color="primary"
-                          className={classes.icons}>
+                          className={classes.icons} onClick={() => handleClickOpenDelete(task.typId)}>
                           <DeleteIcon />
                         </IconButton>
                         <IconButton                 
@@ -115,6 +144,9 @@ const TableAppRequestType = (props) => {
                 name={props.name}
                 setName={props.setName}
                  open={open} onClose={handleOnClose} />
+          <ModalDeleteRequestType cb={props.cb} setCb={props.setCb} id={props.id}
+                setId={props.setId}
+                name={props.name} open={openDelete} onClose={handleCloseDelete}/>
   </Paper>
     )
     return content;
