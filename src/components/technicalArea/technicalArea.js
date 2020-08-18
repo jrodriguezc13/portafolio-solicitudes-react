@@ -6,7 +6,7 @@ import PaperTitle from '../paperTitle/paperTitle';
 import TableAppTechnicalArea from './tableAppTechnicalArea';
 import { useHttpGet } from "../../hooks/useHttpGet";
 
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 const TechnicalArea = (props) => {
     const classes = useStyles();
@@ -14,6 +14,12 @@ const TechnicalArea = (props) => {
     const [isLoading, fetchedData] = useHttpGet("technical", [
     cb,
   ]);
+    const [search, setSearch] = useState('');
+    const onSearchChange = e => {
+        setSearch(e.target.value);
+    };
+
+
     let content = (
         <div className={classes.root}>
             <Header/>
@@ -23,7 +29,7 @@ const TechnicalArea = (props) => {
 
             <Grid container justify= 'center' spacing={2}>
             <Grid item xs={12} md={12} lg={12}>
-            <PaperTitle title={"Áreas técnicas"}/>
+            <PaperTitle title={"Áreas técnicas"} />
             
             </Grid>
             <Grid item xs={12} md={12} lg={12}>

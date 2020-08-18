@@ -1,6 +1,6 @@
 import useStyles from './paperTitle.styles';
 import { Typography, Paper } from '@material-ui/core';
-import React from 'react'
+import React from 'react';
 import Search from './search';
 
 const PaperTitle = (props) => {

@@ -12,7 +12,11 @@ import TablePagination from '@material-ui/core/TablePagination';
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
-
+import SearchIcon from "@material-ui/icons/Search";
+import InputBase from "@material-ui/core/InputBase";
+import PaperTitle from '../paperTitle/paperTitle';
+import Grid from "@material-ui/core/Grid";
+import Search from "../paperTitle/search";
 
 const TableAppTechnicalArea = (props) => {
     const classes = useStyles();
@@ -20,7 +24,6 @@ const TableAppTechnicalArea = (props) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     console.log(data);
-
     const handleChangePage = (event, newPage) => {
     setPage(newPage);
     };
@@ -29,10 +32,31 @@ const TableAppTechnicalArea = (props) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
     };
-    
+        // Búsqueda de datos
+    const [search, setSearch] = useState('');
+    const onSearchChange = e => {
+        setSearch(e.target.value);
+    };
 
     let content = (
-  <Paper className={classes.table} elevation={0}>
+        <div>
+            <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                    <SearchIcon />
+                </div>
+                <InputBase
+                    placeholder="Buscar…"
+                    classes={{
+                        root: classes.inputRoot,
+                        input: classes.inputInput,
+                    }}
+                    inputProps={{ 'aria-label': 'search' }}
+                    onChange={onSearchChange}
+                    value={search}
+                />
+            </div>
+         <Paper className={classes.table} elevation={0}>
+
       <TableContainer>
             <Table stickyHeader aria-label="simple table" size="small">
               <TableHead >
@@ -46,7 +70,8 @@ const TableAppTechnicalArea = (props) => {
                 {(rowsPerPage > 0
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
-                ).map((task) => (
+                ).filter(task => !search || task.teaName.includes(search))
+                    .map((task) => (
                   <TableRow key={task.teaId} hover>
                       <TableCell align="center" className={classes.cellSmall} size="small">
 
@@ -57,7 +82,6 @@ const TableAppTechnicalArea = (props) => {
                                   <DeleteIcon />
                               </IconButton>
                           </Tooltip>
-
                           <Tooltip title="Editar">
                               <IconButton
                                   color="primary"
@@ -68,7 +92,7 @@ const TableAppTechnicalArea = (props) => {
 
 
                       </TableCell>
-                      <TableCell align="center" size="small">{task.teaName}</TableCell>                    
+                      <TableCell align="center" size="small">{task.teaName}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -88,6 +112,7 @@ const TableAppTechnicalArea = (props) => {
          onChangePage={handleChangePage}
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
   </Paper>
+        </div>
     )
     return content;
 }
