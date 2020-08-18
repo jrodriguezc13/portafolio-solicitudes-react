@@ -5,6 +5,9 @@ import useStyles from './search.styles';
 
 const Search  = (props) => {
     const classes = useStyles();
+    const onSearchChange = e => {
+      props.setSearch(e.target.value);
+  };
     let content = (
         <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -17,6 +20,8 @@ const Search  = (props) => {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              onChange={onSearchChange}
+                    value={props.search}
             />
           </div>
     )
