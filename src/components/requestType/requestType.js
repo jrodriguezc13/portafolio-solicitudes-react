@@ -21,6 +21,9 @@ const RequestType = (props) => {
   const [id, setId] = useState(null);
   const [name, setName] = useState("");
 
+  // Búsqueda de datos
+  const [search, setSearch] = useState('');
+
   function handleOnClose() {
     setOpen(false)
     setName('')
@@ -39,11 +42,11 @@ const RequestType = (props) => {
 
             <Grid container justify= 'center' spacing={2}>
                 <Grid item xs={12} md={12} lg={12}>
-                    <PaperTitle title={"Tipos de solicitud"}/>
+                    <PaperTitle title={"Tipos de solicitud"} search={search} setSearch={setSearch}/>
                 
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
-                        <TableAppRequestType fetchedData={fetchedData}
+                        <TableAppRequestType fetchedData={fetchedData} search={search} setSearch={setSearch}
                                             cb={cb} setCb={setCb}
                                             id={id}
                                             setId={setId}

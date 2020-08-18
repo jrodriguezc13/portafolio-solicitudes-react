@@ -77,7 +77,7 @@ const TableAppTechnicalArea = (props) => {
                 {(rowsPerPage > 0
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
-                ).map((task) => (
+                ).filter(task => !props.search || task.teaName.includes(props.search)).map((task) => (
                   <TableRow key={task.teaId} hover>
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <IconButton                        
