@@ -11,14 +11,46 @@ import TablePagination from '@material-ui/core/TablePagination';
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import ModalRequestType from './modalRequestType';
+import axios from "axios";
 
 
 const TableAppRequestType = (props) => {
     const classes = useStyles();
     const data = props.fetchedData === null ? [] : props.fetchedData.data;
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    console.log(data);
+    
+    const [open, setOpen] = useState(false);
+
+    function handleOnClose() {
+          setOpen(false)
+          props.setId(null);
+          props.setName('');
+         
+    }
+
+    const handleOnOpen = (id) => {
+      setOpen(true)
+      console.log(id)
+
+      const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3050/api/v1/',
+        timeout: 1000,
+        headers: { 'Accept': 'application/json' }
+    });
+    axiosInstance
+        .get("request/" + id)
+        .then((res) => {
+          props.setId(res.data[0].typId);
+          props.setName(res.data[0].typName);
+          console.log(res.data[0].typName);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
 
     const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -55,7 +87,7 @@ const TableAppRequestType = (props) => {
                         </IconButton>
                         <IconButton                 
                           color="primary"
-                          className={classes.icons}>
+                          className={classes.icons} onClick={() => handleOnOpen(task.typId)}>
                           <EditIcon />
                         </IconButton>
                       </TableCell>
@@ -78,6 +110,11 @@ const TableAppRequestType = (props) => {
           }}
          onChangePage={handleChangePage}
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
+         <ModalRequestType cb={props.cb} setCb={props.setCb} id={props.id}
+                setId={props.setId}
+                name={props.name}
+                setName={props.setName}
+                 open={open} onClose={handleOnClose} />
   </Paper>
     )
     return content;

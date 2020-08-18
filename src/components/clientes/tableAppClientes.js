@@ -11,14 +11,55 @@ import TablePagination from '@material-ui/core/TablePagination';
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import ModalClient from './modalClient';
+import axios from "axios";
 
 
 const TableAppClientes = (props) => {
     const classes = useStyles();
     const data = props.fetchedData === null ? [] : props.fetchedData.data;
+
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    console.log(data);
+
+    const [open, setOpen] = useState(false);
+
+    function handleOnClose() {
+          setOpen(false)
+          props.setId(null);
+          props.setName('');
+          props.setContactName('');
+          props.setContactEmail('');
+          props.setHolisticManagerName('');
+          props.setHolisticManagerEmail('');
+    }
+
+  
+    const handleOnOpen = (id) => {
+      setOpen(true)
+      console.log(id)
+
+      const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3050/api/v1/',
+        timeout: 1000,
+        headers: { 'Accept': 'application/json' }
+    });
+    axiosInstance
+        .get("clientes/" + id)
+        .then((res) => {
+          props.setId(res.data[0].cliId);
+          props.setName(res.data[0].cliName);
+          props.setContactName(res.data[0].cliContactName);
+          props.setContactEmail(res.data[0].cliContactEmail);
+          props.setHolisticManagerName(res.data[0].cliHolisticManagerName);
+          props.setHolisticManagerEmail(res.data[0].cliHolisticManagerEmail);
+          console.log(res.data[0].cliName);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
 
     const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -28,7 +69,6 @@ const TableAppClientes = (props) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
     };
-    
 
     let content = (
   <Paper className={classes.table} elevation={0}>
@@ -57,7 +97,7 @@ const TableAppClientes = (props) => {
                         </IconButton>
                         <IconButton                 
                           color="primary"
-                          className={classes.icons}>
+                          className={classes.icons} onClick={() => handleOnOpen(task.cliId)}>
                           <EditIcon />
                         </IconButton>
                       </TableCell>
@@ -82,6 +122,18 @@ const TableAppClientes = (props) => {
           }}
          onChangePage={handleChangePage}
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
+         <ModalClient cb={props.cb} setCb={props.setCb} id={props.id}
+                setId={props.setId}
+                name={props.name}
+                setName={props.setName}
+                contactName={props.contactName}
+                setContactName={props.setContactName}
+                contactEmail={props.contactEmail}
+                setContactEmail={props.setContactEmail}
+                holisticManagerName={props.holisticManagerName}
+                setHolisticManagerName={props.setHolisticManagerName}
+                holisticManagerEmail={props.holisticManagerEmail}
+                setHolisticManagerEmail={props.setHolisticManagerEmail} open={open} onClose={handleOnClose} />
   </Paper>
     )
     return content;

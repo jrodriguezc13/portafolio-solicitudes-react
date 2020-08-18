@@ -11,14 +11,46 @@ import TablePagination from '@material-ui/core/TablePagination';
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import ModalComercialAreas from './modalComercialAreas';
+import axios from "axios";
 
 
 const TableAppComercialAreas = (props) => {
     const classes = useStyles();
     const data = props.fetchedData === null ? [] : props.fetchedData.data;
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    console.log(data);
+
+    const [open, setOpen] = useState(false);
+
+    function handleOnClose() {
+          setOpen(false)
+          props.setId(null);
+          props.setName('');
+         
+    }
+
+    const handleOnOpen = (id) => {
+      setOpen(true)
+      console.log(id)
+
+      const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3050/api/v1/',
+        timeout: 1000,
+        headers: { 'Accept': 'application/json' }
+    });
+    axiosInstance
+        .get("comercialareas/" + id)
+        .then((res) => {
+          props.setId(res.data[0].coaId);
+          props.setName(res.data[0].coaName);
+          console.log(res.data[0].coaName);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
 
     const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -55,7 +87,7 @@ const TableAppComercialAreas = (props) => {
                         </IconButton>
                         <IconButton                 
                           color="primary"
-                          className={classes.icons}>
+                          className={classes.icons} onClick={() => handleOnOpen(task.coaId)}>
                           <EditIcon />
                         </IconButton>
                       </TableCell>
@@ -78,6 +110,11 @@ const TableAppComercialAreas = (props) => {
           }}
          onChangePage={handleChangePage}
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
+         <ModalComercialAreas cb={props.cb} setCb={props.setCb} id={props.id}
+                setId={props.setId}
+                name={props.name}
+                setName={props.setName}
+                 open={open} onClose={handleOnClose} />
   </Paper>
     )
     return content;
