@@ -107,7 +107,7 @@ const TableAppRequestStatus = (props) => {
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
                 ).filter(task => !props.search || task.estName.includes(props.search)).map((task) => (
-                  <TableRow key={task.estId} hover>
+                  <TableRow key={task.estId} hover className={classes.tableRow}>
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <IconButton                        
                           color="primary"

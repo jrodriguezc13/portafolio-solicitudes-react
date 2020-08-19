@@ -107,7 +107,7 @@ const TableAppComercialAreas = (props) => {
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
                 ).filter(task => !props.search || task.coaName.includes(props.search)).map((task) => (
-                  <TableRow key={task.coaId} hover>
+                  <TableRow key={task.coaId} hover className={classes.tableRow}>
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <IconButton                        
                           color="primary"

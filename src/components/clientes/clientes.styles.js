@@ -17,6 +17,11 @@ export default makeStyles(theme => ({
 
 
     },
+    tableRow: {
+        "&:hover": {
+            backgroundColor: "#b3ebe9 !important"
+        }
+    },
 
     cellSmall: {
         minWidth: 100

@@ -107,7 +107,7 @@ const TableAppTechnicalArea = (props) => {
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
                 ).filter(task => !props.search || task.teaName.includes(props.search)).map((task) => (
-                  <TableRow key={task.teaId} hover>
+                  <TableRow key={task.teaId} hover className={classes.tableRow}>
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <IconButton                        
                           color="primary"
