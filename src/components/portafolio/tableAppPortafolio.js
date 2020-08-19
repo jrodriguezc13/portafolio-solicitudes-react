@@ -56,7 +56,7 @@ const TableAppPortafolio = (props) => {
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
                 ).map((task) => (
-                  <TableRow key={task.cliId} hover>
+                  <TableRow key={task.cliId} hover className={classes.tableRow}>
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <IconButton                        
                           color="primary"
