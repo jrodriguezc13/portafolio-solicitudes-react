@@ -15,8 +15,6 @@ export default makeStyles(theme => ({
     table: {
         maxHeight: 440,
         overflow: 'auto',
-
-
     },
 
     cellSmall: {

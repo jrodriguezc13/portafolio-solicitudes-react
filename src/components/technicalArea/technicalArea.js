@@ -8,7 +8,6 @@ import { useHttpGet } from "../../hooks/useHttpGet";
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import ModalTechnicalArea from './modalTechnicalArea';
-
 import React, { useState } from 'react'
 
 const TechnicalArea = (props) => {

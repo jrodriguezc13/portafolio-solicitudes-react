@@ -19,9 +19,10 @@ const Search  = (props) => {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              inputProps={{ 'aria-label': 'search' }}
+              inputProps={{ 'aria-label': 'search'}}
               onChange={onSearchChange}
                     value={props.search}
+              onKeyUp
             />
           </div>
     )
