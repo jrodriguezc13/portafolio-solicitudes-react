@@ -106,7 +106,7 @@ const TableAppRequestType = (props) => {
                 {(rowsPerPage > 0
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
-                ).filter(task => !props.search || task.typName.includes(props.search)).map((task) => (
+                ).filter(task => !props.search || task.typName.toLowerCase().includes(props.search.toLowerCase())).map((task) => (
                   <TableRow key={task.typId} hover className={classes.tableRow}>
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <IconButton                        
