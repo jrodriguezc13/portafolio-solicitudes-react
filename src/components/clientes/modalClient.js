@@ -8,7 +8,7 @@ import axios from "axios";
 import DialogTitle from '@material-ui/core/DialogTitle';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CreateIcon from '@material-ui/icons/Create';
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 
 const ModalClient = (props) => {
 

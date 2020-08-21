@@ -7,11 +7,15 @@ import ListItem from '@material-ui/core/ListItem';
 const PeperListAssign = (props) => {
 
     const classes = useStyles();
+    const data = props.showClient === null ? [] : props.showClient.data;
 
     let content = (
         <List >
-        <ListItem>{props.id}</ListItem>
-        <ListItem>{props.id2}</ListItem>
+
+            {data.map(data => (
+                <ListItem key ={data.cliId}>{data.client[0].cliName}</ListItem>
+
+            ))}
         </List>
 
     )
