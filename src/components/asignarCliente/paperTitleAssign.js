@@ -10,11 +10,17 @@ const PaperTitleAssign = (props) => {
     let content = (
        
           <Paper className={classes.paper} elevation={0}>
-                <Typography type="title" color="primary" variant="h6"
-            className={classes.rootPaper} gutterBottom> 
-                    {props.title}
-                </Typography>
-                
+                <div className={classes.divColumn}>
+                        <Typography type="title" color="primary" variant="h6"
+                    className={classes.rootPaper} gutterBottom> 
+                            {props.title}
+                        </Typography>
+
+                        <Typography type="title" color="primary" variant="subtitle2"
+                    className={classes.rootPaper} gutterBottom> 
+                            Selecciona un usuario para ver sus clientes asignados
+                        </Typography>
+                </div>
           </Paper>
 
     )
