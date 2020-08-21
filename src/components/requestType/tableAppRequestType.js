@@ -106,7 +106,7 @@ const TableAppRequestType = (props) => {
                 {(rowsPerPage > 0
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
-                ).filter(task => !props.search || task.typName.includes(props.search)).map((task) => (
+                ).filter(task => !props.search || task.typName.toLowerCase().includes(props.search.toLowerCase())).map((task) => (
                   <TableRow key={task.typId} hover className={classes.tableRow}>
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <IconButton                        
@@ -132,9 +132,9 @@ const TableAppRequestType = (props) => {
          count={data.length}
          rowsPerPage={rowsPerPage}
          page={page}
-         labelRowsPerPage= "Filas por paginas"
+         labelRowsPerPage= "Filas por páginas"
          SelectProps={{
-            inputProps: { 'aria-label': 'Filas por pagina' },
+            inputProps: { 'aria-label': 'Filas por página' },
             native: true,
           }}
          onChangePage={handleChangePage}

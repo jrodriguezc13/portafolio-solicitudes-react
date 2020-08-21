@@ -64,7 +64,7 @@ const ModalRequestType = (props) => {
         <form onSubmit={handleSubmit(onSubmit)}>
         <div>
         <TextField
-        className={classes.margin}
+            className={classes.margin}
         label="Nombre"
         name= "nombre"
         onChange={(event) => props.setName(event.target.value)}

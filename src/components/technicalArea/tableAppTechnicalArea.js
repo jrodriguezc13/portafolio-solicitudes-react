@@ -132,9 +132,9 @@ const TableAppTechnicalArea = (props) => {
          count={data.length}
          rowsPerPage={rowsPerPage}
          page={page}
-         labelRowsPerPage= "Filas por paginas"
+         labelRowsPerPage= "Filas por páginas"
          SelectProps={{
-            inputProps: { 'aria-label': 'Filas por pagina' },
+            inputProps: { 'aria-label': 'Filas por página' },
             native: true,
           }}
          onChangePage={handleChangePage}

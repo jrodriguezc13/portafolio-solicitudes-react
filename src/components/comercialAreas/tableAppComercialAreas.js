@@ -106,7 +106,7 @@ const TableAppComercialAreas = (props) => {
                 {(rowsPerPage > 0
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
-                ).filter(task => !props.search || task.coaName.includes(props.search)).map((task) => (
+                ).filter(task => !props.search || task.coaName.toLowerCase().includes(props.search.toLowerCase())).map((task) => (
                   <TableRow key={task.coaId} hover className={classes.tableRow}>
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <IconButton                        
@@ -132,9 +132,9 @@ const TableAppComercialAreas = (props) => {
          count={data.length}
          rowsPerPage={rowsPerPage}
          page={page}
-         labelRowsPerPage= "Filas por paginas"
+         labelRowsPerPage= "Filas por páginas"
          SelectProps={{
-            inputProps: { 'aria-label': 'Filas por pagina' },
+            inputProps: { 'aria-label': 'Filas por página' },
             native: true,
           }}
          onChangePage={handleChangePage}

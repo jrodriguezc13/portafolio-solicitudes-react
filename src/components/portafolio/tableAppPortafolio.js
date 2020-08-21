@@ -38,7 +38,7 @@ const TableAppPortafolio = (props) => {
                 <TableRow>
                   <TableCell align="center" size="small">Acciones</TableCell>
                   <TableCell align="center" size="small">Cliente</TableCell>
-                  <TableCell align="center" size="small">Titulo</TableCell>
+                  <TableCell align="center" size="small">Título</TableCell>
                   <TableCell align="center" size="small">Prioridad</TableCell>
                   <TableCell align="center" size="small">Fecha solicitud</TableCell>
                   <TableCell align="center" size="small">Fecha inicio</TableCell>
@@ -46,7 +46,7 @@ const TableAppPortafolio = (props) => {
                   <TableCell align="center" size="small">Fecha fin entrega real</TableCell>
                   <TableCell align="center" size="small">Estado</TableCell>
                   <TableCell align="center" size="small">% Avance</TableCell>
-                  <TableCell align="center" size="small">% Desviacion</TableCell>
+                  <TableCell align="center" size="small">% Desviación</TableCell>
                   <TableCell align="center" size="small">Tipo de solicitud</TableCell>                   
                       
                 </TableRow>
