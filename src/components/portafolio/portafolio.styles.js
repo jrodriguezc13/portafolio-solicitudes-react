@@ -5,6 +5,11 @@ export default makeStyles(theme => ({
     root: {
         display: "flex",
     },
+
+    labelRoot: {
+        fontSize: 14,
+    },
+
     content: {
         height: "100vh",
         overflow: "auto",
@@ -42,6 +47,7 @@ export default makeStyles(theme => ({
 
     margin: {
         margin: theme.spacing(1),
+        width: 200,
     },
 
     buttons: {
@@ -75,6 +81,7 @@ export default makeStyles(theme => ({
         margin: theme.spacing(1),
         minWidth: 200,
     },
+    
 
     textField: {
         marginLeft: theme.spacing(1),

@@ -9,7 +9,6 @@ import { useHttpGet } from "../../hooks/useHttpGet";
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import ModalPortafolio from "./modalPortafolio";
-import ModalRequestType from "../requestType/modalRequestType";
 
 const Portafolio = (props) => {
     const classes = useStyles();

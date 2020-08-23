@@ -11,6 +11,9 @@ import TablePagination from '@material-ui/core/TablePagination';
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import ModalUpdatePortafolio from './modalUpdatePortafolio'
+import ModalDeletePortafolio from './modalDeletePortafolio';
+import axios from 'axios';
 
 
 const TableAppPortafolio = (props) => {
@@ -18,6 +21,9 @@ const TableAppPortafolio = (props) => {
     const data = props.fetchedData === null ? [] : props.fetchedData.data;
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [openUpdate, setOpenUpdate] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
+
     console.log(data);
 
     const handleChangePage = (event, newPage) => {
@@ -28,6 +34,43 @@ const TableAppPortafolio = (props) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
     };
+    
+    const handleClickOpenUpdate = (id) => {
+      setOpenUpdate(true)
+      console.log(id)
+    };
+
+    const handleCloseUpdate = () => {
+      setOpenUpdate(false)
+    }
+
+    const handleClickOpenDelete = (id) => {
+      setOpenDelete(true);
+      console.log(id)
+
+      const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3050/api/v1/',
+        timeout: 2000,
+        headers: { 'Accept': 'application/json' }
+      }); 
+      axiosInstance
+        .get("portfolio/" + id)
+        .then((res) => {
+          props.setId(res.data[0].reqId);
+          props.setName(res.data[0].reqTitle);         
+          console.log(res.data[0].reqTitle);
+        })
+        .catch((err) => {
+          console.log(err);
+         
+        });
+
+    }
+
+    const handleCloseDelete = () => {
+      setOpenDelete(false);
+   
+    }
     
 
     let content = (
@@ -60,12 +103,12 @@ const TableAppPortafolio = (props) => {
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <IconButton                        
                           color="primary"
-                          className={classes.icons}>
+                          className={classes.icons} onClick={() => handleClickOpenDelete(task.reqId)}>
                           <DeleteIcon />
                         </IconButton>
                         <IconButton                 
                           color="primary"
-                          className={classes.icons}>
+                          className={classes.icons} onClick={() => handleClickOpenUpdate(task.reqId)}>
                           <EditIcon />
                         </IconButton>
                       </TableCell>
@@ -98,6 +141,13 @@ const TableAppPortafolio = (props) => {
           }}
          onChangePage={handleChangePage}
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
+         
+         <ModalUpdatePortafolio open={openUpdate} onClose={handleCloseUpdate} />
+         <ModalDeletePortafolio open={openDelete} onClose={handleCloseDelete} cb={props.cb} 
+         setCb={props.setCb} id={props.id}
+                setId={props.setId}
+                name={props.name}/>
+
   </Paper>
     )
     return content;
