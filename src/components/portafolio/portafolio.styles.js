@@ -24,8 +24,6 @@ export default makeStyles(theme => ({
     table: {
         maxHeight: 440,
         overflow: 'auto',
-
-
     },
 
     cellSmall: {
@@ -36,6 +34,46 @@ export default makeStyles(theme => ({
             backgroundColor: "#b3ebe9 !important"
         }
     },
+    form: {
+        margin: theme.spacing(1),
+        minWidth: 140,
+    },
+
+    filterTitle: {
+        marginBottom: 'unset',
+        marginTop: '8px',
+        marginLeft: '8px',
+        fontWeight: 'bold'
+
+    },
+    formColumn: {
+        display: 'flex',
+        flexDirection: 'column',
+        marginLeft: '6px',
+
+    },
+    buttonDate: {
+        minWidth: 200,
+        justifyContent: 'left',
+    },
+
+    inputRoot: {
+        margin: '14px',
+    },
+    buttons: {
+        flex: '0 0 auto',
+        display: 'flex',
+        padding: '8px',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+
+    },
+    subMenu: {
+        margin: '14px',
+    },
+    radioButton: {
+        marginLeft: '30px'
+    }
 
 
 }));
