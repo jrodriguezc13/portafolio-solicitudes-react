@@ -55,7 +55,7 @@ const TableAppPortafolio = (props) => {
                 {(rowsPerPage > 0
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
-                ).map((task) => (
+                ).filter(task => !props.search || task.reqTitle.toLowerCase().includes(props.search.toLowerCase())).map((task) => (
                   <TableRow key={task.reqId} hover className={classes.tableRow}>
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <IconButton                        

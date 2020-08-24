@@ -1,7 +1,7 @@
 import useStyles from './portafolio.styles';
 import { Typography, Paper } from '@material-ui/core';
 import React from 'react';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import FilterPortafolio from './filterPortafolio'
 
 
 const PaperTitlePortafolio = (props) => {
@@ -15,7 +15,7 @@ const PaperTitlePortafolio = (props) => {
             className={classes.rootPaper} gutterBottom> 
                     {props.title}
                 </Typography>
-                <FilterListIcon color="primary"/>
+                <FilterPortafolio search={props.search} setSearch={props.setSearch}/>
                 
           </Paper>
 
