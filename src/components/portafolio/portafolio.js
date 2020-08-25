@@ -1,5 +1,5 @@
 import Header from '../header/header';
-import React, { useState } from 'react'
+import React, { useState, useEffect  } from 'react'
 import useStyles from './portafolio.styles';
 import Container from '@material-ui/core/Container';
 import Grid from "@material-ui/core/Grid";
@@ -9,6 +9,8 @@ import { useHttpGet } from "../../hooks/useHttpGet";
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import ModalPortafolio from "./modalPortafolio";
+import axios from "axios";
+
 
 const Portafolio = (props) => {
     const classes = useStyles();
@@ -17,6 +19,53 @@ const Portafolio = (props) => {
     const [isLoading, fetchedData] = useHttpGet("portfolio", [
     cb,
   ]);
+    const [search, setSearch] = React.useState('');
+    const [dataClient, setDataClient] = useState(null);
+    const [dataComercialArea, setDataComercialArea] = useState(null);
+    const [dataStatus, setDataStatus] = useState(null);
+
+    useEffect(() => {
+
+        const axiosInstance = axios.create({
+            baseURL: 'http://localhost:3050/api/v1/',
+            timeout: 2000,
+            headers: { 'Accept': 'application/json' }
+        });
+        axiosInstance
+            .get('clientes')
+            .then((data) => {
+
+                setDataClient(data);
+                console.log(data)
+            })
+            .catch((err) => {
+
+            });
+
+            axiosInstance
+            .get('status')
+            .then((data) => {
+
+                setDataStatus(data);
+                console.log(data)
+            })
+            .catch((err) => {
+
+            });
+
+            axiosInstance
+            .get('comercialareas')
+            .then((data) => {
+
+                setDataComercialArea(data);
+                console.log(data)
+            })
+            .catch((err) => {
+
+            });
+    }, []);
+
+
     const [id, setId] = useState(null);
     const [name, setName] = useState("");
 
@@ -58,6 +107,14 @@ const Portafolio = (props) => {
                     </Grid>
 
                 </Grid>
+                <Grid item xs={12} md={12} lg={12}>
+                        <PaperTitle title={"Portafolio"} search={search} setSearch={setSearch}/>
+
+                </Grid>
+                <Grid item xs={12} md={12} lg={12}>
+                        <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}/>
+                </Grid>
+
             </Grid>
                 <ModalPortafolio
                     cb={cb} setCb={setCb} id={id}

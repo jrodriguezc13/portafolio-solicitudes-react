@@ -29,6 +29,8 @@ export default makeStyles(theme => ({
     table: {
         maxHeight: 440,
         overflow: 'auto',
+
+
     },
 
     cellSmall: {
@@ -44,13 +46,53 @@ export default makeStyles(theme => ({
         bottom: theme.spacing(10),
         right: theme.spacing(5),
     },
+    form: {
+        margin: theme.spacing(1),
+        minWidth: 140,
+    },
+
+    filterTitle: {
+        marginBottom: 'unset',
+        marginTop: '8px',
+        marginLeft: '8px',
+        fontWeight: 'bold'
+
+    },
+    formColumn: {
+        display: 'flex',
+        flexDirection: 'column',
+        marginLeft: '6px',
+
+    },
+    buttonDate: {
+        minWidth: 200,
+        justifyContent: 'left',
+    },
+
+    inputRoot: {
+        margin: '14px',
+    },
+    buttons: {
+        flex: '0 0 auto',
+        display: 'flex',
+        padding: '8px',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+
+    },
+    subMenu: {
+        margin: '14px',
+    },
+    radioButton: {
+        marginLeft: '30px'
+    }
 
     margin: {
         margin: theme.spacing(1),
         width: 200,
     },
 
-    buttons: {
+    button: {
         flex: '0 0 auto',
         display: 'flex',
         padding: '8px',
@@ -69,7 +111,7 @@ export default makeStyles(theme => ({
         margin: 0,
         padding: theme.spacing(2),
     },
-   
+
     form: {
         display: 'flex',
         flexDirection: 'column',
@@ -81,7 +123,7 @@ export default makeStyles(theme => ({
         margin: theme.spacing(1),
         minWidth: 200,
     },
-    
+
 
     textField: {
         marginLeft: theme.spacing(1),
