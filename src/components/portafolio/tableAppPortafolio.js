@@ -62,14 +62,13 @@ const TableAppPortafolio = (props) => {
         })
         .catch((err) => {
           console.log(err);
-         
         });
 
     }
 
     const handleCloseDelete = () => {
       setOpenDelete(false);
-   
+     
     }
     
 
@@ -146,7 +145,7 @@ const TableAppPortafolio = (props) => {
          <ModalDeletePortafolio open={openDelete} onClose={handleCloseDelete} cb={props.cb} 
          setCb={props.setCb} id={props.id}
                 setId={props.setId}
-                name={props.name}/>
+                SetName={props.name}/>
 
   </Paper>
     )

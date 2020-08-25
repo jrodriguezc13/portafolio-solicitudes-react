@@ -71,7 +71,9 @@ const ModalUpdatePortafolio = (props) => {
                     <div>
                         <TextField label="Cliente" 
                         className={classes.margin} 
-                        readonly/>
+                        readOnly={true}
+                        disabled={true}
+                        />
                         
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Área Comercial</InputLabel>

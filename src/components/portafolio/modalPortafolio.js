@@ -144,6 +144,7 @@ const ModalPortafolio = (props) => {
                     </div>
 
                     <div>
+                    <Grid direction="row" item xs={12} md={12} lg={12}>
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Responsable</InputLabel>
                             <Select autoWidth/>
@@ -152,6 +153,7 @@ const ModalPortafolio = (props) => {
                         <InputLabel id="demo-simple-select-label">Tipo de Solicitud</InputLabel>
                         <Select autoWidth/>
                     </FormControl>
+                    </Grid>
                     </div>
                     
                   
