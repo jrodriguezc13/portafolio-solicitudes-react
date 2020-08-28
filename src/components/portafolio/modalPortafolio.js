@@ -11,8 +11,7 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Grid from '@material-ui/core/Grid';
-import CreateIcon from '@material-ui/icons/Create';
-
+import MenuItem from '@material-ui/core/MenuItem';
 import MomentUtils from '@date-io/moment';
 import {
   MuiPickersUtilsProvider,
@@ -34,6 +33,8 @@ const ModalPortafolio = (props) => {
     const handleDateChange = (date) => {
         setSelectedDate(date);
       };
+
+     
     
     
     const onSubmit = (data) => {
@@ -139,9 +140,6 @@ const ModalPortafolio = (props) => {
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
                             <Select autoWidth>
-                                <option value={1}>1</option>
-                                <option value={2}>value 3</option>
-                                <option value={props.clid}>{props.cliName}</option>
                             </Select>
                         </FormControl>
 

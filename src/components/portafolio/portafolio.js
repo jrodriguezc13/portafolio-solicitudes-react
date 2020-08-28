@@ -22,7 +22,6 @@ const Portafolio = (props) => {
     const [estado, setEstado] = React.useState([]);
 
     const [isLoading, fetchedData] = useHttpGet("portfolio", [
-    const [isLoading, fetchedData] = useHttpGet("portfolio", [
     cb,
   ],
   [
@@ -109,7 +108,7 @@ const Portafolio = (props) => {
                 <Grid item xs={12} md={12} lg={12}>
                         <PaperTitle title={"Portafolio"} search={search} setSearch={setSearch} client={dataClient} coa={dataComercialArea} status={dataStatus} selectCli={cliente} selectCoa={areaComercial} selectEst={estado} setSelectCli={setCliente} setSelectCoa={setAreaComercial} setSelectEst={setEstado} cb={cb} setCb={setCb}/>
                 
-                        <PaperTitle title={"Portafolio"} search={search} setSearch={setSearch}/>
+                      
 
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
