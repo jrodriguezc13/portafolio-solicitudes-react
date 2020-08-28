@@ -98,7 +98,7 @@ const TableAppRequestStatus = (props) => {
               <TableHead >
                 <TableRow>
                   <TableCell align="center" size="small">Acciones</TableCell>
-                  <TableCell align="center" size="small">Nombre</TableCell>
+                  <TableCell align="left" size="small">Nombre</TableCell>
                       
                 </TableRow>
               </TableHead>
@@ -120,7 +120,7 @@ const TableAppRequestStatus = (props) => {
                           <EditIcon />
                         </IconButton>
                       </TableCell>
-                      <TableCell align="center" size="small">{task.estName}</TableCell>                    
+                      <TableCell align="left" size="small">{task.estName}</TableCell>                    
                   </TableRow>
                 ))}
               </TableBody>
