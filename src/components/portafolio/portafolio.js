@@ -16,9 +16,20 @@ const Portafolio = (props) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [cb, setCb] = useState(true);
+
+    const [cliente, setCliente] = React.useState([]);
+    const [areaComercial, setAreaComercial] = React.useState([]);
+    const [estado, setEstado] = React.useState([]);
+
+    const [isLoading, fetchedData] = useHttpGet("portfolio", [
     const [isLoading, fetchedData] = useHttpGet("portfolio", [
     cb,
-  ]);
+  ],
+  [
+    {key: 'cliId', value: cliente},
+    {key: 'coaId', value: areaComercial},
+    {key: 'estId', value: estado}]
+    );
     const [search, setSearch] = React.useState('');
     const [dataClient, setDataClient] = useState(null);
     const [dataComercialArea, setDataComercialArea] = useState(null);
@@ -94,8 +105,10 @@ const Portafolio = (props) => {
             <Container maxWidth="lg" className={classes.container}>
 
             <Grid container justify= 'center' spacing={2}>
-             
+
                 <Grid item xs={12} md={12} lg={12}>
+                        <PaperTitle title={"Portafolio"} search={search} setSearch={setSearch} client={dataClient} coa={dataComercialArea} status={dataStatus} selectCli={cliente} selectCoa={areaComercial} selectEst={estado} setSelectCli={setCliente} setSelectCoa={setAreaComercial} setSelectEst={setEstado} cb={cb} setCb={setCb}/>
+                
                         <PaperTitle title={"Portafolio"} search={search} setSearch={setSearch}/>
 
                 </Grid>

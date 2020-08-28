@@ -106,9 +106,9 @@ const TableAppClientes = (props) => {
               <TableHead >
                 <TableRow>
                   <TableCell align="center" size="small">Acciones</TableCell>
-                  <TableCell align="center" size="small">Nombre</TableCell>
-                  <TableCell align="center" size="small">Contacto</TableCell>
-                  <TableCell align="center" size="small">Correo</TableCell>
+                  <TableCell align="left" size="small">Nombre</TableCell>
+                  <TableCell align="left" size="small">Contacto</TableCell>
+                  <TableCell align="left" size="small">Correo</TableCell>
                       
                 </TableRow>
               </TableHead>
@@ -130,9 +130,9 @@ const TableAppClientes = (props) => {
                           <EditIcon />
                         </IconButton>
                       </TableCell>
-                      <TableCell align="center" size="small">{task.cliName}</TableCell>
-                      <TableCell align="center" size="small">{task.cliContactName}</TableCell> 
-                      <TableCell align="center" size="small">{task.cliContactEmail}</TableCell>                     
+                      <TableCell align="left" size="small">{task.cliName}</TableCell>
+                      <TableCell align="left" size="small">{task.cliContactName}</TableCell> 
+                      <TableCell align="left" size="small">{task.cliContactEmail}</TableCell>                     
                   </TableRow>
                 ))}
               </TableBody>

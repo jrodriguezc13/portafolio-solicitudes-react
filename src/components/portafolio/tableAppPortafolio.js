@@ -11,6 +11,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
+import moment from 'moment'
 import ModalUpdatePortafolio from './modalUpdatePortafolio'
 import ModalDeletePortafolio from './modalDeletePortafolio';
 import axios from 'axios';
@@ -52,7 +53,7 @@ const TableAppPortafolio = (props) => {
         baseURL: 'http://localhost:3050/api/v1/',
         timeout: 2000,
         headers: { 'Accept': 'application/json' }
-      }); 
+      });
       axiosInstance
         .get("portfolio/")
         .then((res) => {
@@ -68,9 +69,9 @@ const TableAppPortafolio = (props) => {
     }
 
     const handleCloseDelete = () => {
-      setOpenDelete(false);  
+      setOpenDelete(false);
     }
-    
+
 
     let content = (
   <Paper className={classes.table} elevation={0}>
@@ -79,17 +80,17 @@ const TableAppPortafolio = (props) => {
               <TableHead >
                 <TableRow>
                   <TableCell align="center" size="small">Acciones</TableCell>
-                  <TableCell align="center" size="small">Cliente</TableCell>
-                  <TableCell align="center" size="small">Título</TableCell>
-                  <TableCell align="center" size="small">Prioridad</TableCell>
+                  <TableCell align="left" size="small">Cliente</TableCell>
+                  <TableCell align="left" size="small">Título</TableCell>
+                  <TableCell align="right" size="small">Prioridad</TableCell>
                   <TableCell align="center" size="small">Fecha solicitud</TableCell>
                   <TableCell align="center" size="small">Fecha inicio</TableCell>
                   <TableCell align="center" size="small">Fecha fin planificada</TableCell>
                   <TableCell align="center" size="small">Fecha fin entrega real</TableCell>
-                  <TableCell align="center" size="small">Estado</TableCell>
-                  <TableCell align="center" size="small">% Avance</TableCell>
-                  <TableCell align="center" size="small">% Desviación</TableCell>
-                  <TableCell align="center" size="small">Tipo de solicitud</TableCell>                   
+                  <TableCell align="left" size="small">Estado</TableCell>
+                  <TableCell align="right" size="small">% Avance</TableCell>
+                  <TableCell align="right" size="small">% Desviación</TableCell>
+                  <TableCell align="left" size="small">Tipo de solicitud</TableCell>
                       
                 </TableRow>
               </TableHead>
@@ -111,17 +112,17 @@ const TableAppPortafolio = (props) => {
                           <EditIcon />
                         </IconButton>
                       </TableCell>
-                      <TableCell align="center" size="small">{task.client[0].cliName}</TableCell>
-                      <TableCell align="center" size="small">{task.reqTitle}</TableCell> 
-                      <TableCell align="center" size="small">{task.reqPriority}</TableCell>
-                      <TableCell align="center" size="small">{task.reqRequestDate}</TableCell>
-                      <TableCell align="center" size="small">{task.reqInitialDate}</TableCell> 
-                      <TableCell align="center" size="small">{task.reqPlanFinalDate}</TableCell> 
-                      <TableCell align="center" size="small">{task.reqRealFinalDate}</TableCell>
-                      <TableCell align="center" size="small">{task.entityStatus[0].estName}</TableCell> 
-                      <TableCell align="center" size="small">{task.reqAdvancePtge}</TableCell> 
-                      <TableCell align="center" size="small">{task.reqDeviationsPtge}</TableCell>
-                      <TableCell align="center" size="small">{task.requestType[0].typName}</TableCell>                                       
+                      <TableCell align="left" size="small">{task.client[0].cliName}</TableCell>
+                      <TableCell align="left" size="small">{task.reqTitle}</TableCell>
+                      <TableCell align="right" size="small">{task.reqPriority}</TableCell>
+                      <TableCell align="center" size="small">{moment(task.reqRequestDate).format("DD-MM-YYYY")}</TableCell>
+                      <TableCell align="center" size="small">{moment(task.reqInitialDate).format("DD-MM-YYYY")}</TableCell>
+                      <TableCell align="center" size="small">{moment(task.reqPlanFinalDate).format("DD-MM-YYYY")}</TableCell>
+                      <TableCell align="center" size="small">{moment(task.reqRealFinalDate).format("DD-MM-YYYY")}</TableCell>
+                      <TableCell align="left" size="small">{task.entityStatus[0].estName}</TableCell>
+                      <TableCell align="right" size="small">{task.reqAdvancePtge}</TableCell>
+                      <TableCell align="right" size="small">{task.reqDeviationsPtge}</TableCell>
+                      <TableCell align="left" size="small">{task.requestType[0].typName}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -140,9 +141,9 @@ const TableAppPortafolio = (props) => {
           }}
          onChangePage={handleChangePage}
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
-         
+
          <ModalUpdatePortafolio open={openUpdate} onClose={handleCloseUpdate} />
-         <ModalDeletePortafolio open={openDelete} onClose={handleCloseDelete} cb={props.cb} 
+         <ModalDeletePortafolio open={openDelete} onClose={handleCloseDelete} cb={props.cb}
          setCb={props.setCb} id={props.id} setId={props.setId}/>
 
   </Paper>

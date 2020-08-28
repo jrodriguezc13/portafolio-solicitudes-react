@@ -98,7 +98,7 @@ const TableAppTechnicalArea = (props) => {
               <TableHead >
                 <TableRow>
                   <TableCell align="center" size="small">Acciones</TableCell>
-                  <TableCell align="center" size="small">Nombre</TableCell>
+                  <TableCell align="left" size="small">Nombre</TableCell>
                       
                 </TableRow>
               </TableHead>
@@ -120,7 +120,7 @@ const TableAppTechnicalArea = (props) => {
                           <EditIcon />
                         </IconButton>
                       </TableCell>
-                      <TableCell align="center" size="small">{task.teaName}</TableCell>                    
+                      <TableCell align="left" size="small">{task.teaName}</TableCell>                    
                   </TableRow>
                 ))}
               </TableBody>
