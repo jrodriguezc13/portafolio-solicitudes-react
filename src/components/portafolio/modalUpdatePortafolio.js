@@ -14,10 +14,25 @@ import Switch from '@material-ui/core/Switch';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+import MomentUtils from '@date-io/moment';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
+
 import axios from "axios";
 import { useForm } from 'react-hook-form';
 const ModalUpdatePortafolio = (props) => {
     const classes = useStyles();
+
+
+    const [selectedDate, setSelectedDate] = useState(new Date())
+    
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+      };
 
     let content = (
         <Dialog className={classes.dialog} 
@@ -34,7 +49,7 @@ const ModalUpdatePortafolio = (props) => {
                     <div>
                      <p>Datos generales</p>
                      <hr/>
-                     <br/>
+                     
                     
                      <TextField 
                          className={classes.margin} 
@@ -52,19 +67,23 @@ const ModalUpdatePortafolio = (props) => {
                          value={props.description}
                          />
                      
-                     <TextField classsName={classes.textField} 
-                         className={classes.margin} 
-                         label="Fecha de Solicitud" 
-                         name="fechaSol"
-                         type="date"
-                         defaultValue=""
-                         InputLabelProps={{
-                            shrink: true,
-                          }}
-                          
-                          onChange={(event) => props.setName(event.target.value)}
-                         value={props.reqdate}
-                         />
+                     
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <KeyboardDatePicker 
+                            className={classes.margin}
+                            name="fechaSol"
+                            disableToolbar
+                            variant="inline"
+                            format="MM/DD/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Fecha de Solicitud"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                              'aria-label': 'change date',
+                            }} />
+                        </MuiPickersUtilsProvider>
                     </div>
 
 
@@ -98,41 +117,63 @@ const ModalUpdatePortafolio = (props) => {
                         </FormControl>
                     </div>
                     
+                    <br/>
                     
                     <div>
                     <p>Datos de seguimiento</p>
                     <hr/>
-                    <br/>
-
-                    <TextField classsName={classes.textField} className={classes.margin} label="Fecha de Inicio" 
-                         name="fechaIn"
-                         type="date"
-                         defaultValue=""
-                         InputLabelProps={{
-                            shrink: true,
-                          }}
-                          />
 
 
-                        <TextField classsName={classes.textField} className={classes.margin} 
-                        label="Fecha Fin Planificada" 
-                        name="fechaFinPlan"
-                        type="date"
-                        defaultValue=""
-                        InputLabelProps={{
-                           shrink: true,
-                         }}
-                         />
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <KeyboardDatePicker 
+                            className={classes.margin}
+                            name="fechaIn"
+                            disableToolbar
+                            variant="inline"
+                            format="MM/DD/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Fecha de Inicio"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                              'aria-label': 'change date',
+                            }} />
 
-                        <TextField classsName={classes.textField} className={classes.margin} 
-                        label="Fecha Fin entrega/real" 
-                        name="fechaFinReal"
-                        type="date"
-                        defaultValue=""
-                        InputLabelProps={{
-                           shrink: true,
-                         }}
-                         />
+                            <KeyboardDatePicker 
+                            className={classes.margin}
+                            name="fechaFinPlan"
+                            disableToolbar
+                            variant="inline"
+                            format="MM/DD/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Fecha Fin Planificada"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                              'aria-label': 'change date',
+                            }} />
+
+
+
+                        <KeyboardDatePicker 
+                            className={classes.margin}
+                            name="fechaFinReal"
+                            disableToolbar
+                            variant="inline"
+                            format="MM/DD/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Fecha Fin entrega/real"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                              'aria-label': 'change date',
+                            }} />
+                        </MuiPickersUtilsProvider>
+                      
+
                     </div>
 
                     <div>
@@ -154,12 +195,12 @@ const ModalUpdatePortafolio = (props) => {
                         label="% de Desviación"
                         InputProps={{ inputProps: { min: 0, max: 100 } }}/>
                     </div>
-
+                    
+                    <br/>
 
                     <div>
                         <p>Comentarios cliente</p>
                         <hr/>
-                        <br/>
                         <TextField 
                             classsName={classes.textField} 
                             className={classes.margin} 
@@ -181,11 +222,12 @@ const ModalUpdatePortafolio = (props) => {
                             className={classes.margin} 
                             label="Comentarios del cliente" />
                     </div>
+                    
+                    <br/>
 
                     <div>
                         <p>Comentarios Intelix</p>
                         <hr/>
-                        <br/>
                         <TextField 
                             classsName={classes.textField} 
                             className={classes.margin} 
@@ -221,10 +263,12 @@ const ModalUpdatePortafolio = (props) => {
                         <TextField 
                             classsName={classes.textField} 
                             className={classes.margin} 
-                            label="Punto a tratar en comité" />
+                            label="Puntos a tratar en comité" />
                     </div>
 
-                    <div className={classes.buttons}>
+                    <br/>
+
+                    <div className={classes.button}>
                         <Button onClick={props.onClose} color="primary">
                             Cancel
                         </Button>

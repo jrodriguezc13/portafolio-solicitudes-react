@@ -22,7 +22,7 @@ const Search  = (props) => {
               inputProps={{ 'aria-label': 'search'}}
               onChange={onSearchChange}
                     value={props.search}
-              onKeyUp
+              
             />
           </div>
     )

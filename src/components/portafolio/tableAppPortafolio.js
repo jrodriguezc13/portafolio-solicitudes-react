@@ -54,11 +54,12 @@ const TableAppPortafolio = (props) => {
         headers: { 'Accept': 'application/json' }
       }); 
       axiosInstance
-        .get("portfolio/" + id)
+        .get("portfolio/")
         .then((res) => {
           props.setId(res.data[0].reqId);
-          props.setName(res.data[0].reqTitle);         
-          console.log(res.data[0].reqTitle);
+          props.setName(res.data[0].reqTitle);
+          console.log(res.data[0].reqId);
+          console.log(res.data[0].reqTitle)
         })
         .catch((err) => {
           console.log(err);
@@ -67,8 +68,7 @@ const TableAppPortafolio = (props) => {
     }
 
     const handleCloseDelete = () => {
-      setOpenDelete(false);
-     
+      setOpenDelete(false);  
     }
     
 
@@ -143,9 +143,7 @@ const TableAppPortafolio = (props) => {
          
          <ModalUpdatePortafolio open={openUpdate} onClose={handleCloseUpdate} />
          <ModalDeletePortafolio open={openDelete} onClose={handleCloseDelete} cb={props.cb} 
-         setCb={props.setCb} id={props.id}
-                setId={props.setId}
-                SetName={props.name}/>
+         setCb={props.setCb} id={props.id} setId={props.setId}/>
 
   </Paper>
     )

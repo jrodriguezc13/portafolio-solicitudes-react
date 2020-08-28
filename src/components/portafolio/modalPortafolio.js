@@ -13,6 +13,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Grid from '@material-ui/core/Grid';
 import CreateIcon from '@material-ui/icons/Create';
 
+import MomentUtils from '@date-io/moment';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
 import axios from "axios";
 import { useForm } from 'react-hook-form';
 import useStyles from './portafolio.styles';
@@ -22,7 +29,11 @@ import useStyles from './portafolio.styles';
 
 const ModalPortafolio = (props) => {
     const classes = useStyles();
+    const [selectedDate, setSelectedDate] = useState(new Date())
     const {register, errors, handleSubmit} = useForm();
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+      };
     
     
     const onSubmit = (data) => {
@@ -75,7 +86,7 @@ const ModalPortafolio = (props) => {
                        <Grid direction="row" item xs={12} md={12} lg={12}>
                          <p>Datos Generales</p>
                          <hr/>
-                         <br/>
+                         
                         
                         <TextField 
                          className={classes.margin}
@@ -102,20 +113,23 @@ const ModalPortafolio = (props) => {
                             })
                         }/>
                      
-                         <TextField classsName={classes.textField} className={classes.margin} label="Fecha de Solicitud" 
-                         name="fechaSol"
-                         type="date"
-                         defaultValue=""
-                         InputLabelProps={{
-                            shrink: true,
-                          }}
-                          onChange={(event) => props.setName(event.target.value)}
-                         value={props.reqdate}
-                         inputRef= {
-                            register({
-                              required: {value: true, message: 'Campo obligatorio'}
-                            })
-                        }/>
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <KeyboardDatePicker 
+                            className={classes.margin}
+                            name="fechaSol"
+                            disableToolbar
+                            variant="inline"
+                            format="MM/DD/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Fecha de Solicitud"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                              'aria-label': 'change date',
+                            }} />
+                        </MuiPickersUtilsProvider>
+                        
                     
                       </Grid>   
                     </div>
@@ -156,36 +170,50 @@ const ModalPortafolio = (props) => {
                     </Grid>
                     </div>
                     
-                  
+                    <br/>
                     
                     <div>
                         <p>Datos de Seguimiento</p>
                         <hr/>
-                       
-                        <TextField classsName={classes.textField} className={classes.margin} label="Fecha de Inicio" 
-                         name="fechaIn"
-                         type="date"
-                         defaultValue=""
-                         InputLabelProps={{
-                            shrink: true,
-                          }}
-                          />
+                        <Grid direction="row" item xs={12} md={12} lg={12}>
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <KeyboardDatePicker 
+                            className={classes.margin}
+                            name="fechaIn"
+                            disableToolbar
+                            variant="inline"
+                            format="MM/DD/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Fecha de Inicio"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                              'aria-label': 'change date',
+                            }} />
 
-
-                        <TextField classsName={classes.textField} className={classes.margin} label="Fecha Fin Planificada" 
-                        name="fechaFinPlan"
-                        type="date"
-                        defaultValue=""
-                        InputLabelProps={{
-                           shrink: true,
-                         }}
-                         />
-                      
+                            <KeyboardDatePicker 
+                            className={classes.margin}
+                            name="fechaFinPlan"
+                            disableToolbar
+                            variant="inline"
+                            format="MM/DD/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Fecha Fin Planificada"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                              'aria-label': 'change date',
+                            }} />
+                        </MuiPickersUtilsProvider>
+                     </Grid> 
                        
                     </div>
+                    
+                    <br/>
 
-
-                    <div className={classes.buttons}>
+                    <div className={classes.button}>
                         <Button onClick={props.onClose} color="primary">
                             Cancel
                         </Button>

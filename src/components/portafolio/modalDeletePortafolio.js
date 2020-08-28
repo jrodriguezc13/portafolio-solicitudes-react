@@ -26,7 +26,7 @@ const ModalDeletePortafolio = (props) => {
                 props.setCb(!props.cb);
                 props.onClose();
             })
-            .catch((err) =>{
+            .catch((err) => {
                 console.log(err)
             });
     }
@@ -40,13 +40,14 @@ const ModalDeletePortafolio = (props) => {
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    ¿Está seguro de eliminar la solicitud del Portafolio?
+                    ¿Está seguro de eliminar la solicitud {props.name} del Portafolio de Clientes?
+                    
                 </DialogContentText>
 
-                <div className={classes.buttons}>
+                <div className={classes.button}>
                     <Button onClick={props.onClose} color="primary">
                         Cancel
-                    </Button>
+                    </Button> 
                     <Button onClick={() => deletePortafolio(props.id)}
                         variant="contained"
                         color="primary">

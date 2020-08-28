@@ -85,7 +85,7 @@ export default makeStyles(theme => ({
     },
     radioButton: {
         marginLeft: '30px'
-    }
+    },
 
     margin: {
         margin: theme.spacing(1),
@@ -112,13 +112,7 @@ export default makeStyles(theme => ({
         padding: theme.spacing(2),
     },
 
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-        margin: 'auto',
-        width: 'fit-content',
-        flexWrap: 'wrap',
-    },
+    
     formControl: {
         margin: theme.spacing(1),
         minWidth: 200,

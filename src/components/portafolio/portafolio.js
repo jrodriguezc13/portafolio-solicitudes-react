@@ -94,25 +94,18 @@ const Portafolio = (props) => {
             <Container maxWidth="lg" className={classes.container}>
 
             <Grid container justify= 'center' spacing={2}>
-                <Grid item xs={12} md={12} lg={12}>
-                    <PaperTitle title={"Portafolio"}/>
-                </Grid>
-
-                <Grid item xs={12} md={12} lg={12}>
-                    <TableAppPortafolio fetchedData={fetchedData}/>
-                    <Grid>
-                        <Fab className={classes.fab} color="primary" aria-label="add" onClick={handleOnOpen}>
-                            <AddIcon/>
-                        </Fab>
-                    </Grid>
-
-                </Grid>
+             
                 <Grid item xs={12} md={12} lg={12}>
                         <PaperTitle title={"Portafolio"} search={search} setSearch={setSearch}/>
 
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
                         <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}/>
+                        <Grid>
+                        <Fab className={classes.fab} color="primary" aria-label="add" onClick={handleOnOpen}>
+                            <AddIcon/>
+                        </Fab>
+                    </Grid>
                 </Grid>
 
             </Grid>
