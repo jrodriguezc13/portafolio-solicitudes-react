@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+const qs = require('qs');
 
 export const useHttpGet = (url, dependencies, params = []) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -8,20 +9,25 @@ export const useHttpGet = (url, dependencies, params = []) => {
     const axiosInstance = axios.create({
         baseURL: 'http://localhost:3050/api/v1/',
         timeout: 2000,
-        headers: { 'Accept': 'application/json' }
+        headers: { 'Accept': 'application/json'},
+
+        
     });
 
     let httpParams = new URLSearchParams();
     params.forEach(p => {
+        console.log(p.value)
         if (p.value !== null) {
-            httpParams = httpParams.append(p.key, p.value);
+            httpParams.append(p.key, p.value);
+
         }
     });
+    console.log(httpParams.toString())
 
     useEffect(() => {
         setIsLoading(true);
         axiosInstance
-            .get(url, httpParams)
+            .get(url, { params: httpParams })
             .then((data) => {
                 setIsLoading(false);
                 setFetchedData(data);

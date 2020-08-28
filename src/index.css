@@ -17,6 +17,10 @@ code {
     max-width: 1.5em !important;
 }
 
+.MuiTableCell-head {
+    min-width: 80px!important;
+}
+
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
