@@ -15,7 +15,7 @@ const PaperTitlePortafolio = (props) => {
             className={classes.rootPaper} gutterBottom> 
                     {props.title}
                 </Typography>
-                <FilterPortafolio search={props.search} setSearch={props.setSearch}/>
+                <FilterPortafolio search={props.search} setSearch={props.setSearch} client={props.client} coa={props.coa} status={props.status} selectCli={props.selectCli} selectCoa={props.selectCoa} selectEst={props.selectEst} setSelectCli={props.setSelectCli} setSelectCoa={props.setSelectCoa} setSelectEst={props.setSelectEst} cb={props.cb} setCb={props.setCb}/>
                 
           </Paper>
 

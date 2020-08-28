@@ -14,9 +14,10 @@ const FilterPortafolio = (props) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const [cliente, setCliente] = React.useState([]);
-    const [areaComercial, setAreaComercial] = React.useState([]);
-    const [estado, setEstado] = React.useState([]);
+    const data = props.client === null ? [] : props.client.data;
+    const dataCoa = props.coa === null ? [] : props.coa.data;
+    const dataStatus = props.status === null ? [] : props.status.data;
+
 
     
     const handleClick = (event) => {
@@ -31,6 +32,15 @@ const FilterPortafolio = (props) => {
         props.setSearch(e.target.value);
         console.log(props.search)
     };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(props.selectCoa)
+        console.log(props.selectCli)
+        console.log(props.selectEst)
+        props.setCb(!props.cb);
+        
+    }
 
     let content = (
         <div>
@@ -49,19 +59,21 @@ const FilterPortafolio = (props) => {
                 TransitionComponent={Fade}
               >
                   <Typography color="primary" className={classes.filterTitle}>Filtrar</Typography>
-                <form className={classes.formColumn}>
+                <form className={classes.formColumn} onSubmit={handleSubmit}>
                     <FormControl className={classes.form}>
                             <InputLabel id="demo-simple-select-label">Empresa</InputLabel>
                             <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={cliente}
-                            onChange={(event) => setCliente(event.target.value)}
+                            value={props.selectCli}
+                            onChange={(event) => props.setSelectCli(event.target.value)}
                             multiple
                             >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                {data.map((data) => (
+                                    <MenuItem key={data.cliId} value={data.cliId}>
+                                    {data.cliName}
+                                    </MenuItem>
+                                ))}
                             </Select>
                     </FormControl>
 
@@ -70,13 +82,15 @@ const FilterPortafolio = (props) => {
                             <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={areaComercial}
-                            onChange={(event) => setAreaComercial(event.target.value)}
+                            value={props.selectCoa}
+                            onChange={(event) => props.setSelectCoa(event.target.value)}
                             multiple
                             >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                {dataCoa.map((data) => (
+                                    <MenuItem key={data.coaId} value={data.coaId}>
+                                    {data.coaName}
+                                    </MenuItem>
+                                ))}
                             </Select>
                     </FormControl>
 
@@ -85,13 +99,15 @@ const FilterPortafolio = (props) => {
                             <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={estado}
-                            onChange={(event) => setEstado(event.target.value)}
+                            value={props.selectEst}
+                            onChange={(event) => props.setSelectEst(event.target.value)}
                             multiple
                             >
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
+                                {dataStatus.map((data) => (
+                                    <MenuItem key={data.estId} value={data.estId}>
+                                    {data.estName}
+                                    </MenuItem>
+                                ))}
                             </Select>
                     </FormControl>
                     <FilterByDate/>
@@ -106,7 +122,7 @@ const FilterPortafolio = (props) => {
                     <Button color="primary">
                         Todo
                     </Button>
-                    <Button 
+                    <Button type="submit"
                         variant="contained"
                         color="primary">
                         Buscar
