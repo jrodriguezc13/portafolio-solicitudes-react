@@ -15,14 +15,18 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-const FilterByDate = () => {
+const FilterByDate = (props) => {
 
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    
 
     const handleDateChange = (date) => {
-        setSelectedDate(date);
+        props.setSelectedDesdeDate(date);
+    };
+
+    const handleDateChange2 = (date) => {
+        props.setSelectedHastaDate(date);
     };
 
 
@@ -36,10 +40,9 @@ const FilterByDate = () => {
     
       const open = Boolean(anchorEl);
       const id = open ? 'simple-popover' : undefined;
-      const [value, setValue] = React.useState('female');
 
         const handleChange = (event) => {
-            setValue(event.target.value);
+            props.setValueRadio(event.target.value);
         };
     let content = (
 
@@ -71,11 +74,11 @@ const FilterByDate = () => {
                             <FormLabel component="legend">Por fecha</FormLabel>
                         </Grid>
                         <Grid item xs={12} md={12} lg={12}>
-                            <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                                <FormControlLabel value="female" control={<Radio color="primary" />} label="Fecha solicitud"  />
-                                <FormControlLabel  value="male" control={<Radio color="primary" />} label="Fecha inicio"  />
-                                <FormControlLabel value="alien" control={<Radio color="primary" />} label="Fecha fin planificada"  />
-                                <FormControlLabel value="mixto" control={<Radio color="primary" />} label="Fecha fin entrega/Real"  />
+                            <RadioGroup aria-label="dateRequest" name="dateRequest" value={props.valueRadio} onChange={handleChange}>
+                                <FormControlLabel value= "1" control={<Radio color="primary" />} label="Fecha solicitud"  />
+                                <FormControlLabel  value= "2" control={<Radio color="primary" />} label="Fecha inicio"  />
+                                <FormControlLabel value= "3" control={<Radio color="primary" />} label="Fecha fin planificada"  />
+                                <FormControlLabel value= "4" control={<Radio color="primary" />} label="Fecha fin entrega/Real"  />
                             </RadioGroup>
                         </Grid>
                         <Grid item xs={12} md={12} lg={12}>
@@ -84,11 +87,11 @@ const FilterByDate = () => {
                                 <KeyboardDatePicker
                                     disableToolbar
                                     variant="inline"
-                                    format="MM/DD/yyyy"
+                                    format="DD/MM/yyyy"
                                     margin="normal"
                                     id="date-picker-inline"
-                                    label="Date picker inline"
-                                    value={selectedDate}
+                                    label="Desde"
+                                    value={props.selectedDesdeDate}
                                     onChange={handleDateChange}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
@@ -97,12 +100,12 @@ const FilterByDate = () => {
                                 <KeyboardDatePicker
                                     disableToolbar
                                     variant="inline"
-                                    format="MM/DD/yyyy"
+                                    format="DD/MM/yyyy"
                                     margin="normal"
-                                    id="date-picker-inline"
-                                    label="Date picker inline"
-                                    value={selectedDate}
-                                    onChange={handleDateChange}
+                                    id="date-picker-inline2"
+                                    label="Hasta"
+                                    value={props.selectedHastaDate}
+                                    onChange={handleDateChange2}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date',
                                     }}

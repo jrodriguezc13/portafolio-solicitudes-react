@@ -24,6 +24,9 @@ const Portafolio = (props) => {
     const [tipoSol, setTipoSol] = useState([]);
     const [user, setUser] = useState([]);
 
+    const [selectedDesdeDate, setSelectedDesdeDate] = React.useState(null);
+    const [selectedHastaDate, setSelectedHastaDate] = React.useState(null);
+    const [valueRadio, setValueRadio] = React.useState("0");
 
     const [isLoading, fetchedData] = useHttpGet("portfolio", [
     cb,
@@ -31,6 +34,10 @@ const Portafolio = (props) => {
   [
     {key: 'cliId', value: cliente},
     {key: 'coaId', value: areaComercial},
+    {key: 'estId', value: estado},
+    {key: 'desde', value: selectedDesdeDate},
+    {key: 'hasta', value: selectedHastaDate},
+    {key: 'rbutton', value: valueRadio}]
     {key: 'estId', value: estado},
     {key: 'teaId', value: areaTecnica},
     {key: 'typId', value: tipoSol},
@@ -45,8 +52,8 @@ const Portafolio = (props) => {
     const [dataTechnical, setDataTechnical] = useState(null);
     const [dataReqTyp, setDataReqTyp] = useState(null);
     const [dataUser, setDataUser] = useState(null);
-    
- 
+
+
     useEffect(() => {
 
         const axiosInstance = axios.create({
@@ -117,7 +124,7 @@ const Portafolio = (props) => {
 
             });
 
-            
+
     }, []);
 
 
@@ -151,13 +158,10 @@ const Portafolio = (props) => {
             <Grid container justify= 'center' spacing={2}>
 
                 <Grid item xs={12} md={12} lg={12}>
-                        <PaperTitle title={"Portafolio"} search={search} setSearch={setSearch} 
-                        client={dataClient} coa={dataComercialArea} status={dataStatus} 
-                        selectCli={cliente} selectCoa={areaComercial} selectEst={estado} 
-                        setSelectCli={setCliente} setSelectCoa={setAreaComercial} setSelectEst={setEstado} 
-                        cb={cb} setCb={setCb}/>
+                        <PaperTitle title={"Portafolio"} search={search} setSearch={setSearch} client={dataClient} coa={dataComercialArea} status={dataStatus} selectCli={cliente} selectCoa={areaComercial} selectEst={estado} setSelectCli={setCliente} setSelectCoa={setAreaComercial} setSelectEst={setEstado} cb={cb} setCb={setCb} selectedDesdeDate={selectedDesdeDate} setSelectedDesdeDate={setSelectedDesdeDate} selectedHastaDate={selectedHastaDate} setSelectedHastaDate={setSelectedHastaDate} valueRadio={valueRadio}
+                        setValueRadio={setValueRadio}/>
                 
-                      
+
 
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
@@ -175,10 +179,10 @@ const Portafolio = (props) => {
                     setId={setId}
                     name={name}
                     setName={setName}
-                    open={open} onClose={handleOnClose} 
+                    open={open} onClose={handleOnClose}
                     client={dataClient} selectCli={cliente} setSelectCli={setCliente}
                     coa={dataComercialArea} selectCoa={areaComercial} setSelectCoa={setAreaComercial}
-                    technical={dataTechnical} selectTea={areaTecnica} setSelectTea={setAreaTecnica} 
+                    technical={dataTechnical} selectTea={areaTecnica} setSelectTea={setAreaTecnica}
                    typeReq={dataReqTyp} selectReqTyp={tipoSol} setSelectTyp={setTipoSol}
                     user={dataUser} selectUser={user} setSelectUser={setUser}/>
 
