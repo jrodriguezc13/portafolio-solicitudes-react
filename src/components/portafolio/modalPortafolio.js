@@ -47,6 +47,8 @@ const ModalPortafolio = (props) => {
         setSelectedDate3(date3)
     }; 
 
+  
+
     const data = props.client === null ? [] : props.client.data;
     const dataCoa = props.coa === null ? [] : props.coa.data;
     const dataTea = props.technical === null ? [] : props.technical.data;
@@ -158,7 +160,7 @@ const ModalPortafolio = (props) => {
                       <Grid  item xs={12} md={12} lg={12}>
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
-                            <Select autoWidth value={props.selectCli}>
+                            <Select autoWidth value={props.selectCli} onChange={(event) => props.setSelectCli(event.target.value)}>
                             {data.map((data) => (
                                     <MenuItem key={data.cliId} value={data.cliId}>
                                     {data.cliName}

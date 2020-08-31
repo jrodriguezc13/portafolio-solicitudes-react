@@ -29,26 +29,6 @@ const TableAppPortafolio = (props) => {
     const [openUpdate, setOpenUpdate] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
     const [openDetail, setOpenDetail] = useState(false);
-    const [dataClient, setDataClient] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-      setIsLoading(true);
-      const axiosInstance = axios.create({
-        baseURL: 'http://localhost:3050/api/v1/',
-        timeout: 2000,
-        headers: { 'Accept': 'application/json' }
-    });
-    axiosInstance
-        .get('clientes')
-        .then((data) => {
-            setIsLoading(false);
-            setDataClient(data);
-        })
-        .catch((err) => {
-            setIsLoading(false);
-        });
-    })
 
     const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -189,10 +169,8 @@ const TableAppPortafolio = (props) => {
 
         <ModalUpdatePortafolio open={openUpdate} onClose={handleCloseUpdate} />
         <ModalDeletePortafolio open={openDelete} onClose={handleCloseDelete} cb={props.cb} 
-         setCb={props.setCb} id={props.id}
-                
-                name={props.name}/>
-        <ModalDetailPortafolio open={openDetail} onClose={handleCloseDetail} client={dataClient}/>        
+         setCb={props.setCb} id={props.id} name={props.name}/>
+        <ModalDetailPortafolio open={openDetail} onClose={handleCloseDetail} />        
   </Paper>
     )
     return content;
