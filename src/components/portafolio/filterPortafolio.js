@@ -41,6 +41,15 @@ const FilterPortafolio = (props) => {
         props.setCb(!props.cb);
         
     }
+    const restart = () => {
+        props.setSelectCli([])
+        props.setSelectCoa([])
+        props.setSelectEst([])
+        props.setSelectedDesdeDate(null)
+        props.setSelectedHastaDate(null)
+        props.setCb(!props.cb);
+
+    }
 
     let content = (
         <div>
@@ -110,7 +119,7 @@ const FilterPortafolio = (props) => {
                                 ))}
                             </Select>
                     </FormControl>
-                    <FilterByDate/>
+                    <FilterByDate selectedDesdeDate={props.selectedDesdeDate} setSelectedDesdeDate={props.setSelectedDesdeDate} selectedHastaDate={props.selectedHastaDate} setSelectedHastaDate={props.setSelectedHastaDate} valueRadio={props.valueRadio} setValueRadio={props.setValueRadio}/>
                     <InputBase
                         placeholder="Buscar por título"
                         className={classes.inputRoot}
@@ -119,8 +128,8 @@ const FilterPortafolio = (props) => {
                                 value={props.search}
                     />
                     <div className={classes.buttons}>
-                    <Button color="primary">
-                        Todo
+                    <Button color="primary" onClick={() => restart()}>
+                       Ver Todo
                     </Button>
                     <Button type="submit"
                         variant="contained"
