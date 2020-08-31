@@ -35,13 +35,13 @@ const Portafolio = (props) => {
     {key: 'cliId', value: cliente},
     {key: 'coaId', value: areaComercial},
     {key: 'estId', value: estado},
-    {key: 'desde', value: selectedDesdeDate},
-    {key: 'hasta', value: selectedHastaDate},
-    {key: 'rbutton', value: valueRadio}]
     {key: 'estId', value: estado},
     {key: 'teaId', value: areaTecnica},
     {key: 'typId', value: tipoSol},
-    {key: 'userId', value: user}]
+    {key: 'userId', value: user},
+    {key: 'desde', value: selectedDesdeDate},
+    {key: 'hasta', value: selectedHastaDate},
+    {key: 'rbutton', value: valueRadio},]
     );
 
 
