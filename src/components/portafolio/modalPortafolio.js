@@ -29,14 +29,34 @@ import useStyles from './portafolio.styles';
 const ModalPortafolio = (props) => {
     const classes = useStyles();
     const [selectedDate, setSelectedDate] = useState(new Date())
+    const [selectedDate2, setSelectedDate2] = useState(new Date())
+    const [selectedDate3, setSelectedDate3] = useState(new Date())
+
     const {register, errors, handleSubmit} = useForm();
+
+
     const handleDateChange = (date) => {
         setSelectedDate(date);
       };
 
-     
+    const handleDateChange2 = (date2) => {
+        setSelectedDate2(date2)
+    }; 
+
+    const handleDateChange3 = (date3) => {
+        setSelectedDate3(date3)
+    }; 
+
+    const data = props.client === null ? [] : props.client.data;
+    const dataCoa = props.coa === null ? [] : props.coa.data;
+    const dataTea = props.technical === null ? [] : props.technical.data;
+    const dataReq = props.typeReq === null ? [] : props.typeReq.data;
+    const dataLeader = props.user === null ? [] : props.user.data;
+
     
     
+
+
     const onSubmit = (data) => {
         console.log(errors);
         const axiosInstance = axios.create({
@@ -84,7 +104,7 @@ const ModalPortafolio = (props) => {
                
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                     <div>
-                       <Grid direction="row" item xs={12} md={12} lg={12}>
+                       <Grid  item xs={12} md={12} lg={12}>
                          <p>Datos Generales</p>
                          <hr/>
                          
@@ -98,8 +118,7 @@ const ModalPortafolio = (props) => {
                          inputRef= {
                             register({
                               required: {value: true, message: 'Campo obligatorio'}
-                            })
-                            
+                            })  
                         }/>
   
                          <TextField 
@@ -120,7 +139,7 @@ const ModalPortafolio = (props) => {
                             name="fechaSol"
                             disableToolbar
                             variant="inline"
-                            format="MM/DD/yyyy"
+                            format="DD/MM/yyyy"
                             margin="normal"
                             id="date-picker-inline"
                             label="Fecha de Solicitud"
@@ -136,34 +155,66 @@ const ModalPortafolio = (props) => {
                     </div>
 
                     <div>
-                      <Grid direction="row" item xs={12} md={12} lg={12}>
+                      <Grid  item xs={12} md={12} lg={12}>
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
-                            <Select autoWidth>
+                            <Select autoWidth value={props.selectCli}>
+                            {data.map((data) => (
+                                    <MenuItem key={data.cliId} value={data.cliId}>
+                                    {data.cliName}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
 
 
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Área Comercial</InputLabel>
-                            <Select autoWidth/>
+                            <Select autoWidth value={props.selectCoa}>
+                            {dataCoa.map((data) => (
+                                    <MenuItem key={data.coaId} value={data.coaId}>
+                                    {data.coaName}
+                                    </MenuItem>
+                                ))}
+                                
+                            </Select>
                         </FormControl>
+
+
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Área Técnica</InputLabel>
-                            <Select autoWidth/>
+                            <Select autoWidth value={props.selectTea}>
+                               {dataTea.map((data) => (
+                                   <MenuItem key={data.teaId} value={data.teaId}>
+                                    {data.teaName}
+                                   </MenuItem>
+                               ))}
+                            </Select>
                         </FormControl>
                      </Grid>
                     </div>
 
                     <div>
-                    <Grid direction="row" item xs={12} md={12} lg={12}>
+                    <Grid  item xs={12} md={12} lg={12}>
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Responsable</InputLabel>
-                            <Select autoWidth/>
+                            <Select autoWidth value={props.selectUser}>
+                             
+                            </Select>
                         </FormControl>
+
+
+
+
                         <FormControl className={classes.formControl}>
                         <InputLabel id="demo-simple-select-label">Tipo de Solicitud</InputLabel>
-                        <Select autoWidth/>
+                        <Select autoWidth value={props.selectReqTyp}>
+                        {dataReq.map((data) => (
+                                   <MenuItem key={data.typId} value={data.typId}>
+                                    {data.typName}
+                                   </MenuItem>
+                               ))}
+                        </Select>
                     </FormControl>
                     </Grid>
                     </div>
@@ -173,19 +224,19 @@ const ModalPortafolio = (props) => {
                     <div>
                         <p>Datos de Seguimiento</p>
                         <hr/>
-                        <Grid direction="row" item xs={12} md={12} lg={12}>
+                        <Grid  item xs={12} md={12} lg={12}>
                         <MuiPickersUtilsProvider utils={MomentUtils}>
                             <KeyboardDatePicker 
                             className={classes.margin}
                             name="fechaIn"
                             disableToolbar
                             variant="inline"
-                            format="MM/DD/yyyy"
+                            format="DD/MM/yyyy"
                             margin="normal"
                             id="date-picker-inline"
                             label="Fecha de Inicio"
-                            value={selectedDate}
-                            onChange={handleDateChange}
+                            value={selectedDate2}
+                            onChange={handleDateChange2}
                             KeyboardButtonProps={{
                               'aria-label': 'change date',
                             }} />
@@ -195,12 +246,12 @@ const ModalPortafolio = (props) => {
                             name="fechaFinPlan"
                             disableToolbar
                             variant="inline"
-                            format="MM/DD/yyyy"
+                            format="DD/MM/yyyy"
                             margin="normal"
                             id="date-picker-inline"
                             label="Fecha Fin Planificada"
-                            value={selectedDate}
-                            onChange={handleDateChange}
+                            value={selectedDate3}
+                            onChange={handleDateChange3}
                             KeyboardButtonProps={{
                               'aria-label': 'change date',
                             }} />

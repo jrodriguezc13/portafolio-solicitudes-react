@@ -21,7 +21,7 @@ const ModalDeletePortafolio = (props) => {
         });
 
         axiosInstance
-            .put("portfolio/" + id)
+            .put("portfolio/")
             .then((res)=> {
                 props.setCb(!props.cb);
                 props.onClose();
@@ -40,7 +40,7 @@ const ModalDeletePortafolio = (props) => {
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    ¿Está seguro de eliminar la solicitud {props.name} del Portafolio de Clientes?
+                    ¿Está seguro de eliminar la solicitud del Portafolio de Clientes?
                     
                 </DialogContentText>
 
