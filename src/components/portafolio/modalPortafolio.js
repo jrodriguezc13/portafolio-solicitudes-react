@@ -25,14 +25,16 @@ import useStyles from './portafolio.styles';
 
 
 
-
 const ModalPortafolio = (props) => {
     const classes = useStyles();
     const [selectedDate, setSelectedDate] = useState(new Date())
     const [selectedDate2, setSelectedDate2] = useState(new Date())
     const [selectedDate3, setSelectedDate3] = useState(new Date())
+   
 
     const {register, errors, handleSubmit} = useForm();
+
+  
 
 
     const handleDateChange = (date) => {
@@ -47,53 +49,18 @@ const ModalPortafolio = (props) => {
         setSelectedDate3(date3)
     }; 
 
-  
+    
 
     const data = props.client === null ? [] : props.client.data;
     const dataCoa = props.coa === null ? [] : props.coa.data;
     const dataTea = props.technical === null ? [] : props.technical.data;
     const dataReq = props.typeReq === null ? [] : props.typeReq.data;
-    const dataLeader = props.user === null ? [] : props.user.data;
+    const dataUser = props.user === null ? [] : props.user.data;
 
     
     
 
 
-    const onSubmit = (data) => {
-        console.log(errors);
-        const axiosInstance = axios.create({
-            baseURL: 'http://localhost:3050/api/v1',
-            timeout: 2000,
-            headers: { 'Accept': 'application/json',
-                'Content-Type': 'application/json' }
-        });
-       
-
-        if (props.id === null) {
-            axiosInstance
-            .post("portfolio", {
-                reqTitle: props.title,
-                reqDescription: props.description,
-                reqRequestDate: props.reqdate,
-                reqInitialDate: props.indate,
-                reqPlanFinalDate: props.finaldate,
-                cliId: props.clid,
-                coaId: props.coaid,
-                teaId: props.teaid,
-                leaId: props.leaid,
-                typId: props.typid,
-                estId: props.estid,
-            })
-            .then((res) => {
-                props.setName("");
-                props.setCb(!props.cb)
-                props.onClose();
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-        }
-    }
     
 
     let content = (
@@ -104,7 +71,7 @@ const ModalPortafolio = (props) => {
             </DialogTitle>
             <DialogContent>
                
-                <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                <form className={classes.form} >
                     <div>
                        <Grid  item xs={12} md={12} lg={12}>
                          <p>Datos Generales</p>
@@ -116,24 +83,17 @@ const ModalPortafolio = (props) => {
                          label="Título"
                          name="titulo"
                          onChange={(event) => props.setName(event.target.value)}
-                         value={props.title}
-                         inputRef= {
-                            register({
-                              required: {value: true, message: 'Campo obligatorio'}
-                            })  
-                        }/>
+                         value={"Título"}
+                         />
   
                          <TextField 
                          className={classes.margin} 
                          label="Descripción"
                          name="descripcion"
                          onChange={(event) => props.setName(event.target.value)}
-                         value={props.description}
-                         inputRef= {
-                            register({
-                              required: {value: true, message: 'Campo obligatorio'}
-                            })
-                        }/>
+                         value={"Descripción"}
+                         />
+                         
                      
                         <MuiPickersUtilsProvider utils={MomentUtils}>
                             <KeyboardDatePicker 
@@ -160,7 +120,7 @@ const ModalPortafolio = (props) => {
                       <Grid  item xs={12} md={12} lg={12}>
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
-                            <Select autoWidth value={props.selectCli} onChange={(event) => props.setSelectCli(event.target.value)}>
+                            <Select autoWidth value={props.selectCli} >
                             {data.map((data) => (
                                     <MenuItem key={data.cliId} value={data.cliId}>
                                     {data.cliName}
@@ -201,7 +161,11 @@ const ModalPortafolio = (props) => {
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Responsable</InputLabel>
                             <Select autoWidth value={props.selectUser}>
-                             
+                             {dataUser.map((data) => (
+                                 <MenuItem key={data.userId} value={data.userId}>
+                                     {data.userName}
+                                 </MenuItem>
+                             ))}
                             </Select>
                         </FormControl>
 

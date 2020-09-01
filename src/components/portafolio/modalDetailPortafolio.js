@@ -29,6 +29,7 @@ const ModalDetailPortafolio = (props) => {
     const classes = useStyles();
     const [selectedDate, setSelectedDate] = useState(new Date());
 
+
     
     
 
@@ -269,7 +270,7 @@ const ModalDetailPortafolio = (props) => {
                         </FormControl>
 
                         <TextField 
-                            classsName={classes.textField} 
+                            className={classes.textField} 
                             className={classes.margin} 
                             label="Puntos a tratar en comité"
                             readOnly />

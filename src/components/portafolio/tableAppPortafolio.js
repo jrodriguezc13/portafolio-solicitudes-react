@@ -42,7 +42,7 @@ const TableAppPortafolio = (props) => {
 
     const handleClickOpenUpdate = (id) => {
       setOpenUpdate(true)
-      console.log(id)
+      //console.log(id)
     };
 
     const handleCloseUpdate = () => {
@@ -52,24 +52,6 @@ const TableAppPortafolio = (props) => {
     const handleClickOpenDelete = (id) => {
       setOpenDelete(true);
       console.log(id)
-
-      const axiosInstance = axios.create({
-        baseURL: 'http://localhost:3050/api/v1/',
-        timeout: 2000,
-        headers: { 'Accept': 'application/json' }
-      }); 
-      axiosInstance
-        .get("portfolio/")
-        .then((res) => {
-          props.setName(res.data[0].reqTitle);         
-          console.log(res.data[0].reqTitle);
-          console.log(res.data[0].reqId)
-        })
-        .catch((err) => {
-          console.log(err);
-         
-        });
-
     }
 
     const handleCloseDelete = () => {
@@ -168,8 +150,7 @@ const TableAppPortafolio = (props) => {
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
 
         <ModalUpdatePortafolio open={openUpdate} onClose={handleCloseUpdate} />
-        <ModalDeletePortafolio open={openDelete} onClose={handleCloseDelete} cb={props.cb} 
-         setCb={props.setCb} id={props.id} name={props.name}/>
+        <ModalDeletePortafolio open={openDelete} onClose={handleCloseDelete} cb={props.cb} setCb={props.setCb} id={props.reqId}/>
         <ModalDetailPortafolio open={openDetail} onClose={handleCloseDetail} />        
   </Paper>
     )

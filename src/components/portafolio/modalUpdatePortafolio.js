@@ -24,6 +24,7 @@ import {
 
 import axios from "axios";
 import { useForm } from 'react-hook-form';
+
 const ModalUpdatePortafolio = (props) => {
     const classes = useStyles();
 
@@ -34,6 +35,10 @@ const ModalUpdatePortafolio = (props) => {
         setSelectedDate(date);
       };
 
+
+
+    
+      
     let content = (
         <Dialog className={classes.dialog} 
         maxWidth={'lg'}
@@ -45,7 +50,7 @@ const ModalUpdatePortafolio = (props) => {
                 Solicitud de Portafolio
             </DialogTitle>
             <DialogContent>
-                <form className={classes.form} maxWidth={'lg'}>
+                <form className={classes.form} >
                     <div>
                      <p>Datos generales</p>
                      <hr/>
@@ -183,13 +188,13 @@ const ModalUpdatePortafolio = (props) => {
                         </FormControl>
 
                     <TextField 
-                        classsName={classes.textField} 
+                        className={classes.textField} 
                         className={classes.margin} 
                         type="number" 
                         label="% de Avance"
                         InputProps={{ inputProps: { min: 0, max: 100 } }}/>
                     <TextField 
-                        classsName={classes.textField} 
+                        className={classes.textField} 
                         className={classes.margin} 
                         type="number" 
                         label="% de Desviación"
@@ -202,12 +207,12 @@ const ModalUpdatePortafolio = (props) => {
                         <p>Comentarios cliente</p>
                         <hr/>
                         <TextField 
-                            classsName={classes.textField} 
+                            className={classes.textField} 
                             className={classes.margin} 
                             label="Entregables del cliente"/>
                         
                         <TextField 
-                            classsName={classes.textField} 
+                            className={classes.textField} 
                             className={classes.margin} 
                             label="Actividades pendientes cliente" 
                             InputLabelProps={{
@@ -218,7 +223,7 @@ const ModalUpdatePortafolio = (props) => {
                         
                         
                         <TextField 
-                            classsName={classes.textField} 
+                            className={classes.textField} 
                             className={classes.margin} 
                             label="Comentarios del cliente" />
                     </div>
@@ -229,12 +234,12 @@ const ModalUpdatePortafolio = (props) => {
                         <p>Comentarios Intelix</p>
                         <hr/>
                         <TextField 
-                            classsName={classes.textField} 
+                            className={classes.textField} 
                             className={classes.margin} 
                             label="Entregables de Intelix"/>
 
                         <TextField 
-                            classsName={classes.textField}
+                            className={classes.textField}
                             className={classes.margin} 
                             label="Actividades pendientes Intelix"
                             InputLabelProps={{
@@ -244,7 +249,7 @@ const ModalUpdatePortafolio = (props) => {
                             }}/>
                         
                         <TextField 
-                            classsName={classes.textField} 
+                            className={classes.textField} 
                             className={classes.margin} 
                             label="Comentarios de Intelix"
                             />
@@ -261,7 +266,7 @@ const ModalUpdatePortafolio = (props) => {
                         </FormControl>
 
                         <TextField 
-                            classsName={classes.textField} 
+                            className={classes.textField} 
                             className={classes.margin} 
                             label="Puntos a tratar en comité" />
                     </div>

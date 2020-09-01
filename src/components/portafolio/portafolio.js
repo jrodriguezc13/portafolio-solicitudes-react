@@ -26,22 +26,18 @@ const Portafolio = (props) => {
 
     const [selectedDesdeDate, setSelectedDesdeDate] = React.useState(null);
     const [selectedHastaDate, setSelectedHastaDate] = React.useState(null);
+    const [selectInitDate, setSelectInitDate] = useState(null);
     const [valueRadio, setValueRadio] = React.useState("0");
 
     const [isLoading, fetchedData] = useHttpGet("portfolio", [
     cb,
   ],
-  [
-    {key: 'cliId', value: cliente},
-    {key: 'coaId', value: areaComercial},
-    {key: 'estId', value: estado},
-    {key: 'estId', value: estado},
-    {key: 'teaId', value: areaTecnica},
-    {key: 'typId', value: tipoSol},
-    {key: 'userId', value: user},
-    {key: 'desde', value: selectedDesdeDate},
-    {key: 'hasta', value: selectedHastaDate},
-    {key: 'rbutton', value: valueRadio},]
+  [{key: 'cliId', value: cliente},
+  {key: 'coaId', value: areaComercial},
+  {key: 'estId', value: estado},
+  {key: 'desde', value: selectedDesdeDate},
+  {key: 'hasta', value: selectedHastaDate},
+  {key: 'rbutton', value: valueRadio}]
     );
 
 
@@ -52,6 +48,8 @@ const Portafolio = (props) => {
     const [dataTechnical, setDataTechnical] = useState(null);
     const [dataReqTyp, setDataReqTyp] = useState(null);
     const [dataUser, setDataUser] = useState(null);
+
+    
 
 
     useEffect(() => {
@@ -171,7 +169,10 @@ const Portafolio = (props) => {
 
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
-                        <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}/>
+                        <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch} 
+                        cb={cb} setCb={setCb}
+                                      id={id}
+                                      setId={setId}/>
                         <Grid>
                         <Fab className={classes.fab} color="primary" aria-label="add" onClick={handleOnOpen}>
                             <AddIcon/>
@@ -190,7 +191,8 @@ const Portafolio = (props) => {
                     coa={dataComercialArea} selectCoa={areaComercial} setSelectCoa={setAreaComercial}
                     technical={dataTechnical} selectTea={areaTecnica} setSelectTea={setAreaTecnica}
                    typeReq={dataReqTyp} selectReqTyp={tipoSol} setSelectTyp={setTipoSol}
-                    user={dataUser} selectUser={user} setSelectUser={setUser}/>
+                    user={dataUser} selectUser={user} setSelectUser={setUser}
+                    />
 
 
             </Container>

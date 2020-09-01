@@ -11,26 +11,27 @@ import axios from "axios";
 const ModalDeletePortafolio = (props) => {
     const classes = useStyles();
 
+    
     const deletePortafolio = (id) => {
         console.log(id)
 
         const axiosInstance = axios.create({
-            baseURL: 'http://localhost:3050/api/v1',
+            baseURL: 'http://localhost:3050/api/v1/',
             timeout: 2000,
-            headers: {'Accept': 'application/json'}
+            headers: { 'Accept': 'application/json' }
         });
 
-        axiosInstance
-            .put("portfolio/")
-            .then((res)=> {
-                props.setCb(!props.cb);
-                props.onClose();
-            })
-            .catch((err) => {
-                console.log(err)
-            });
-    }
 
+        axiosInstance
+          .put('portafolio/')
+          .then((res) => {
+            props.setCb(!props.cb)
+            props.onClose();
+          })
+          .catch((err) => {
+              console.log(err);
+          });
+    }
 
 
     let content = (
