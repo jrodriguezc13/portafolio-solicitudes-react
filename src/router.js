@@ -7,6 +7,7 @@ import RequestStatus from './components/requestStatus/requestStatus';
 import RequestType from './components/requestType/requestType';
 import TechnicalArea from './components/technicalArea/technicalArea';
 import AsignarCliente from './components/asignarCliente/asignarCliente';
+import Login from './components/login/login';
 import Error from './components/error/error';
 
 
@@ -21,6 +22,7 @@ const Router = () => {
                 <Route path="/request_type" component={RequestType}  />
                 <Route path="/technical_areas" component={TechnicalArea}  />
                 <Route path="/asignar_Cliente" component={AsignarCliente}  />
+                <Route path="/Login" component={Login}  />
                 <Route component={Error} />          
             </Switch>
         </main>
