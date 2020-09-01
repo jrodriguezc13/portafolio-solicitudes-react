@@ -15,6 +15,15 @@ const Cuenta = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const logout = (event) => {
+    event.preventDefault() 
+    window.location.href="/"
+    localStorage.removeItem("email");
+    localStorage.removeItem("name");
+    setAnchorEl(null);
+  };
+
     let content = (
         <div>
             <Tooltip title="Cuenta">
@@ -30,7 +39,7 @@ const Cuenta = (props) => {
                     <Typography variant="inherit">Perfil</Typography>
                   </MenuItem>
                   <Divider/>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={logout}>
                     <ListItemIcon >
                         <ExitToAppIcon fontSize="small" />
                   </ListItemIcon>
