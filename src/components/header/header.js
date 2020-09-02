@@ -20,6 +20,9 @@ const Header = (props) => {
                 <Typography className={classes.title} type="title" color="inherit" variant="subtitle2">
                     Portafolio de Solicitudes
                 </Typography>
+                <Typography>
+                  {localStorage.name}
+                </Typography>
                 <Cuenta/>
                 <Mantenimiento/>
               </Toolbar>

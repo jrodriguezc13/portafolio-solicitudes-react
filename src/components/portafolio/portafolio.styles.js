@@ -73,7 +73,20 @@ export default makeStyles(theme => ({
     },
     radioButton: {
         marginLeft: '30px'
+    },
+    label: {
+        color: '#00bcb5',
+
     }
+
+
+
+
+
+
+
+
+
 
 
 }));
