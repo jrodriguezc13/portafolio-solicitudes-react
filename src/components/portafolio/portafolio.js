@@ -19,6 +19,7 @@ const Portafolio = (props) => {
     const [selectedDesdeDate, setSelectedDesdeDate] = React.useState(null);
     const [selectedHastaDate, setSelectedHastaDate] = React.useState(null);
     const [valueRadio, setValueRadio] = React.useState("0");
+    const [checked, setChecked] = React.useState(false);
 
     const [isLoading, fetchedData] = useHttpGet("portfolio", [
     cb,
@@ -29,12 +30,14 @@ const Portafolio = (props) => {
     {key: 'estId', value: estado},
     {key: 'desde', value: selectedDesdeDate},
     {key: 'hasta', value: selectedHastaDate},
-    {key: 'rbutton', value: valueRadio}]
+    {key: 'rbutton', value: valueRadio},
+    {key: 'check', value: checked}]
     );
     const [search, setSearch] = React.useState('');
     const [dataClient, setDataClient] = useState(null);
     const [dataComercialArea, setDataComercialArea] = useState(null);
     const [dataStatus, setDataStatus] = useState(null);
+ 
 
     useEffect(() => {
         
@@ -88,7 +91,8 @@ const Portafolio = (props) => {
             <Grid container justify= 'center' spacing={2}>
                 <Grid item xs={12} md={12} lg={12}>
                         <PaperTitle title={"Portafolio"} search={search} setSearch={setSearch} client={dataClient} coa={dataComercialArea} status={dataStatus} selectCli={cliente} selectCoa={areaComercial} selectEst={estado} setSelectCli={setCliente} setSelectCoa={setAreaComercial} setSelectEst={setEstado} cb={cb} setCb={setCb} selectedDesdeDate={selectedDesdeDate} setSelectedDesdeDate={setSelectedDesdeDate} selectedHastaDate={selectedHastaDate} setSelectedHastaDate={setSelectedHastaDate} valueRadio={valueRadio}
-                        setValueRadio={setValueRadio}/>
+                        setValueRadio={setValueRadio} checked={checked}
+                        setChecked={setChecked}/>
                 
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
