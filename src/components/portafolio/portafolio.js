@@ -48,6 +48,7 @@ const Portafolio = (props) => {
     const [dataTechnical, setDataTechnical] = useState(null);
     const [dataReqTyp, setDataReqTyp] = useState(null);
     const [dataUser, setDataUser] = useState(null);
+    const [dataPortfolio, setDataPortfolio] = useState(null);
 
     
 
@@ -122,13 +123,23 @@ const Portafolio = (props) => {
 
             });
 
+            axiosInstance
+            .get('portfolio')
+            .then((data) => {
+                setDataPortfolio(data);
+                console.log(data)
+            })
+            .catch((err) => {
+
+            });
+
 
     }, []);
 
 
     const [id, setId] = useState(null);
     const [name, setName] = useState("");
-
+    const [description, setDescription] = useState("");
 
 
 
@@ -170,9 +181,7 @@ const Portafolio = (props) => {
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
                         <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch} 
-                        cb={cb} setCb={setCb}
-                                      id={id}
-                                      setId={setId}/>
+                        cb={cb} setCb={setCb} id={id} setId={setId} portfolio={dataPortfolio} setDataPortfolio={setDataPortfolio}/>
                         <Grid>
                         <Fab className={classes.fab} color="primary" aria-label="add" onClick={handleOnOpen}>
                             <AddIcon/>
@@ -186,11 +195,13 @@ const Portafolio = (props) => {
                     setId={setId}
                     name={name}
                     setName={setName}
+                    description={description}
+                    setDescription={setDescription}
                     open={open} onClose={handleOnClose}
                     client={dataClient} selectCli={cliente} setSelectCli={setCliente}
                     coa={dataComercialArea} selectCoa={areaComercial} setSelectCoa={setAreaComercial}
                     technical={dataTechnical} selectTea={areaTecnica} setSelectTea={setAreaTecnica}
-                   typeReq={dataReqTyp} selectReqTyp={tipoSol} setSelectTyp={setTipoSol}
+                    typeReq={dataReqTyp} selectReqTyp={tipoSol} setSelectTyp={setTipoSol}
                     user={dataUser} selectUser={user} setSelectUser={setUser}
                     />
 
