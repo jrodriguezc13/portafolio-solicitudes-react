@@ -10,10 +10,9 @@ const PaperTitlePortafolio = (props) => {
 
     const classes = useStyles();
 
-    const [checked, setChecked] = React.useState(false);
-
     const toggleChecked = () => {
-        setChecked((prev) => !prev);
+        props.setChecked((prev) => !prev);
+        props.setCb(!props.cb);
     };
 
 
@@ -25,7 +24,7 @@ const PaperTitlePortafolio = (props) => {
                     {props.title}
                 </Typography>
                 <FormControlLabel className={classes.label}
-                control={<Switch color="primary" checked={checked} onChange={toggleChecked} inputProps={{ 'aria-label': 'Backlog' }} />}
+                control={<Switch color="primary" checked={props.checked} onChange={toggleChecked} inputProps={{ 'aria-label': 'Backlog' }} />}
                 label="Backlog"
                 />
                 <FilterPortafolio search={props.search} setSearch={props.setSearch} client={props.client} coa={props.coa} status={props.status} selectCli={props.selectCli} selectCoa={props.selectCoa} selectEst={props.selectEst} setSelectCli={props.setSelectCli} setSelectCoa={props.setSelectCoa} setSelectEst={props.setSelectEst} cb={props.cb} setCb={props.setCb} selectedDesdeDate={props.selectedDesdeDate} setSelectedDesdeDate={props.setSelectedDesdeDate}
