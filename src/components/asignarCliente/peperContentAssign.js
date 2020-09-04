@@ -25,8 +25,13 @@ const PeperContentAssign = (props) => {
         axiosInstance
             .get('userClient/' + event.target.value)
             .then((data) => {
-                
-                props.setShowClient(data);
+                if (data.data.type === 'Not Data') {
+                    props.setShowClient(null);
+                    console.log('aqui23')
+                } else {
+
+                    props.setShowClient(data);
+                }
             })
             .catch((err) => {
                 

@@ -3,7 +3,7 @@ import useStyles from './header.styles';
 import { AppBar, Toolbar, Typography} from '@material-ui/core';
 import Cuenta from './cuenta';
 import Mantenimiento from './mantenimiento';
-
+import config from '../../bin/config/config';
 import logo from '../../images/logo-intelix-white.png';
 
   
@@ -24,7 +24,11 @@ const Header = (props) => {
                   {localStorage.name}
                 </Typography>
                 <Cuenta/>
-                <Mantenimiento/>
+                {config.admins.includes(localStorage.email)
+                  ? <Mantenimiento/>
+                  : null
+                }
+                
               </Toolbar>
             </AppBar>
             

@@ -8,6 +8,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FilterByDate from './filterByDate';
 import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
+import config from '../../bin/config/config';
 
 const FilterPortafolio = (props) => {
 
@@ -69,22 +70,27 @@ const FilterPortafolio = (props) => {
               >
                   <Typography color="primary" className={classes.filterTitle}>Filtrar</Typography>
                 <form className={classes.formColumn} onSubmit={handleSubmit}>
-                    <FormControl className={classes.form}>
-                            <InputLabel id="demo-simple-select-label">Empresa</InputLabel>
-                            <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={props.selectCli}
-                            onChange={(event) => props.setSelectCli(event.target.value)}
-                            multiple
-                            >
-                                {data.map((data) => (
-                                    <MenuItem key={data.cliId} value={data.cliId}>
-                                    {data.cliName}
-                                    </MenuItem>
-                                ))}
-                            </Select>
+                {config.clients.includes(localStorage.email)
+                  ?  null :
+                  <FormControl className={classes.form}>
+                        <InputLabel id="demo-simple-select-label">Empresa</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={props.selectCli}
+                        onChange={(event) => props.setSelectCli(event.target.value)}
+                        multiple
+                        >
+                            {data.map((data) => (
+                                <MenuItem key={data.cliId} value={data.cliId}>
+                                {data.cliName}
+                                </MenuItem>
+                            ))}
+                        </Select>
                     </FormControl>
+                  
+                }
+                    
 
                     <FormControl className={classes.form}>
                             <InputLabel id="demo-simple-select-label">Área comercial</InputLabel>

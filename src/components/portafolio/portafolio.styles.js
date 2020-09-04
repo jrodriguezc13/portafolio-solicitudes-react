@@ -77,7 +77,11 @@ export default makeStyles(theme => ({
     label: {
         color: '#00bcb5',
 
-    }
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#00bcb5',
+    },
 
 
 

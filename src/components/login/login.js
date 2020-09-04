@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import GoogleLogin from 'react-google-login';
+import config from '../../bin/config/config';
 
 const Login = (props) => {
     const classes = useStyles();
@@ -80,7 +81,7 @@ const Login = (props) => {
                
                 <Box mt={2} mb={2}>
                 <GoogleLogin
-                clientId={"850350279191-d5jmd3tjqmf136bsilo4ef8s0k8aobqm.apps.googleusercontent.com"}
+                clientId={config.clientId}
                 buttonText="Iniciar Sesión"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
