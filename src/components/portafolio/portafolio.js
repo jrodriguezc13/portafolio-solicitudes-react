@@ -7,6 +7,9 @@ import PaperTitle from './paperTitlePortafolio';
 import TableAppPortafolio from './tableAppPortafolio';
 import { useHttpGet } from "../../hooks/useHttpGet";
 import axios from "axios";
+import config from '../../bin/config/config';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 const Portafolio = (props) => {
@@ -20,19 +23,32 @@ const Portafolio = (props) => {
     const [selectedHastaDate, setSelectedHastaDate] = React.useState(null);
     const [valueRadio, setValueRadio] = React.useState("0");
     const [checked, setChecked] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
+
 
     const [isLoading, fetchedData] = useHttpGet("portfolio", [
-    cb,
-  ], 
-  [
-    {key: 'cliId', value: cliente},
-    {key: 'coaId', value: areaComercial},
-    {key: 'estId', value: estado},
-    {key: 'desde', value: selectedDesdeDate},
-    {key: 'hasta', value: selectedHastaDate},
-    {key: 'rbutton', value: valueRadio},
-    {key: 'check', value: checked}]
-    );
+        cb,
+      ], config.clients.includes(localStorage.email)
+        ? [
+            {key: 'cliId', value: localStorage.clientIds},
+            {key: 'coaId', value: areaComercial},
+            {key: 'estId', value: estado},
+            {key: 'desde', value: selectedDesdeDate},
+            {key: 'hasta', value: selectedHastaDate},
+            {key: 'rbutton', value: valueRadio},
+            {key: 'check', value: checked},
+            {key: 'resp', value: []}] :
+      [
+        {key: 'cliId', value: cliente},
+        {key: 'coaId', value: areaComercial},
+        {key: 'estId', value: estado},
+        {key: 'desde', value: selectedDesdeDate},
+        {key: 'hasta', value: selectedHastaDate},
+        {key: 'rbutton', value: valueRadio},
+        {key: 'check', value: checked},
+        {key: 'resp', value: localStorage.respon}]
+        );
+    
     const [search, setSearch] = React.useState('');
     const [dataClient, setDataClient] = useState(null);
     const [dataComercialArea, setDataComercialArea] = useState(null);
@@ -43,9 +59,10 @@ const Portafolio = (props) => {
         
         const axiosInstance = axios.create({
             baseURL: 'http://localhost:3050/api/v1/',
-            timeout: 2000,
+
             headers: { 'Accept': 'application/json' }
         });
+
         axiosInstance
             .get('clientes')
             .then((data) => {
@@ -74,12 +91,14 @@ const Portafolio = (props) => {
                 
                 setDataComercialArea(data);
                 console.log(data)
+                setOpen(!open)
             })
             .catch((err) => {
                 
             });
+            
     }, []);
-
+    
 
     let content = (
         <div className={classes.root}>
@@ -96,7 +115,12 @@ const Portafolio = (props) => {
                 
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
-                        <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}/>
+                    
+                {open
+                  ? <Backdrop className={classes.backdrop} open={open}>
+                    <CircularProgress color="inherit" />
+                    </Backdrop> :
+                    <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}/>}
                 </Grid>
             
             </Grid>

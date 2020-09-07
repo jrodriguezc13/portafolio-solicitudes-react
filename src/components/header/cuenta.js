@@ -21,6 +21,9 @@ const Cuenta = (props) => {
     window.location.href="/"
     localStorage.removeItem("email");
     localStorage.removeItem("name");
+    localStorage.removeItem("clientIds");
+    localStorage.removeItem("respon");
+    
     setAnchorEl(null);
   };
 
