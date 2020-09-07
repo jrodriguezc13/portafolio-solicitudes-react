@@ -103,9 +103,15 @@ const PeperContentAssign = (props) => {
                                 console.log('Eliminado')
                                 axiosInstance
                                     .get('userClient/' + props.id)
-                                    .then((data) => {
+                                    .then((data3) => {
+                                        if (data3.data.type === 'Not Data') {
+                                            props.setShowClient(null);
+                                        } else {
+                                            props.setShowClient(data3);
+                                        }
                                         
-                                        props.setShowClient(data);
+                                        
+                                        console.log(data3)
                                     })
                                     .catch((err) => {
                                         

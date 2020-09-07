@@ -23,13 +23,21 @@ const Portafolio = (props) => {
     const [selectedHastaDate, setSelectedHastaDate] = React.useState(null);
     const [valueRadio, setValueRadio] = React.useState("0");
     const [checked, setChecked] = React.useState(false);
-    const [clientUser, setClientUser] = React.useState([]);
     const [open, setOpen] = React.useState(true);
-    console.log(clientUser)
+
 
     const [isLoading, fetchedData] = useHttpGet("portfolio", [
         cb,
-      ], 
+      ], config.clients.includes(localStorage.email)
+        ? [
+            {key: 'cliId', value: localStorage.clientIds},
+            {key: 'coaId', value: areaComercial},
+            {key: 'estId', value: estado},
+            {key: 'desde', value: selectedDesdeDate},
+            {key: 'hasta', value: selectedHastaDate},
+            {key: 'rbutton', value: valueRadio},
+            {key: 'check', value: checked},
+            {key: 'resp', value: []}] :
       [
         {key: 'cliId', value: cliente},
         {key: 'coaId', value: areaComercial},
@@ -38,14 +46,13 @@ const Portafolio = (props) => {
         {key: 'hasta', value: selectedHastaDate},
         {key: 'rbutton', value: valueRadio},
         {key: 'check', value: checked},
-        {key: 'clientUser', value: clientUser}]
+        {key: 'resp', value: localStorage.respon}]
         );
     
     const [search, setSearch] = React.useState('');
     const [dataClient, setDataClient] = useState(null);
     const [dataComercialArea, setDataComercialArea] = useState(null);
     const [dataStatus, setDataStatus] = useState(null);
-    const [dataUser, setDataUser] = useState(null);
  
 
     useEffect(() => {
@@ -55,28 +62,6 @@ const Portafolio = (props) => {
 
             headers: { 'Accept': 'application/json' }
         });
-
-        if (!config.admins.includes(localStorage.email)) {
-
-            axiosInstance
-            .get('user/' + localStorage.email)
-            .then((data) => {
-                
-                if (data.data.type === 'Not Data') {
-                    console.log("No existe")
-                    addUser()
-                } else {
-                    setDataUser(data);
-                    console.log(data.data[0].userId)
-                    getClienteById(data.data[0].userId)
-                }
-            })
-            .catch((err) => {
-                
-            });
-        } else if (config.admins.includes(localStorage.email)) {
-            setTimeout(() => { setOpen(!open) }, 4000)
-        }
 
         axiosInstance
             .get('clientes')
@@ -106,70 +91,13 @@ const Portafolio = (props) => {
                 
                 setDataComercialArea(data);
                 console.log(data)
+                setOpen(!open)
             })
             .catch((err) => {
                 
             });
             
     }, []);
-
-    const addUser = () => {
-
-        const axiosInstance = axios.create({
-            baseURL: 'http://localhost:3050/api/v1/',
-
-            headers: { 'Accept': 'application/json' }
-        });
-
-        axiosInstance
-            .post('user', {
-                userName: localStorage.name,
-                userFullName: localStorage.name,
-                userContactEmail: localStorage.email
-            })
-            .then((data) => {
-                
-                console.log('guardado');
-            })
-            .catch((err) => {
-                
-            });
-    }
-
-    const getClienteById = (id) => {
-
-        const axiosInstance = axios.create({
-            baseURL: 'http://localhost:3050/api/v1/',
-
-            headers: { 'Accept': 'application/json' }
-        });
-
-        axiosInstance
-        .get('userClient/' + id)
-        .then((data) => {
-            if (data.data.type === 'Not Data') {
-                console.log('No hat data')
-            } else {
-                console.log(data.data)
-                let ids = []
-                for (var i = 0; i <= (data.data.length - 1); i++) {
-                    console.log(data.data[i].cliId)
-                    ids[i] = data.data[i].cliId
-                }
-                console.log(ids)
-                setCliente(ids)
-                setCb(!cb);
-                setTimeout(() => { setOpen(!open) }, 4000)
-                
-            }
-
-
-        })
-        .catch((err) => {
-            
-        });
-        
-    }
     
 
     let content = (

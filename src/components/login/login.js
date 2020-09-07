@@ -11,14 +11,149 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import GoogleLogin from 'react-google-login';
 import config from '../../bin/config/config';
+import axios from "axios";
 
 const Login = (props) => {
     const classes = useStyles();
 
     const responseGoogle = (response) => {
-    localStorage.setItem("email", response.profileObj.email);
-    localStorage.setItem("name", response.profileObj.name);
-    window.location.reload();
+
+    if (config.clients.includes(response.profileObj.email)) {
+        console.log("Hola cliente")
+        localStorage.setItem("email", response.profileObj.email);
+        localStorage.setItem("name", response.profileObj.name);
+        const axiosInstance = axios.create({
+            baseURL: 'http://localhost:3050/api/v1/',
+
+            headers: { 'Accept': 'application/json' }
+        });
+        axiosInstance
+            .get('user/' + localStorage.email)
+            .then((data) => {
+                
+                if (data.data.type === 'Not Data') {
+                    console.log("No existe")
+                    addUser()
+                } else {
+                    console.log(data.data[0].userId)
+                    getClienteById(data.data[0].userId)
+                }
+            })
+            .catch((err) => {
+                
+            });
+    } else if (config.respns.includes(response.profileObj.email)) {
+        localStorage.setItem("email", response.profileObj.email);
+        localStorage.setItem("name", response.profileObj.name);
+        console.log("Hola responsable")
+        const axiosInstance = axios.create({
+            baseURL: 'http://localhost:3050/api/v1/',
+
+            headers: { 'Accept': 'application/json' }
+        });
+        axiosInstance
+            .get('user/' + localStorage.email)
+            .then((data) => {
+                
+                if (data.data.type === 'Not Data') {
+                    console.log("No existe")
+                    axiosInstance
+                        .post('user', {
+                            userName: localStorage.name,
+                            userFullName: localStorage.name,
+                            userContactEmail: localStorage.email
+                        })
+                        .then((data) => {
+                            
+                            console.log('guardado');
+                            localStorage.setItem("respon", data.data.users.userId);
+                            window.location.reload();
+                        })
+                        .catch((err) => {
+                            
+                        });
+                    
+                } else {
+                    console.log(data.data[0].userId)
+                    localStorage.setItem("respon", data.data[0].userId);
+                    window.location.reload();
+                }
+            })
+            .catch((err) => {
+                
+            });
+    } else if (config.admins.includes(response.profileObj.email)) {
+        console.log('Hola Pmo')
+        localStorage.setItem("email", response.profileObj.email);
+        localStorage.setItem("name", response.profileObj.name);
+        localStorage.setItem("respon", []);
+        window.location.reload();
+
+    }
+    
+}
+const addUser = () => {
+
+    const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3050/api/v1/',
+
+        headers: { 'Accept': 'application/json' }
+    });
+
+    axiosInstance
+        .post('user', {
+            userName: localStorage.name,
+            userFullName: localStorage.name,
+            userContactEmail: localStorage.email
+        })
+        .then((data) => {
+            
+            console.log('guardado');
+            console.log(data.data.users.userId);
+            localStorage.setItem("clientIds", "9999");
+            window.location.reload();
+        })
+        .catch((err) => {
+            
+        });
+        
+}
+
+const getClienteById = (id) => {
+
+    const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3050/api/v1/',
+
+        headers: { 'Accept': 'application/json' }
+    });
+
+    axiosInstance
+    .get('userClient/' + id)
+    .then((data) => {
+        if (data.data.type === 'Not Data') {
+            console.log('No hat data')
+            localStorage.setItem("clientIds", "9999");
+            window.location.reload();
+        } else {
+            console.log(data.data)
+            let ids = []
+            for (var i = 0; i <= (data.data.length - 1); i++) {
+                console.log(data.data[i].cliId)
+                ids[i] = data.data[i].cliId
+            }
+            console.log(ids)
+
+            localStorage.setItem("clientIds", ids);
+            window.location.reload();
+            
+        }
+
+
+    })
+    .catch((err) => {
+        
+    });
+    
 }
 
     function Copyright() {
