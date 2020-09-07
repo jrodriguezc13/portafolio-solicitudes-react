@@ -158,7 +158,7 @@ const ModalPortafolio = (props) => {
                       <Grid  item xs={12} md={12} lg={12}>
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
-                            <Select autoWidth value={props.selectCli} onChange={(event) => props.setSelectCli(event.target.value)}
+                            <Select autoWidth  onChange={(event) => props.setSelectCli(event.target.value)} value={props.selectCli}
                             multiple>
                             {data.map((data) => (
                                     <MenuItem key={data.cliId} value={data.cliId}>
@@ -216,7 +216,8 @@ const ModalPortafolio = (props) => {
 
                         <FormControl className={classes.formControl}>
                         <InputLabel id="demo-simple-select-label">Tipo de Solicitud</InputLabel>
-                        <Select autoWidth value={props.selectReqTyp} onChange={(event) => props.setSelectTyp(event.target.value)}
+                        <Select autoWidth value={props.selectReqTyp} 
+                        onChange={(event) => props.setSelectTyp(event.target.value)}
                                    multiple>
                         {dataReq.map((data) => (
                                    <MenuItem key={data.typId} value={props.selectReqTyp} >

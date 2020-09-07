@@ -29,7 +29,6 @@ const ModalDetailPortafolio = (props) => {
     const classes = useStyles();
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-
     
     
 
@@ -54,8 +53,10 @@ const ModalDetailPortafolio = (props) => {
                          className={classes.margin} 
                          label="Título"
                          name="titulo"
-                         value={"Título"}
-                         readOnly={true}
+                         value={props.titulo}
+                         inputProps={
+                            { readOnly: true, }
+                        }
                          >
                          </TextField>
   
@@ -63,7 +64,10 @@ const ModalDetailPortafolio = (props) => {
                          className={classes.margin} 
                          label="Descripción"
                          name="descripcion"
-                         value={props.description}
+                         value={"Descripción"}
+                         inputProps={
+                            { readOnly: true, }
+                        }
                          />
                      
                      
@@ -78,8 +82,11 @@ const ModalDetailPortafolio = (props) => {
                             id="date-picker-inline"
                             label="Fecha de Solicitud"
                             value={selectedDate}
+                            inputProps={
+                                { readOnly: true, }
+                            }
                             KeyboardButtonProps={{
-                              'aria-label': 'change date',
+                              'aria-label': 'change date', 'disabled':'true'
                             }} />
                         </MuiPickersUtilsProvider>
                     </div>

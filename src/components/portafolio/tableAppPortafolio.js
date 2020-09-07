@@ -29,7 +29,7 @@ const TableAppPortafolio = (props) => {
     const [openUpdate, setOpenUpdate] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
     const [openDetail, setOpenDetail] = useState(false);
-
+    const [titulo, setTitulo] = useState('');
     const handleChangePage = (event, newPage) => {
     setPage(newPage);
     };
@@ -42,7 +42,7 @@ const TableAppPortafolio = (props) => {
 
     const handleClickOpenUpdate = (id) => {
       setOpenUpdate(true)
-      //console.log(id)
+      console.log(id)
     };
 
     const handleCloseUpdate = () => {
@@ -56,11 +56,31 @@ const TableAppPortafolio = (props) => {
 
     const handleCloseDelete = () => {
       setOpenDelete(false);
+      
     }
 
     const handleClickOpenDetail = (id) => {
-      setOpenDetail(true);
+     setOpenDetail(true);
       console.log(id)
+      const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3050/api/v1/',
+        timeout: 2000,
+        headers: { 'Accept': 'application/json',
+              'Content-Type': 'application/json' }
+    });
+    axiosInstance
+    .get("portfolio/")
+    
+    .then((res) => {
+      setOpenDetail(true);
+      props.setCb(!props.cb)
+      props.onClose();
+      //setTitulo(reqTitle);
+    console.log(res)
+    })
+    .catch((err) => {
+        console.log(err);
+    });
     }
 
     const handleCloseDetail = () => {
@@ -69,7 +89,7 @@ const TableAppPortafolio = (props) => {
 
 
    
-
+    
 
 
 
@@ -150,8 +170,8 @@ const TableAppPortafolio = (props) => {
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
 
         <ModalUpdatePortafolio open={openUpdate} onClose={handleCloseUpdate} />
-        <ModalDeletePortafolio open={openDelete} onClose={handleCloseDelete} cb={props.cb} setCb={props.setCb} id={props.reqId}/>
-        <ModalDetailPortafolio open={openDetail} onClose={handleCloseDetail} />        
+        <ModalDeletePortafolio open={openDelete} onClose={handleCloseDelete} cb={props.cb} setCb={props.setCb} />
+        <ModalDetailPortafolio open={openDetail} onClose={handleCloseDetail} titulo={titulo}/>        
   </Paper>
     )
     return content;

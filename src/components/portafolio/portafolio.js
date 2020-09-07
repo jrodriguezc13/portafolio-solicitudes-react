@@ -48,9 +48,12 @@ const Portafolio = (props) => {
     const [dataTechnical, setDataTechnical] = useState(null);
     const [dataReqTyp, setDataReqTyp] = useState(null);
     const [dataUser, setDataUser] = useState(null);
-    const [dataPortfolio, setDataPortfolio] = useState(null);
+    const [id, setId] = useState(null);
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
 
-    
+
+
 
 
     useEffect(() => {
@@ -123,30 +126,18 @@ const Portafolio = (props) => {
 
             });
 
-            axiosInstance
-            .get('portfolio')
-            .then((data) => {
-                setDataPortfolio(data);
-                console.log(data)
-            })
-            .catch((err) => {
-
-            });
-
+        
 
     }, []);
 
 
-    const [id, setId] = useState(null);
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-
-
-
+    
 
     function handleOnClose() {
         setOpen(false);
-        setName('')
+        setName('');
+        setDescription('');
+        
     }
 
     function handleOnOpen() {
@@ -181,7 +172,7 @@ const Portafolio = (props) => {
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
                         <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch} 
-                        cb={cb} setCb={setCb} id={id} setId={setId} portfolio={dataPortfolio} setDataPortfolio={setDataPortfolio}/>
+                        cb={cb} setCb={setCb} id={id} setId={setId}/>
                         <Grid>
                         <Fab className={classes.fab} color="primary" aria-label="add" onClick={handleOnOpen}>
                             <AddIcon/>
