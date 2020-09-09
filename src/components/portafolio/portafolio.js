@@ -33,6 +33,7 @@ const Portafolio = (props) => {
     const [valueRadio, setValueRadio] = React.useState("0");
     const [checked, setChecked] = React.useState(false);
     const [open, setOpen] = React.useState(true);
+    const [FabOpen, setFabOpen] = React.useState(false);
 
 
     const [isLoading, fetchedData] = useHttpGet("portfolio", [
@@ -154,14 +155,14 @@ const Portafolio = (props) => {
 
 
     function handleOnClose() {
-        setOpen(false);
+        setFabOpen(false);
         setName('');
         setDescription('');
 
     }
 
     function handleOnOpen() {
-        setOpen(true);
+        setFabOpen(true);
         setId(null)
     }
 
@@ -190,20 +191,15 @@ const Portafolio = (props) => {
                     <CircularProgress color="inherit" />
                     </Backdrop> :
                     <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}/>}
-                </Grid>
-            
-            </Grid>
-                <Grid item xs={12} md={12} lg={12}>
-
-                <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}
-                        cb={cb} setCb={setCb} id={id} setId={setId}/>
-                        <Grid>
+                    <Grid>
                         <Fab className={classes.fab} color="primary" aria-label="add" onClick={handleOnOpen}>
                             <AddIcon/>
                         </Fab>
                     </Grid>
                 </Grid>
-
+            
+            </Grid>
+        
 
                 <ModalPortafolio
                     cb={cb} setCb={setCb} id={id}
@@ -212,7 +208,7 @@ const Portafolio = (props) => {
                     setName={setName}
                     description={description}
                     setDescription={setDescription}
-                    open={open} onClose={handleOnClose}
+                    open={FabOpen} onClose={handleOnClose}
                     client={dataClient} selectCli={cliente} setSelectCli={setCliente}
                     coa={dataComercialArea} selectCoa={areaComercial} setSelectCoa={setAreaComercial}
                     technical={dataTechnical} selectTea={areaTecnica} setSelectTea={setAreaTecnica}

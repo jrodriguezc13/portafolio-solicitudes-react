@@ -69,13 +69,12 @@ const TableAppPortafolio = (props) => {
               'Content-Type': 'application/json' }
     });
     axiosInstance
-    .get("portfolio/")
-    
+    .get("portfolio/" + id)
     .then((res) => {
       setOpenDetail(true);
       props.setCb(!props.cb)
       props.onClose();
-      //setTitulo(reqTitle);
+      
     console.log(res)
     })
     .catch((err) => {
@@ -171,7 +170,7 @@ const TableAppPortafolio = (props) => {
 
         <ModalUpdatePortafolio open={openUpdate} onClose={handleCloseUpdate} />
         <ModalDeletePortafolio open={openDelete} onClose={handleCloseDelete} cb={props.cb} setCb={props.setCb} />
-        <ModalDetailPortafolio open={openDetail} onClose={handleCloseDetail} titulo={titulo}/>        
+        <ModalDetailPortafolio open={openDetail} onClose={handleCloseDetail} titulo={titulo} setTitulo={setTitulo}/>        
   </Paper>
     )
     return content;
