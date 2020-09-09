@@ -21,6 +21,14 @@ code {
     min-width: 80px!important;
 }
 
+.MuiDialogTitle-root {
+    padding-bottom: 0px !important;
+}
+
+.MuiDialog-container {
+    height: 100vh !important;
+}
+
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
