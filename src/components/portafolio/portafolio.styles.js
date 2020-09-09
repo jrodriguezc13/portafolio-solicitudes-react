@@ -37,6 +37,11 @@ export default makeStyles(theme => ({
     form: {
         margin: theme.spacing(1),
         minWidth: 140,
+        maxWidth: 200
+    },
+    formModal: {
+        margin: theme.spacing(1),
+        minWidth: 140,
     },
 
     filterTitle: {
@@ -68,6 +73,14 @@ export default makeStyles(theme => ({
         justifyContent: 'space-evenly',
 
     },
+    buttonsD: {
+        flex: '0 0 auto',
+        display: 'flex',
+        padding: '8px',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+    },
     subMenu: {
         margin: '14px',
     },
@@ -81,6 +94,47 @@ export default makeStyles(theme => ({
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
         color: '#00bcb5',
+    },
+    fab: {
+        position: 'absolute',
+        bottom: theme.spacing(10),
+        right: theme.spacing(5),
+    },
+    margin: {
+        margin: theme.spacing(1.5),
+        width: 200,
+    },
+
+    button: {
+        flex: '0 0 auto',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    span: {
+        color: '#dc3545!important',
+        marginBottom: '0.5 rem!important',
+        display: 'block!important',
+        fontWeight: 'bold',
+        fontSize: '10px',
+
+    },
+    dialog: {
+        margin: 0,
+        padding: theme.spacing(2),
+    },
+
+
+    formControl: {
+        margin: theme.spacing(1.5),
+        minWidth: 200,
+        maxWidth: 200
+    },
+
+
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
     },
 
 

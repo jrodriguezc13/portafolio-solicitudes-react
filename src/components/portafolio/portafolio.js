@@ -10,6 +10,9 @@ import axios from "axios";
 import config from '../../bin/config/config';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import ModalAddPortafolio from './modalAddPortafolio';
 
 
 const Portafolio = (props) => {
@@ -24,6 +27,7 @@ const Portafolio = (props) => {
     const [valueRadio, setValueRadio] = React.useState("0");
     const [checked, setChecked] = React.useState(false);
     const [open, setOpen] = React.useState(true);
+    const [openAdd, setOpenAdd] = useState(false);
 
 
     const [isLoading, fetchedData] = useHttpGet("portfolio", [
@@ -53,6 +57,17 @@ const Portafolio = (props) => {
     const [dataClient, setDataClient] = useState(null);
     const [dataComercialArea, setDataComercialArea] = useState(null);
     const [dataStatus, setDataStatus] = useState(null);
+    const [dataTechnical, setDataTechnical] = useState(null);
+    const [dataReqTyp, setDataReqTyp] = useState(null);
+    const [dataUser, setDataUser] = useState(null);
+
+    function handleAddOnClose() {
+        setOpenAdd(false)
+      }
+    
+      function handleAddOnOpen() {
+        setOpenAdd(true)
+      }
  
 
     useEffect(() => {
@@ -96,6 +111,36 @@ const Portafolio = (props) => {
             .catch((err) => {
                 
             });
+
+            axiosInstance
+            .get('technical')
+            .then((data)=> {
+                setDataTechnical(data);
+                console.log(data)
+            })
+            .catch((err) => {
+
+            });
+
+            axiosInstance
+            .get('request')
+            .then((data) => {
+                setDataReqTyp(data);
+                console.log(data)
+            })
+            .catch((err) => {
+
+            });
+
+            axiosInstance
+            .get('user')
+            .then((data) => {
+                setDataUser(data);
+                console.log(data)
+            })
+            .catch((err) => {
+
+            });
             
     }, []);
     
@@ -120,10 +165,26 @@ const Portafolio = (props) => {
                   ? <Backdrop className={classes.backdrop} open={open}>
                     <CircularProgress color="inherit" />
                     </Backdrop> :
-                    <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}/>}
+                    <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}
+                    cb={cb} setCb={setCb}/>}
+
+                    <Grid>
+                    {config.admins.includes(localStorage.email)
+                  ? <Fab className={classes.fab} color="primary" aria-label="add" onClick={handleAddOnOpen}>
+                  <AddIcon />
+                    </Fab>
+                  : null
+                    }
+                
+                        
+                    </Grid>
                 </Grid>
             
             </Grid>
+            <ModalAddPortafolio
+                open={openAdd} onClose={handleAddOnClose} cb={cb} setCb={setCb}
+                client={dataClient} coa={dataComercialArea} technical={dataTechnical} typeReq={dataReqTyp}
+                user={dataUser} />
 
             </Container>
 
