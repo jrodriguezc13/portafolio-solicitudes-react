@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useStyles from './portafolio.styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -11,12 +11,13 @@ import TablePagination from '@material-ui/core/TablePagination';
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
-import Tooltip from '@material-ui/core/Tooltip';
 import moment from 'moment';
-import axios from 'axios';
+import axios from "axios";
+import ModalDeleteRequestStatus from './modalDeletePortafolio';
+import config from '../../bin/config/config';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import ModalUpdatePortafolio from './modalUpdatePortafolio'
-import ModalDeletePortafolio from './modalDeletePortafolio';
 import ModalDetailPortafolio from './modalDetailPortafolio';
 
 const TableAppPortafolio = (props) => {
@@ -24,10 +25,12 @@ const TableAppPortafolio = (props) => {
     const data = props.fetchedData === null ? [] : props.fetchedData.data;
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [openDelete, setOpenDelete] = React.useState(false);
+    const [id, setId] = useState(null);
+    const [title, setTitle] = useState("");
     console.log(data);
 
     const [openUpdate, setOpenUpdate] = useState(false);
-    const [openDelete, setOpenDelete] = useState(false);
     const [openDetail, setOpenDetail] = useState(false);
     const [titulo, setTitulo] = useState('');
     const handleChangePage = (event, newPage) => {
@@ -38,58 +41,70 @@ const TableAppPortafolio = (props) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
     };
-    
-
-    const handleClickOpenUpdate = (id) => {
-      setOpenUpdate(true)
-      console.log(id)
-    };
-
-    const handleCloseUpdate = () => {
-      setOpenUpdate(false)
-    }
-
-    const handleClickOpenDelete = (id) => {
-      setOpenDelete(true);
-      console.log(id)
-    }
 
     const handleCloseDelete = () => {
       setOpenDelete(false);
-      
-    }
+      setId(null);
+      setTitle('');
+    };
 
-    const handleClickOpenDetail = (id) => {
-     setOpenDetail(true);
-      console.log(id)
+    const handleClickOpenDelete = (id) => {
+      setOpenDelete(true);
+      console.log(id);
+
       const axiosInstance = axios.create({
         baseURL: 'http://localhost:3050/api/v1/',
-        timeout: 2000,
-        headers: { 'Accept': 'application/json',
-              'Content-Type': 'application/json' }
+        headers: { 'Accept': 'application/json' }
     });
     axiosInstance
-    .get("portfolio/" + id)
-    .then((res) => {
-      setOpenDetail(true);
-      props.setCb(!props.cb)
-      props.onClose();
-      
-    console.log(res)
-    })
-    .catch((err) => {
-        console.log(err);
-    });
+        .get("portfolio/" + id)
+        .then((res) => {
+          setId(res.data[0].reqId);
+          setTitle(res.data[0].reqTitle);
+          console.log(res.data[0].reqTitle);
+          console.log(res.data[0].reqId);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    const handleClickOpenUpdate = (id) => {
+        setOpenUpdate(true)
+        console.log(id)
+    };
+
+    const handleCloseUpdate = () => {
+        setOpenUpdate(false)
+    };
+
+
+    const handleClickOpenDetail = (id) => {
+        setOpenDetail(true);
+        console.log(id)
+        const axiosInstance = axios.create({
+            baseURL: 'http://localhost:3050/api/v1/',
+            timeout: 2000,
+            headers: { 'Accept': 'application/json',
+                'Content-Type': 'application/json' }
+        });
+        axiosInstance
+            .get("portfolio/" + id)
+            .then((res) => {
+                setOpenDetail(true);
+                props.setCb(!props.cb)
+                props.onClose();
+
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     const handleCloseDetail = () => {
-      setOpenDetail(false);
+        setOpenDetail(false);
     }
-
-
-   
-    
-
 
 
     let content = (
@@ -121,29 +136,28 @@ const TableAppPortafolio = (props) => {
                   <TableRow key={task.reqId} hover className={classes.tableRow}>
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <Tooltip title="Eliminar">
-                        <IconButton                        
+                        <IconButton
                           color="primary"
-                          className={classes.icons} onClick={() => handleClickOpenDelete(task.reqId)}>
+                          className={classes.icons} onClick={() => handleClickOpenDelete(task.reqId)}
+                          disabled={config.admins.includes(localStorage.email) ? false : true}>
                           <DeleteIcon />
                         </IconButton>
                         </Tooltip>
-
-
-                        <Tooltip title="Editar">
-                        <IconButton                 
+                          <Tooltip title="Editar">
+                        <IconButton
                           color="primary"
-                          className={classes.icons} onClick={() => handleClickOpenUpdate(task.reqId)}>
+                          className={classes.icons} disabled={config.admins.includes(localStorage.email) ? false : true}>
                           <EditIcon />
                         </IconButton>
-                        </Tooltip>
+                          </Tooltip>
                       </TableCell>
 
                       <TableCell align="left" size="small" onClick={() => handleClickOpenDetail(task.reqId)}>{task.client[0].cliName}</TableCell>
                       <TableCell align="left" size="small">{task.reqTitle}</TableCell> 
                       <TableCell align="right" size="small">{task.reqPriority}</TableCell>
                       <TableCell align="center" size="small">{moment(task.reqRequestDate).format("DD/MM/YYYY")}</TableCell>
-                      <TableCell align="center" size="small">{moment(task.reqInitialDate).format("DD/MM/YYYY")}</TableCell> 
-                      <TableCell align="center" size="small">{moment(task.reqPlanFinalDate).format("DD/MM/YYYY")}</TableCell> 
+                      <TableCell align="center" size="small">{moment(task.reqInitialDate).format("DD/MM/YYYY")}</TableCell>
+                      <TableCell align="center" size="small">{moment(task.reqPlanFinalDate).format("DD/MM/YYYY")}</TableCell>
                       <TableCell align="center" size="small">{moment(task.reqRealFinalDate).format("DD/MM/YYYY")}</TableCell>
                       <TableCell align="left" size="small">{task.entityStatus[0].estName}</TableCell> 
                       <TableCell align="right" size="small">{task.reqAdvancePtge}</TableCell> 
@@ -167,10 +181,12 @@ const TableAppPortafolio = (props) => {
           }}
          onChangePage={handleChangePage}
          onChangeRowsPerPage={handleChangeRowsPerPage}/>
+         <ModalDeleteRequestStatus cb={props.cb} setCb={props.setCb} id={id}
+                setId={setId}
+                title={title} open={openDelete} onClose={handleCloseDelete}/>
+          <ModalDetailPortafolio open={openDetail} onClose={handleCloseDetail} titulo={titulo} setTitulo={setTitulo}/>
+          <ModalUpdatePortafolio open={openUpdate} onClose={handleCloseUpdate} />
 
-        <ModalUpdatePortafolio open={openUpdate} onClose={handleCloseUpdate} />
-        <ModalDeletePortafolio open={openDelete} onClose={handleCloseDelete} cb={props.cb} setCb={props.setCb} />
-        <ModalDetailPortafolio open={openDetail} onClose={handleCloseDetail} titulo={titulo} setTitulo={setTitulo}/>        
   </Paper>
     )
     return content;

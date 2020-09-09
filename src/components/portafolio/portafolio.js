@@ -6,34 +6,28 @@ import Grid from "@material-ui/core/Grid";
 import PaperTitle from './paperTitlePortafolio';
 import TableAppPortafolio from './tableAppPortafolio';
 import { useHttpGet } from "../../hooks/useHttpGet";
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import ModalPortafolio from "./modalPortafolio";
 import axios from "axios";
 import config from '../../bin/config/config';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import ModalAddPortafolio from './modalAddPortafolio';
 
 
 const Portafolio = (props) => {
     const classes = useStyles();
-
     const [cb, setCb] = useState(true);
 
     const [cliente, setCliente] = React.useState([]);
     const [areaComercial, setAreaComercial] = React.useState([]);
     const [estado, setEstado] = React.useState([]);
-    const [areaTecnica, setAreaTecnica] = useState([]);
-    const [tipoSol, setTipoSol] = useState([]);
-    const [user, setUser] = useState([]);
-
     const [selectedDesdeDate, setSelectedDesdeDate] = React.useState(null);
     const [selectedHastaDate, setSelectedHastaDate] = React.useState(null);
-    const [selectInitDate, setSelectInitDate] = useState(null);
     const [valueRadio, setValueRadio] = React.useState("0");
     const [checked, setChecked] = React.useState(false);
     const [open, setOpen] = React.useState(true);
-    const [FabOpen, setFabOpen] = React.useState(false);
+    const [openAdd, setOpenAdd] = useState(false);
 
 
     const [isLoading, fetchedData] = useHttpGet("portfolio", [
@@ -58,7 +52,7 @@ const Portafolio = (props) => {
         {key: 'check', value: checked},
         {key: 'resp', value: localStorage.respon}]
         );
-
+    
     const [search, setSearch] = React.useState('');
     const [dataClient, setDataClient] = useState(null);
     const [dataComercialArea, setDataComercialArea] = useState(null);
@@ -66,17 +60,18 @@ const Portafolio = (props) => {
     const [dataTechnical, setDataTechnical] = useState(null);
     const [dataReqTyp, setDataReqTyp] = useState(null);
     const [dataUser, setDataUser] = useState(null);
-    const [id, setId] = useState(null);
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
 
+    function handleAddOnClose() {
+        setOpenAdd(false)
+      }
 
-
-
+      function handleAddOnOpen() {
+        setOpenAdd(true)
+      }
 
 
     useEffect(() => {
-
+        
         const axiosInstance = axios.create({
             baseURL: 'http://localhost:3050/api/v1/',
 
@@ -86,29 +81,29 @@ const Portafolio = (props) => {
         axiosInstance
             .get('clientes')
             .then((data) => {
-
+                
                 setDataClient(data);
                 console.log(data)
             })
             .catch((err) => {
-
+                
             });
-
+        
             axiosInstance
             .get('status')
             .then((data) => {
-
+                
                 setDataStatus(data);
                 console.log(data)
             })
             .catch((err) => {
-
+                
             });
 
             axiosInstance
             .get('comercialareas')
             .then((data) => {
-
+                
                 setDataComercialArea(data);
                 console.log(data)
                 setOpen(!open)
@@ -147,27 +142,8 @@ const Portafolio = (props) => {
 
             });
 
-
-
     }, []);
-
-
-
-
-    function handleOnClose() {
-        setFabOpen(false);
-        setName('');
-        setDescription('');
-
-    }
-
-    function handleOnOpen() {
-        setFabOpen(true);
-        setId(null)
-    }
-
-
-
+    
 
     let content = (
         <div className={classes.root}>
@@ -177,7 +153,6 @@ const Portafolio = (props) => {
             <Container maxWidth="lg" className={classes.container}>
 
             <Grid container justify= 'center' spacing={2}>
-
                 <Grid item xs={12} md={12} lg={12}>
                         <PaperTitle title={"Portafolio"} search={search} setSearch={setSearch} client={dataClient} coa={dataComercialArea} status={dataStatus} selectCli={cliente} selectCoa={areaComercial} selectEst={estado} setSelectCli={setCliente} setSelectCoa={setAreaComercial} setSelectEst={setEstado} cb={cb} setCb={setCb} selectedDesdeDate={selectedDesdeDate} setSelectedDesdeDate={setSelectedDesdeDate} selectedHastaDate={selectedHastaDate} setSelectedHastaDate={setSelectedHastaDate} valueRadio={valueRadio}
                         setValueRadio={setValueRadio} checked={checked}
@@ -185,37 +160,31 @@ const Portafolio = (props) => {
                 
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
-
+                    
                 {open
                   ? <Backdrop className={classes.backdrop} open={open}>
                     <CircularProgress color="inherit" />
                     </Backdrop> :
-                    <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}/>}
+                    <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}
+                    cb={cb} setCb={setCb}/>}
+
                     <Grid>
-                        <Fab className={classes.fab} color="primary" aria-label="add" onClick={handleOnOpen}>
-                            <AddIcon/>
-                        </Fab>
+                    {config.admins.includes(localStorage.email)
+                  ? <Fab className={classes.fab} color="primary" aria-label="add" onClick={handleAddOnOpen}>
+                  <AddIcon />
+                    </Fab>
+                  : null
+                    }
+
+
                     </Grid>
                 </Grid>
-            
+
             </Grid>
-        
-
-                <ModalPortafolio
-                    cb={cb} setCb={setCb} id={id}
-                    setId={setId}
-                    name={name}
-                    setName={setName}
-                    description={description}
-                    setDescription={setDescription}
-                    open={FabOpen} onClose={handleOnClose}
-                    client={dataClient} selectCli={cliente} setSelectCli={setCliente}
-                    coa={dataComercialArea} selectCoa={areaComercial} setSelectCoa={setAreaComercial}
-                    technical={dataTechnical} selectTea={areaTecnica} setSelectTea={setAreaTecnica}
-                    typeReq={dataReqTyp} selectReqTyp={tipoSol} setSelectTyp={setTipoSol}
-                    user={dataUser} selectUser={user} setSelectUser={setUser}
-                    />
-
+            <ModalAddPortafolio
+                open={openAdd} onClose={handleAddOnClose} cb={cb} setCb={setCb}
+                client={dataClient} coa={dataComercialArea} technical={dataTechnical} typeReq={dataReqTyp}
+                user={dataUser} />
 
             </Container>
 
