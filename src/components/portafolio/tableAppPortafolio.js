@@ -81,21 +81,7 @@ const TableAppPortafolio = (props) => {
 
      const [openDetail, setOpenDetail] = useState(false);
 
-    const dataCoa = props.coa === null ? [] : props.coa.data;
-    const dataTea = props.technical === null ? [] : props.technical.data;
-    const dataReq = props.typeReq === null ? [] : props.typeReq.data;
-    const dataU = props.user === null ? [] : props.user.data;
-
-
-    console.log(dataCoa);
-    console.log(dataCoa[0].coaId);
-    console.log(dataCoa[0])
-    console.log(dataTea);
-    console.log(dataReq);
-    console.log(dataU);
-
-
-
+    
     const handleChangePage = (event, newPage) => {
     setPage(newPage);
     };
@@ -136,7 +122,7 @@ const TableAppPortafolio = (props) => {
 
 
     const handleClickOpenDetail = (id) => {
-        setOpenDetail(true);
+        setOpen(true);
         console.log(id)
         const axiosInstance = axios.create({
             baseURL: 'http://localhost:3050/api/v1/',
@@ -167,15 +153,16 @@ const TableAppPortafolio = (props) => {
                 setSendToComitee(res.data[0].reqSendToComitee);
                 setComitee(res.data[0].reqComiteeAgenda);
 
-
+                setDataUser(res.data[0].leaId)
 
 
 
                 setComercialAreas(res.data[0].coaId);
-                setUser(res.data[0].userId);
+                setUser(res.data[0].leaId);
                 setTechnical(res.data[0].teaId);
                 setStatus(res.data[0].estId);
-                setReqType(res.data[0].typId)
+                setReqType(res.data[0].typId);
+                setOpen(false)
 
                 console.log(res.data[0].reqId);
                 console.log(res.data[0].reqTitle);
@@ -204,8 +191,8 @@ const TableAppPortafolio = (props) => {
                 console.log(res.data[0].estId);
 
                 console.log(res.data[0])
-
                 console.log(res)
+
             })
             .catch((err) => {
                 console.log(err);
@@ -236,6 +223,7 @@ const TableAppPortafolio = (props) => {
         setUser("");
         setReqType("");
         setStatus("");
+        
 
 
     }
@@ -420,29 +408,29 @@ const TableAppPortafolio = (props) => {
                 open={openEdit} onClose={handleCloseEdit} client={props.client} coa={props.coa} technical={props.technical} typeReq={props.typeReq} status={props.status}
                 user={props.user}/>
           <ModalDetailPortafolio open={openDetail} onClose={handleCloseDetail}
-          title={title} setTitle={setTitle}
-          description={description} setDescription={setDescription}
-          reqDate={reqDate} setReqDate={setReqDate}
-          priority={priority} setPriority={setPriority}
-          initDate={initDate} setInitDate={setInitDate}
-          planFinalDate={planFinalDate} setPlanFinalDate={setPlanFinalDate}
-          realFinalDate={realFinalDate} setRealFinalDate={setRealFinalDate}
-          advantage={advantage} setAdvantage={setAdvantage}
-          deviation={deviation} setDeviation={setDeviation}
-          clientDeliverables={clientDeliverables} setClientDeliverables={setClientDeliverables}
-          clientActivities={clientActivities} setClientActivities={setClientDeliverables}
-          clientComments={clientComments} setClientComments={setClientComments}
-          intelixActivities={intelixActivities} setIntelixActivities={setIntelixActivities}
-          intelixDeliverables={intelixDeliverables} setIntelixDeliverables={setIntelixDeliverables}
-          intelixComments={intelixComments} setIntelixComments={setIntelixComments}
-          comercialAreas={comercialAreas} setComercialAreas={setComercialAreas}
-          sendToComitee={sendToComitee} setSendToComitee={setSendToComitee}
-          comitee={comitee} setComitee={setComitee}
-          user={user} setUser={setUser}
-          technical={technical} setTechnical={setTechnical}
-          status={status} setStatus={setStatus}
-          reqType={reqType} setReqType={setReqType}
-         />
+            title={title} setTitle={setTitle}
+            description={description} setDescription={setDescription}
+            reqDate={reqDate} setReqDate={setReqDate}
+            priority={priority} setPriority={setPriority}
+            initDate={initDate} setInitDate={setInitDate}
+            planFinalDate={planFinalDate} setPlanFinalDate={setPlanFinalDate}
+            realFinalDate={realFinalDate} setRealFinalDate={setRealFinalDate}
+            advantage={advantage} setAdvantage={setAdvantage}
+            deviation={deviation} setDeviation={setDeviation}
+            clientDeliverables={clientDeliverables} setClientDeliverables={setClientDeliverables}
+            clientActivities={clientActivities} setClientActivities={setClientDeliverables}
+            clientComments={clientComments} setClientComments={setClientComments}
+            intelixActivities={intelixActivities} setIntelixActivities={setIntelixActivities}
+            intelixDeliverables={intelixDeliverables} setIntelixDeliverables={setIntelixDeliverables}
+            intelixComments={intelixComments} setIntelixComments={setIntelixComments}
+            sendToComitee={sendToComitee} setSendToComitee={setSendToComitee}
+            comitee={comitee} setComitee={setComitee}
+            comercialAreas={comercialAreas} setComercialAreas={setComercialAreas}
+            user={user} setUser={setUser}
+            technical={technical} setTechnical={setTechnical}
+            status={status} setStatus={setStatus}
+            reqType={reqType} setReqType={setReqType}
+          />
 
 
   </Paper>

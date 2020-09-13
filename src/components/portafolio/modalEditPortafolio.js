@@ -136,7 +136,7 @@ const handleDateChange3 = (date) => {
                                             as={
                                                 
                                                     <KeyboardDatePicker
-                                                    invalidDateMessage= "Fecha no valida"
+                                                    invalidDateMessage= "Fecha no válida"
                                                     className={classes.margin}
                                                     name="fechaSol"
                                                     disableToolbar

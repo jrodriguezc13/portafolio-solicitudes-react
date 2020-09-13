@@ -10,7 +10,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Switch from '@material-ui/core/Switch';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import MomentUtils from '@date-io/moment';
 import {
@@ -32,9 +34,9 @@ const ModalDetailPortafolio = (props) => {
 
     const existe = props.sendToComitee === 1;
     console.log(existe)
-    
    
     
+
     let content = (
         <Dialog className={classes.dialog} 
         maxWidth={'lg'}
@@ -110,7 +112,8 @@ const ModalDetailPortafolio = (props) => {
                             inputProps={
                                 { readOnly: true, }
                             } />
-                            
+ 
+                      
                         <TextField label="Área comercial" 
                             className={classes.margin} 
                             value={props.comercialAreas}
