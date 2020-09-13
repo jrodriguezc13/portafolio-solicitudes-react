@@ -166,9 +166,7 @@ const Portafolio = (props) => {
                     <CircularProgress color="inherit" />
                     </Backdrop> :
                     <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}
-                    cb={cb} setCb={setCb} coa={dataComercialArea} 
-                    technical={dataTechnical} 
-                    typeReq={dataReqTyp}
+                    cb={cb} setCb={setCb} client={dataClient} coa={dataComercialArea} technical={dataTechnical} typeReq={dataReqTyp} status={dataStatus}
                     user={dataUser}/>}
 
                     <Grid>

@@ -10,6 +10,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import MomentUtils from '@date-io/moment';
@@ -19,7 +21,8 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 import axios from "axios";
 import { useForm, Controller  } from 'react-hook-form';
 import ModalRefuse from "../modalRefuse/modalRefuse";
@@ -28,6 +31,8 @@ import useStyles from './portafolio.styles';
 const ModalAddPortafolio = (props) => {
 
     const classes = useStyles();
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [selectedDate, setSelectedDate] = useState(moment(new Date()))
     const [selectedDate2, setSelectedDate2] = useState(moment(new Date()))
     const [selectedDate3, setSelectedDate3] = useState(moment(new Date()))
@@ -122,140 +127,108 @@ const ModalAddPortafolio = (props) => {
     }
 
     let content = (
-        <Dialog className={classes.dialog} 
+        <Dialog className={classes.dialog} fullScreen={fullScreen}
         maxWidth={'lg'} open={props.open} onClose={props.onClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">
                 Solicitud de portafolio
             </DialogTitle>
             <DialogContent>
-               
-                <form className={classes.formModal} onSubmit={handleSubmit(onSubmit)}>
-                    <div>
-                       <Grid  item xs={12} md={12} lg={12}>
-                         <p>Datos Generales</p>
-                         <hr/>
-                         
-                        
+            <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container spacing={1} direction="column">
+                <Grid container item xs={12}>
+                    <Typography variant="subtitle2">
+                        Datos Generales
+                    </Typography>
+                    <Divider />
+                </Grid>
+                <Grid container item xs={12}>
+                    <Grid item xs={12} sm={4}>
                         <TextField 
-                         className={classes.margin}
-                         label="Título"
-                         name="titulo"
-                         onChange={(event) => setTitulo(event.target.value)}
-                         value={titulo}
-                         error= {errors.titulo !== undefined}
-                         helperText= {errors.titulo !== undefined ? "Campo obligatorio" : null}
-                         inputRef= {
-                            register({
-                              required: {value: true, message: 'Campo obligatorio'}
-                            })
-                          }
-                         />
-                         
-  
-                         <TextField 
-                         className={classes.margin} 
-                         label="Descripción"
-                         name="descripcion"
-                         onChange={(event) => setDescription(event.target.value)}
-                         value={description}
-                         error= {errors.descripcion !== undefined}
-                         helperText= {errors.descripcion !== undefined ? "Campo obligatorio" : null}
-                         inputRef= {
-                        register({
-                            required: {value: true, message: 'Campo obligatorio'}
-                        })
-                        }
-                         />
-                         
-                     
-                        {/* <MuiPickersUtilsProvider utils={MomentUtils}>
-                            <KeyboardDatePicker
-                            
                             className={classes.margin}
-                            name="fechaSol"
-                            disableToolbar
-                            variant="inline"
-                            format="DD/MM/yyyy"
-                            margin="normal"
-                            id="date-picker-inline"
-                            label="Fecha de Solicitud"
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                              'aria-label': 'change date',
-                            }} />
-                        </MuiPickersUtilsProvider> */}
-                        <MuiPickersUtilsProvider utils={MomentUtils}>
-                        <Controller name="fechaSol"
-                                    control={control}
-                                    as={
+                            label="Título"
+                            name="titulo"
+                            onChange={(event) => setTitulo(event.target.value)}
+                            value={titulo}
+                            error= {errors.titulo !== undefined}
+                            helperText= {errors.titulo !== undefined ? "Campo obligatorio" : null}
+                            inputRef= {
+                                register({
+                                required: {value: true, message: 'Campo obligatorio'}
+                                })
+                            }
+                            />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <TextField 
+                            className={classes.margin} 
+                            label="Descripción"
+                            name="descripcion"
+                            onChange={(event) => setDescription(event.target.value)}
+                            value={description}
+                            error= {errors.descripcion !== undefined}
+                            helperText= {errors.descripcion !== undefined ? "Campo obligatorio" : null}
+                            inputRef= {
+                            register({
+                                required: {value: true, message: 'Campo obligatorio'}
+                            })
+                            }
+                            />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                            <MuiPickersUtilsProvider utils={MomentUtils}>
+                                <Controller name="fechaSol"
+                                        control={control}
+                                        as={
+                                            
+                                                <KeyboardDatePicker
+                                                invalidDateMessage= "Fecha no valida"
+                                                className={classes.margin}
+                                                name="fechaSol"
+                                                disableToolbar
+                                                variant="inline"
+                                                maxDate={new Date("9999-12-31")}
+                                                format="DD/MM/yyyy"
+                                                margin="normal"
+                                                id="date-picker-inline"
+                                                label="Fecha de Solicitud"
+                                                onChange={handleDateChange}
+                                                KeyboardButtonProps={{
+                                                'aria-label': 'change date',
+                                                }} />
+                                            
+                                        }
+                                        rules={{ required: true }}
+                                        defaultValue={selectedDate}
                                         
-                                            <KeyboardDatePicker
-                                            invalidDateMessage= "Fecha no valida"
-                                            className={classes.margin}
-                                            name="fechaSol"
-                                            disableToolbar
-                                            variant="inline"
-                                            format="DD/MM/yyyy"
-                                            margin="normal"
-                                            id="date-picker-inline"
-                                            label="Fecha de Solicitud"
-                                            onChange={handleDateChange}
-                                            KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                            }} />
-                                        
-                                    }
-                                    rules={{ required: true }}
-                                    defaultValue={selectedDate}
-                                    onChange={([date]) => date}
-                                     />
-                        </MuiPickersUtilsProvider>
-                    
-                        
-                    
-                      </Grid>   
-                    </div>
-
-                    <div>
-                      <Grid  item xs={12} md={12} lg={12}>
-                        {/* <FormControl className={classes.formControl}>
-                            <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
-                            <Select labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={dataClient}
-                            onChange={(event) => setDataClient(event.target.value)}
-                            autoWidth>
-                            {data.map((data) => (
-                                    <MenuItem key={data.cliId} value={data.cliId}>
-                                    {data.cliName}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl> */}
+                                        />
+                            </MuiPickersUtilsProvider>
+                    </Grid>
+                </Grid>
+                <Grid container item xs={12}>
+                    <Grid item xs={12} sm={4}>
                         <FormControl className={classes.formControl} error= {errors.client !== undefined}>
-                        <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
-                        <Controller name="client"
-                                    control={control}
-                                    as={
-                                        <Select>
-                                          {data.map((data) => (
-                                            <MenuItem key={data.cliId} value={data.cliId}>
-                                            {data.cliName}
-                                            </MenuItem>
-                                            ))}
-                                        </Select>
-                                      }
-                                      defaultValue={dataClient}
-                                      rules={{ required: true }}                                      
-                                      onChange={([event]) => setDataClient(event.target.value)}
-                                      
-                                      />
+                            <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
+                            <Controller name="client"
+                                        control={control}
+                                        as={
+                                            <Select>
+                                            {data.map((data) => (
+                                                <MenuItem key={data.cliId} value={data.cliId}>
+                                                {data.cliName}
+                                                </MenuItem>
+                                                ))}
+                                            </Select>
+                                        }
+                                        defaultValue={dataClient}
+                                        rules={{ required: true }}                                      
+                                        onChange={([event]) => setDataClient(event.target.value)}
+                                        
+                                        />
                             {errors.client !== undefined ? <FormHelperText>Campo obligatorio</FormHelperText> : null}
                         
                         </FormControl> 
-
-
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
                         <FormControl className={classes.formControl} error= {errors.coa !== undefined}>
                             <InputLabel id="demo-simple-select-label">Área Comercial</InputLabel>
                             <Controller name="coa"
@@ -276,13 +249,17 @@ const ModalAddPortafolio = (props) => {
                                       />
                             {errors.coa !== undefined ? <FormHelperText>Campo obligatorio</FormHelperText> : null}
                         </FormControl>
-
-                        <FormControl className={classes.formControl} error= {errors.atech !== undefined}>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <FormControl className={classes.formControl} >
                             <InputLabel id="demo-simple-select-label">Área Técnica</InputLabel>
                             <Controller name="atech"
                                     control={control}
                                     as={
                                         <Select>
+                                            <MenuItem value="">
+                                                <em>Ninguna</em>
+                                            </MenuItem>
                                           {dataTea.map((data) => (
                                                 <MenuItem key={data.teaId} value={data.teaId}>
                                                     {data.teaName}
@@ -291,17 +268,16 @@ const ModalAddPortafolio = (props) => {
                                         </Select>
                                       }
                                       defaultValue={dataTechnical}
-                                      rules={{ required: true }}                                      
+                                                                            
                                       onChange={([event]) => setDataTechnical(event.target.value)}
                                       
                                       />
-                            {errors.atech !== undefined ? <FormHelperText>Campo obligatorio</FormHelperText> : null}
+                            
                         </FormControl>
-                     </Grid>
-                    </div>
-                    
-                    <div>
-                    <Grid  item xs={12} md={12} lg={12}>
+                    </Grid>
+                </Grid>
+                <Grid container item xs={12}>
+                    <Grid item xs={12} sm={4}>
                         <FormControl className={classes.formControl} error= {errors.resp !== undefined}>
                             <InputLabel id="demo-simple-select-label">Responsable</InputLabel>
                             <Controller name="resp"
@@ -322,7 +298,8 @@ const ModalAddPortafolio = (props) => {
                                       />
                             {errors.resp !== undefined ? <FormHelperText>Campo obligatorio</FormHelperText> : null}
                         </FormControl>
-
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
                         <FormControl className={classes.formControl} error= {errors.resp !== undefined}>
                         <InputLabel id="demo-simple-select-label">Tipo de Solicitud</InputLabel>
                             <Controller name="tips"
@@ -344,16 +321,17 @@ const ModalAddPortafolio = (props) => {
                             {errors.tips !== undefined ? <FormHelperText>Campo obligatorio</FormHelperText> : null}
                         </FormControl>
                     </Grid>
-                    </div>
-                    
-                    <br/>
-                    
-                    <div>
-                        <p>Datos de Seguimiento</p>
-                        <hr/>
-                        <Grid  item xs={12} md={12} lg={12}>
+                </Grid>
+                <Grid container item xs={12}>
+                    <Typography variant="subtitle2">
+                        Datos de Seguimiento
+                    </Typography>
+                    <Divider />
+                </Grid>
+                <Grid container item xs={12}>
+                    <Grid item xs={12} sm={4}>
                         <MuiPickersUtilsProvider utils={MomentUtils}>
-                        <Controller name="dateIn"
+                                <Controller name="dateIn"
                                     control={control}
                                     as={
                                         
@@ -363,6 +341,7 @@ const ModalAddPortafolio = (props) => {
                                             name="fechaIn"
                                             disableToolbar
                                             variant="inline"
+                                            maxDate={new Date("9999-12-31")}
                                             format="DD/MM/yyyy"
                                             margin="normal"
                                             id="date-picker-inline2"
@@ -376,9 +355,12 @@ const ModalAddPortafolio = (props) => {
                                     rules={{ required: true }}
                                     defaultValue={selectedDate2}
                                     onChange={([date]) => date}
-                                     />
-
-                        <Controller name="fechaFinPlan"
+                                />
+                        </MuiPickersUtilsProvider>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                                <Controller name="fechaFinPlan"
                                     control={control}
                                     as={
                                         
@@ -388,6 +370,7 @@ const ModalAddPortafolio = (props) => {
                                             name="fechaFinPlan"
                                             disableToolbar
                                             variant="inline"
+                                            maxDate={new Date("9999-12-31")}
                                             format="DD/MM/yyyy"
                                             margin="normal"
                                             id="date-picker-inline3"
@@ -401,25 +384,23 @@ const ModalAddPortafolio = (props) => {
                                     rules={{ required: true }}
                                     defaultValue={selectedDate3}
                                     onChange={([date]) => date}
-                                     />
+                                />
                         </MuiPickersUtilsProvider>
-                     </Grid> 
-                       
-                    </div>
-                    
-                    <br/>
-
-                    <div className={classes.button}>
-                        <Button onClick={props.onClose} color="primary">
+                    </Grid>
+                </Grid>
+                <Grid container justify="center" alignItems="center" item xs={12}>
+                    <Button onClick={props.onClose} color="primary">
                             Cancel
-                        </Button>
-                        <Button type="submit"
+                    </Button>
+                    <Button type="submit"
                                 variant="contained"
                                 color="primary">
                             Guardar
-                        </Button>
-                    </div>
-                </form>
+                    </Button>
+                </Grid>
+            </Grid>
+            </form>
+                
             </DialogContent>
             <ModalRefuse open={openRefuse} onClose={handleCloseRefuse} info={"Verifique las fechas"}/>
         </Dialog>
