@@ -101,8 +101,8 @@ export default makeStyles(theme => ({
         right: theme.spacing(5),
     },
     margin: {
-        margin: theme.spacing(1.5),
-        width: 200,
+        margin: theme.spacing(1),
+        width: 250,
     },
 
     button: {
@@ -126,9 +126,9 @@ export default makeStyles(theme => ({
 
 
     formControl: {
-        margin: theme.spacing(1.5),
-        minWidth: 200,
-        maxWidth: 200
+        margin: theme.spacing(1),
+        minWidth: 250,
+        maxWidth: 250
     },
 
 

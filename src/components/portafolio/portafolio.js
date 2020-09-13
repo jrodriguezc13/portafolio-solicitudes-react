@@ -166,7 +166,8 @@ const Portafolio = (props) => {
                     <CircularProgress color="inherit" />
                     </Backdrop> :
                     <TableAppPortafolio fetchedData={fetchedData} search={search} setSearch={setSearch}
-                    cb={cb} setCb={setCb}/>}
+                    cb={cb} setCb={setCb} client={dataClient} coa={dataComercialArea} technical={dataTechnical} typeReq={dataReqTyp} status={dataStatus}
+                    user={dataUser}/>}
 
                     <Grid>
                     {config.admins.includes(localStorage.email)
