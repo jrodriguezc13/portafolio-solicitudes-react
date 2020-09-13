@@ -5,13 +5,12 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Switch from '@material-ui/core/Switch';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
 
 import MomentUtils from '@date-io/moment';
 import {
@@ -22,16 +21,20 @@ import {
 
 
 import useStyles from './portafolio.styles';
-import axios from 'axios';
+
 
 
 const ModalDetailPortafolio = (props) => {
     const classes = useStyles();
-    const [selectedDate, setSelectedDate] = useState(new Date());
-
     
-    
+    const [state, setState] = useState(false);
+    console.log(state)
 
+    const existe = props.sendToComitee === 1;
+    console.log(existe)
+    
+   
+    
     let content = (
         <Dialog className={classes.dialog} 
         maxWidth={'lg'}
@@ -43,8 +46,10 @@ const ModalDetailPortafolio = (props) => {
                 Solicitud de Portafolio
             </DialogTitle>
             <DialogContent>
-                <form className={classes.form} maxWidth={'lg'}>
+                <form className={classes.formModal} maxWidth={'lg'}>
                     <div>
+                    <Grid  item xs={12} md={12} lg={12}>
+                        
                      <p>Datos generales</p>
                      <hr/>
                      
@@ -53,18 +58,22 @@ const ModalDetailPortafolio = (props) => {
                          className={classes.margin} 
                          label="Título"
                          name="titulo"
-                         value={props.titulo}
+                         value={props.title}
+                         multiline={true}
+                         rowsMax={2}
                          inputProps={
                             { readOnly: true, }
                         }
-                         >
-                         </TextField>
+                         />
+                         
   
                      <TextField 
                          className={classes.margin} 
                          label="Descripción"
                          name="descripcion"
-                         value={"Descripción"}
+                         multiline={true}
+                         rowsMax={2}
+                         value={props.description}
                          inputProps={
                             { readOnly: true, }
                         }
@@ -81,7 +90,7 @@ const ModalDetailPortafolio = (props) => {
                             margin="normal"
                             id="date-picker-inline"
                             label="Fecha de Solicitud"
-                            value={selectedDate}
+                            value={props.reqDate}
                             inputProps={
                                 { readOnly: true, }
                             }
@@ -89,50 +98,61 @@ const ModalDetailPortafolio = (props) => {
                               'aria-label': 'change date', 'disabled':'true'
                             }} />
                         </MuiPickersUtilsProvider>
+                        </Grid>
                     </div>
 
                     <div>
-                   
-
+                    <Grid  item xs={12} md={12} lg={12}>
+                        
                         <TextField label="Responsable" 
                             className={classes.margin} 
-                            readOnly={true}>
+                            value={props.user}
+                            inputProps={
+                                { readOnly: true, }
+                            } />
                             
-                        </TextField>
-
                         <TextField label="Área comercial" 
                             className={classes.margin} 
-                            readOnly={true}>
-                            
-                        </TextField>
+                            value={props.comercialAreas}
+                            inputProps={
+                                { readOnly: true, }
+                            } />
 
                         <TextField label="Área técnica" 
                             className={classes.margin} 
-                            readOnly={true}>
-                            
-                        </TextField>
+                            value={props.technical}
+                            inputProps={
+                                { readOnly: true, }
+                            } />
 
+                        </Grid>
                     </div>
 
                     <div>
+                    <Grid  item xs={12} md={12} lg={12}>
                         <TextField label="Prioridad" 
+                            value={props.priority}
                             className={classes.margin} 
-                            readOnly={true}>
-                            
-                        </TextField>
+                            inputProps={
+                                { readOnly: true, }
+                            } />
 
                         <TextField label="Tipo de solicitud" 
                             className={classes.margin} 
-                            readOnly={true}>
-                         
-                        </TextField>
+                            value={props.reqType}
+                            inputProps={
+                                { readOnly: true, }
+                            } />
 
+                        </Grid>
                     </div>
 
 
                     <br/>
 
                     <div>
+                    <Grid  item xs={12} md={12} lg={12}>
+                      
                         <p>Datos de seguimiento</p>
                         <hr/>
 
@@ -146,9 +166,12 @@ const ModalDetailPortafolio = (props) => {
                             margin="normal"
                             id="date-picker-inline"
                             label="Fecha de Inicio"
-                            value={selectedDate}
+                            value={props.initDate}
+                            inputProps={
+                                { readOnly: true, }
+                            }
                             KeyboardButtonProps={{
-                              'aria-label': 'change date',
+                              'aria-label': 'change date', 'disabled':'true'
                             }} />
 
                             <KeyboardDatePicker 
@@ -160,10 +183,13 @@ const ModalDetailPortafolio = (props) => {
                             margin="normal"
                             id="date-picker-inline"
                             label="Fecha Fin Planificada"
-                            value={selectedDate}
+                            value={props.planFinalDate}
+                            inputProps={
+                                { readOnly: true, }
+                            }
                             KeyboardButtonProps={{
-                              'aria-label': 'change date',
-                            }} />
+                              'aria-label': 'change date', 'disabled':'true'
+                            }}/>
 
 
 
@@ -176,111 +202,157 @@ const ModalDetailPortafolio = (props) => {
                             margin="normal"
                             id="date-picker-inline"
                             label="Fecha Fin entrega/real"
-                            value={selectedDate}
+                            value={props.realFinalDate}
                             KeyboardButtonProps={{
-                              'aria-label': 'change date',
+                              'aria-label': 'change date', 'disabled':'true'
                             }} />
                         </MuiPickersUtilsProvider>
                     
-
+                            </Grid>
                     </div>
 
 
                     <div>
-
+                    <Grid  item xs={12} md={12} lg={12}>
                         <TextField label="Estatus" 
                             className={classes.margin} 
-                            readOnly={true}>
-                         
-                        </TextField>
+                            value={props.status}
+                            inputProps={
+                                { readOnly: true, }
+                            } />
 
                         <TextField label="% de avance" 
                             className={classes.margin} 
-                            readOnly={true}>
-                         
-                        </TextField>
+                            value={props.advantage}
+                            inputProps={
+                                { readOnly: true, }
+                            }
+                             />
 
                         <TextField label="% de desviación" 
                             className={classes.margin} 
-                            readOnly={true}>
-                         
-                        </TextField>
-
+                            value={props.deviation}
+                            inputProps={
+                                { readOnly: true, }
+                            } 
+                            />
+                        </Grid>
                     </div>
 
                     <br/>
 
                     <div>
+                    <Grid  item xs={12} md={12} lg={12}>
+                      
                         <p>Comentarios Cliente</p>
                         <hr/>
 
                         <TextField label="Entregables del cliente" 
                             className={classes.margin} 
-                            readOnly={true}>
-                         
-                        </TextField>
+                            value={props.clientDeliverables}
+                            multiline={true}
+                            rowsMax={2}
+                            inputProps={
+                                { readOnly: true, }
+                            }
+                             />
 
                         <TextField label="Actividades pendientes cliente" 
                             className={classes.margin} 
-                            readOnly={true}
+                            value={props.clientActivities}
+                            multiline={true}
+                            rowsMax={2}
+                            inputProps={
+                                { readOnly: true, }
+                            }
                             InputLabelProps={{
                                 classes: {
                                     root:classes.labelRoot
-                                }}}>
-                         
-                        </TextField>
+                                }}} />
 
                         <TextField label="Comentarios del cliente" 
                             className={classes.margin} 
-                            readOnly={true}>
-                         
-                        </TextField>
+                            value={props.clientComments}
+                            multiline={true}
+                            rowsMax={2}
+                            inputProps={
+                                { readOnly: true, }
+                            }  />
+
+                        </Grid>
                     </div>  
 
                     <br/>  
 
 
                     <div>
+                    <Grid  item xs={12} md={12} lg={12}>
+                      
                         <p>Comentarios Intelix</p>
                         <hr/>
 
 
                         <TextField label="Entregables Intelix" 
                             className={classes.margin} 
-                            readOnly={true}>
+                            value={props.intelixDeliverables}
+                            multiline={true}
+                            rowsMax={2}
+                            inputProps={
+                                { readOnly: true, }
+                            } >
                          
                         </TextField>
 
                         <TextField label="Actividades pendientes Intelix" 
                             className={classes.margin} 
-                            readOnly={true}
+                            value={props.intelixActivities}
+                            multiline={true}
+                            rowsMax={2}
                             InputLabelProps={{
                                 classes: {
                                     root:classes.labelRoot
-                                }}}>
-                         
-                        </TextField>
+                                }}}
+                            inputProps={
+                                    { readOnly: true, }
+                                }     />
 
-                        <TextField label="Comentarios del Intelix" 
+                        <TextField label="Comentarios de Intelix" 
                             className={classes.margin} 
-                            readOnly={true}>
-                         
-                        </TextField>
+                            value={props.intelixComments}
+                            multiline={true}
+                            rowsMax={2}
+                            InputLabelProps={{
+                                classes: {
+                                    root:classes.labelRoot
+                                }}} 
+                            inputProps={
+                                    { readOnly: true, }
+                                }    />
+                        </Grid>
                     </div> 
 
                     <div>
+                    <Grid  item xs={12} md={12} lg={12}>
                         <FormControl className={classes.formControl}>
                             <FormLabel component="legend"> Llevar a Comité </FormLabel>
                             <FormControlLabel control={
-                            <Switch color="primary"/>} label="Sí"
+                            <Switch color="primary" 
+                            value={props.sendToComitee} checked={existe} />} label="Sí"
                             />
                         </FormControl>
+                        <TextField value={props.sendToComitee} type="checkbox"/>
 
                         <TextField 
                             className={classes.textField} 
                             className={classes.margin} 
                             label="Puntos a tratar en comité"
-                            readOnly />
+                            value={props.comitee}
+                           multiline={true}
+                           rowsMax={2}
+                            inputProps={
+                                { readOnly: true, }
+                            } />
+                    </Grid>
                     </div>
 
                     <br/>
@@ -290,7 +362,7 @@ const ModalDetailPortafolio = (props) => {
 
                     <div className={classes.button}>
                         <Button onClick={props.onClose} color="primary">
-                            Cancel
+                           Cerrar
                         </Button>
                     </div>
 

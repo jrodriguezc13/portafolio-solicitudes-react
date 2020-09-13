@@ -17,22 +17,64 @@ import ModalDeleteRequestStatus from './modalDeletePortafolio';
 import config from '../../bin/config/config';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import ModalUpdatePortafolio from './modalUpdatePortafolio'
 import ModalDetailPortafolio from './modalDetailPortafolio';
 
 const TableAppPortafolio = (props) => {
     const classes = useStyles();
     const data = props.fetchedData === null ? [] : props.fetchedData.data;
+    
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [openDelete, setOpenDelete] = React.useState(false);
     const [id, setId] = useState(null);
     const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [reqDate, setReqDate] = useState("");
+    const [priority, setPriority] = useState("");
+    const [initDate, setInitDate] = useState("");
+    const [planFinalDate, setPlanFinalDate] = useState("");
+    const [realFinalDate, setRealFinalDate] = useState("");
+    const [advantage, setAdvantage] = useState("");
+    const [deviation, setDeviation] = useState("");
+    const [clientDeliverables, setClientDeliverables] = useState("");
+    const [clientActivities, setClientActivities] = useState("");
+    const [clientComments, setClientComments] = useState("");
+    const [intelixActivities, setIntelixActivities] = useState("");
+    const [intelixDeliverables, setIntelixDeliverables] = useState("");
+    const [intelixComments, setIntelixComments] = useState("");
+    const [sendToComitee, setSendToComitee] = useState(0);
+    const [comitee, setComitee] = useState("");
+    const [comercialAreas, setComercialAreas] = useState("");
+    const [user, setUser] = useState("");
+    const [technical, setTechnical] = useState("");
+    const [reqType, setReqType] = useState("");
+    const [status, setStatus] = useState("");
+
+    const [dataComercialArea, setDataComercialArea] = useState("");
+    const [dataTechnical, setDataTechnical] = useState("");
+    const [dataReqTyp, setDataReqTyp] = useState("");
+    const [dataUser, setDataUser] = useState("");
+
     console.log(data);
 
     const [openUpdate, setOpenUpdate] = useState(false);
     const [openDetail, setOpenDetail] = useState(false);
-    const [titulo, setTitulo] = useState('');
+
+    const dataCoa = props.coa === null ? [] : props.coa.data;
+    const dataTea = props.technical === null ? [] : props.technical.data;
+    const dataReq = props.typeReq === null ? [] : props.typeReq.data;
+    const dataU = props.user === null ? [] : props.user.data;
+
+
+    console.log(dataCoa);
+    console.log(dataCoa[0].coaId);
+    console.log(dataCoa[0])
+    console.log(dataTea);
+    console.log(dataReq);
+    console.log(dataU);
+
+
+
     const handleChangePage = (event, newPage) => {
     setPage(newPage);
     };
@@ -56,6 +98,7 @@ const TableAppPortafolio = (props) => {
         baseURL: 'http://localhost:3050/api/v1/',
         headers: { 'Accept': 'application/json' }
     });
+    
     axiosInstance
         .get("portfolio/" + id)
         .then((res) => {
@@ -69,14 +112,6 @@ const TableAppPortafolio = (props) => {
         });
     };
 
-    const handleClickOpenUpdate = (id) => {
-        setOpenUpdate(true)
-        console.log(id)
-    };
-
-    const handleCloseUpdate = () => {
-        setOpenUpdate(false)
-    };
 
 
     const handleClickOpenDetail = (id) => {
@@ -92,9 +127,63 @@ const TableAppPortafolio = (props) => {
             .get("portfolio/" + id)
             .then((res) => {
                 setOpenDetail(true);
-                props.setCb(!props.cb)
-                props.onClose();
+                setId(res.data[0].reqId);
+                setTitle(res.data[0].reqTitle);
+                setDescription(res.data[0].reqDescription);
+                setReqDate(res.data[0].reqRequestDate);
+                setPriority(res.data[0].reqPriority);
+                setInitDate(res.data[0].reqInitialDate);
+                setPlanFinalDate(res.data[0].reqPlanFinalDate);
+                setRealFinalDate(res.data[0].reqRealFinalDate);
+                setAdvantage(res.data[0].reqAdvancePtge);
+                setDeviation(res.data[0].reqDeviationsPtge);
+                setClientDeliverables(res.data[0].reqClientCompletedDeliverables);
+                setClientActivities(res.data[0].reqClientPendingActivities);
+                setClientComments(res.data[0].reqClientComments);
+                setIntelixActivities(res.data[0].reqIntelixPendingActivities);
+                setIntelixComments(res.data[0].reqIntelixComments);
+                setIntelixDeliverables(res.data[0].reqIntelixCompletedDeliverables);
+                setSendToComitee(res.data[0].reqSendToComitee);
+                setComitee(res.data[0].reqComiteeAgenda);
 
+                
+
+
+
+                setComercialAreas(res.data[0].coaId);
+                setUser(res.data[0].userId);
+                setTechnical(res.data[0].teaId);
+                setStatus(res.data[0].estId);
+                setReqType(res.data[0].typId)
+               
+                console.log(res.data[0].reqId);
+                console.log(res.data[0].reqTitle);
+                console.log(res.data[0].reqDescription);
+                console.log(res.data[0].reqRequestDate);
+                console.log(res.data[0].reqPriority);
+                console.log(res.data[0].reqInitialDate);
+                console.log(res.data[0].reqPlanFinalDate);
+                console.log(res.data[0].reqRealFinalDate);
+                console.log(res.data[0].reqAdvancePtge);
+                console.log(res.data[0].reqDeviationsPtge);
+                console.log(res.data[0].reqClientCompletedDeliverables);
+                console.log(res.data[0].reqClientPendingActivities);
+                console.log(res.data[0].reqClientComments);
+                console.log(res.data[0].reqIntelixCompletedDeliverables);
+                console.log(res.data[0].reqIntelixPendingActivities);
+                console.log(res.data[0].reqIntelixComments);
+                console.log(res.data[0].reqSendToComitee);
+                console.log(res.data[0].reqComiteeAgenda);
+
+
+
+                console.log(res.data[0].coaId);
+                console.log(res.data[0].teaId);
+                console.log(res.data[0].typId);
+                console.log(res.data[0].estId);
+
+                console.log(res.data[0])
+                
                 console.log(res)
             })
             .catch((err) => {
@@ -104,6 +193,30 @@ const TableAppPortafolio = (props) => {
 
     const handleCloseDetail = () => {
         setOpenDetail(false);
+        setTitle("");
+        setDescription("");
+        setReqDate("");
+        setPriority("");
+        setInitDate("");
+        setPlanFinalDate("");
+        setRealFinalDate("");
+        setAdvantage("");
+        setDeviation("");
+        setClientDeliverables("");
+        setClientActivities("");
+        setClientComments("");
+        setIntelixActivities("");
+        setIntelixComments("");
+        setIntelixDeliverables("");
+        setComitee("");
+        setSendToComitee(0);
+        setComercialAreas("");
+        setTechnical("");
+        setUser("");
+        setReqType("");
+        setStatus("");
+
+
     }
 
 
@@ -133,7 +246,7 @@ const TableAppPortafolio = (props) => {
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
                 ).filter(task => !props.search || task.reqTitle.toLowerCase().includes(props.search.toLowerCase())).map((task) => (
-                  <TableRow key={task.reqId} hover className={classes.tableRow}>
+                  <TableRow key={task.reqId} hover className={classes.tableRow} >
                       <TableCell align="center" className={classes.cellSmall} size="small">
                         <Tooltip title="Eliminar">
                         <IconButton
@@ -153,16 +266,16 @@ const TableAppPortafolio = (props) => {
                       </TableCell>
 
                       <TableCell align="left" size="small" onClick={() => handleClickOpenDetail(task.reqId)}>{task.client[0].cliName}</TableCell>
-                      <TableCell align="left" size="small">{task.reqTitle}</TableCell> 
-                      <TableCell align="right" size="small">{task.reqPriority}</TableCell>
-                      <TableCell align="center" size="small">{moment(task.reqRequestDate).format("DD/MM/YYYY")}</TableCell>
-                      <TableCell align="center" size="small">{moment(task.reqInitialDate).format("DD/MM/YYYY")}</TableCell>
-                      <TableCell align="center" size="small">{moment(task.reqPlanFinalDate).format("DD/MM/YYYY")}</TableCell>
-                      <TableCell align="center" size="small">{moment(task.reqRealFinalDate).format("DD/MM/YYYY")}</TableCell>
-                      <TableCell align="left" size="small">{task.entityStatus[0].estName}</TableCell> 
-                      <TableCell align="right" size="small">{task.reqAdvancePtge}</TableCell> 
-                      <TableCell align="right" size="small">{task.reqDeviationsPtge}</TableCell>
-                      <TableCell align="left" size="small">{task.requestType[0].typName}</TableCell>                                       
+                      <TableCell align="left" size="small" onClick={() => handleClickOpenDetail(task.reqId)}>{task.reqTitle}</TableCell> 
+                      <TableCell align="right" size="small" onClick={() => handleClickOpenDetail(task.reqId)}>{task.reqPriority}</TableCell>
+                      <TableCell align="center" size="small" onClick={() => handleClickOpenDetail(task.reqId)}>{moment(task.reqRequestDate).format("DD/MM/YYYY")}</TableCell>
+                      <TableCell align="center" size="small" onClick={() => handleClickOpenDetail(task.reqId)}>{moment(task.reqInitialDate).format("DD/MM/YYYY")}</TableCell>
+                      <TableCell align="center" size="small" onClick={() => handleClickOpenDetail(task.reqId)}>{moment(task.reqPlanFinalDate).format("DD/MM/YYYY")}</TableCell>
+                      <TableCell align="center" size="small" onClick={() => handleClickOpenDetail(task.reqId)}>{moment(task.reqRealFinalDate).format("DD/MM/YYYY")}</TableCell>
+                      <TableCell align="left" size="small" onClick={() => handleClickOpenDetail(task.reqId)}>{task.entityStatus[0].estName}</TableCell> 
+                      <TableCell align="right" size="small" onClick={() => handleClickOpenDetail(task.reqId)}>{task.reqAdvancePtge}</TableCell> 
+                      <TableCell align="right" size="small" onClick={() => handleClickOpenDetail(task.reqId)}>{task.reqDeviationsPtge}</TableCell>
+                      <TableCell align="left" size="small" onClick={() => handleClickOpenDetail(task.reqId)}>{task.requestType[0].typName}</TableCell>                                       
                   </TableRow>
                 ))}
               </TableBody>
@@ -184,8 +297,31 @@ const TableAppPortafolio = (props) => {
          <ModalDeleteRequestStatus cb={props.cb} setCb={props.setCb} id={id}
                 setId={setId}
                 title={title} open={openDelete} onClose={handleCloseDelete}/>
-          <ModalDetailPortafolio open={openDetail} onClose={handleCloseDetail} titulo={titulo} setTitulo={setTitulo}/>
-          <ModalUpdatePortafolio open={openUpdate} onClose={handleCloseUpdate} />
+          <ModalDetailPortafolio open={openDetail} onClose={handleCloseDetail} 
+          title={title} setTitle={setTitle}
+          description={description} setDescription={setDescription}
+          reqDate={reqDate} setReqDate={setReqDate}
+          priority={priority} setPriority={setPriority}
+          initDate={initDate} setInitDate={setInitDate}
+          planFinalDate={planFinalDate} setPlanFinalDate={setPlanFinalDate}
+          realFinalDate={realFinalDate} setRealFinalDate={setRealFinalDate}
+          advantage={advantage} setAdvantage={setAdvantage}
+          deviation={deviation} setDeviation={setDeviation}
+          clientDeliverables={clientDeliverables} setClientDeliverables={setClientDeliverables}
+          clientActivities={clientActivities} setClientActivities={setClientDeliverables}
+          clientComments={clientComments} setClientComments={setClientComments}
+          intelixActivities={intelixActivities} setIntelixActivities={setIntelixActivities}
+          intelixDeliverables={intelixDeliverables} setIntelixDeliverables={setIntelixDeliverables}
+          intelixComments={intelixComments} setIntelixComments={setIntelixComments}
+          comercialAreas={comercialAreas} setComercialAreas={setComercialAreas}
+          sendToComitee={sendToComitee} setSendToComitee={setSendToComitee}
+          comitee={comitee} setComitee={setComitee}
+          user={user} setUser={setUser} 
+          technical={technical} setTechnical={setTechnical}
+          status={status} setStatus={setStatus}
+          reqType={reqType} setReqType={setReqType}
+         />
+
 
   </Paper>
     )
