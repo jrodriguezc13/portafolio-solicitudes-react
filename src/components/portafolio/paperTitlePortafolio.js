@@ -12,6 +12,7 @@ const PaperTitlePortafolio = (props) => {
 
     const toggleChecked = () => {
         props.setChecked((prev) => !prev);
+
         props.setCb(!props.cb);
     };
 
