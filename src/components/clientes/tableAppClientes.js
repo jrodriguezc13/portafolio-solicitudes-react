@@ -32,7 +32,6 @@ const TableAppClientes = (props) => {
 
       const axiosInstance = axios.create({
         baseURL: 'http://localhost:3050/api/v1/',
-        timeout: 2000,
         headers: { 'Accept': 'application/json' }
     });
     axiosInstance
@@ -70,7 +69,6 @@ const TableAppClientes = (props) => {
 
       const axiosInstance = axios.create({
         baseURL: 'http://localhost:3050/api/v1/',
-        timeout: 2000,
         headers: { 'Accept': 'application/json' }
     });
     axiosInstance
