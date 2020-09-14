@@ -16,6 +16,7 @@ import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import MomentUtils from '@date-io/moment';
 import moment from 'moment';
+import "moment/locale/es";
 import FormHelperText from '@material-ui/core/FormHelperText';
 import {
   MuiPickersUtilsProvider,
@@ -147,6 +148,8 @@ const ModalAddPortafolio = (props) => {
                             className={classes.margin}
                             label="Título"
                             name="titulo"
+                            multiline
+                            rowsMax={2}
                             onChange={(event) => setTitulo(event.target.value)}
                             value={titulo}
                             error= {errors.titulo !== undefined}
@@ -163,6 +166,8 @@ const ModalAddPortafolio = (props) => {
                             className={classes.margin} 
                             label="Descripción"
                             name="descripcion"
+                            multiline
+                            rowsMax={2}
                             onChange={(event) => setDescription(event.target.value)}
                             value={description}
                             error= {errors.descripcion !== undefined}
@@ -175,13 +180,13 @@ const ModalAddPortafolio = (props) => {
                             />
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                            <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <MuiPickersUtilsProvider utils={MomentUtils} locale="es">
                                 <Controller name="fechaSol"
                                         control={control}
                                         as={
                                             
                                                 <KeyboardDatePicker
-                                                invalidDateMessage= "Fecha no valida"
+                                                invalidDateMessage= "Fecha no válida"
                                                 className={classes.margin}
                                                 name="fechaSol"
                                                 disableToolbar
@@ -336,7 +341,7 @@ const ModalAddPortafolio = (props) => {
                                     as={
                                         
                                             <KeyboardDatePicker
-                                            invalidDateMessage= "Fecha no valida"
+                                            invalidDateMessage= "Fecha no válida"
                                             className={classes.margin}
                                             name="fechaIn"
                                             disableToolbar
@@ -365,7 +370,7 @@ const ModalAddPortafolio = (props) => {
                                     as={
                                         
                                             <KeyboardDatePicker
-                                            invalidDateMessage= "Fecha no valida"
+                                            invalidDateMessage= "Fecha no válida"
                                             className={classes.margin}
                                             name="fechaFinPlan"
                                             disableToolbar

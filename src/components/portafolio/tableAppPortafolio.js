@@ -248,7 +248,7 @@ const TableAppPortafolio = (props) => {
                 <TableRow>
                   <TableCell align="center" size="small">Acciones</TableCell>
                   <TableCell align="left" size="small">Cliente</TableCell>
-                  <TableCell align="left" size="small">Titulo</TableCell>
+                  <TableCell align="left" size="small">Título</TableCell>
                   <TableCell align="right" size="small">Prioridad</TableCell>
                   <TableCell align="center" size="small">Fecha solicitud</TableCell>
                   <TableCell align="center" size="small">Fecha inicio</TableCell>
@@ -256,7 +256,7 @@ const TableAppPortafolio = (props) => {
                   <TableCell align="center" size="small">Fecha fin entrega real</TableCell>
                   <TableCell align="left" size="small">Estado</TableCell>
                   <TableCell align="right" size="small">% Avance</TableCell>
-                  <TableCell align="right" size="small">% Desviacion</TableCell>
+                  <TableCell align="right" size="small">% Desviación</TableCell>
                   <TableCell align="left" size="small">Tipo de solicitud</TableCell>                   
                       
                 </TableRow>
@@ -283,10 +283,10 @@ const TableAppPortafolio = (props) => {
                       <TableCell align="left" size="small">{task.client[0].cliName}</TableCell>
                       <TableCell align="left" size="small">{task.reqTitle}</TableCell> 
                       <TableCell align="right" size="small">{task.reqPriority}</TableCell>
-                      <TableCell align="center" size="small">{moment(task.reqRequestDate).format("DD-MM-YYYY")}</TableCell>
-                      <TableCell align="center" size="small">{moment(task.reqInitialDate).format("DD-MM-YYYY")}</TableCell> 
-                      <TableCell align="center" size="small">{moment(task.reqPlanFinalDate).format("DD-MM-YYYY")}</TableCell> 
-                      <TableCell align="center" size="small">{moment(task.reqRealFinalDate).format("DD-MM-YYYY")}</TableCell>
+                      <TableCell align="center" size="small">{moment(task.reqRequestDate).format("DD/MM/YYYY")}</TableCell>
+                      <TableCell align="center" size="small">{moment(task.reqInitialDate).format("DD/MM/YYYY")}</TableCell> 
+                      <TableCell align="center" size="small">{moment(task.reqPlanFinalDate).format("DD/MM/YYYY")}</TableCell> 
+                      <TableCell align="center" size="small">{moment(task.reqRealFinalDate).format("DD/MM/YYYY")}</TableCell>
                       <TableCell align="left" size="small">{task.entityStatus[0].estName}</TableCell> 
                       <TableCell align="right" size="small">{task.reqAdvancePtge}</TableCell> 
                       <TableCell align="right" size="small">{task.reqDeviationsPtge}</TableCell>
@@ -302,9 +302,9 @@ const TableAppPortafolio = (props) => {
          count={data.length}
          rowsPerPage={rowsPerPage}
          page={page}
-         labelRowsPerPage= "Filas por paginas"
+         labelRowsPerPage= "Filas por páginas"
          SelectProps={{
-            inputProps: { 'aria-label': 'Filas por pagina' },
+            inputProps: { 'aria-label': 'Filas por página' },
             native: true,
           }}
          onChangePage={handleChangePage}

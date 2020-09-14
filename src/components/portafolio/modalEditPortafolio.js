@@ -378,7 +378,7 @@ const ModalEditPortafolio = (props) => {
                                                 as={
                                                     
                                                         <KeyboardDatePicker
-                                                        invalidDateMessage= "Fecha no valida"
+                                                        invalidDateMessage= "Fecha no válida"
                                                         className={classes.margin}
                                                         name="fechaIn"
                                                         disableToolbar
@@ -408,7 +408,7 @@ const ModalEditPortafolio = (props) => {
                                                 as={
                                                     
                                                         <KeyboardDatePicker
-                                                        invalidDateMessage= "Fecha no valida"
+                                                        invalidDateMessage= "Fecha no válida"
                                                         className={classes.margin}
                                                         name="fechaFinPlan"
                                                         disableToolbar
@@ -438,7 +438,7 @@ const ModalEditPortafolio = (props) => {
                                                 as={
                                                     
                                                         <KeyboardDatePicker
-                                                        invalidDateMessage= "Fecha no valida"
+                                                        invalidDateMessage= "Fecha no válida"
                                                         className={classes.margin}
                                                         name="fechaFinReal"
                                                         disableToolbar
