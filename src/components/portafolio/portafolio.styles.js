@@ -32,7 +32,8 @@ export default makeStyles(theme => ({
     tableRow: {
         "&:hover": {
             backgroundColor: "#b3ebe9 !important"
-        }
+        },
+        cursor: 'pointer'
     },
     form: {
         margin: theme.spacing(1),
@@ -102,7 +103,7 @@ export default makeStyles(theme => ({
     },
     margin: {
         margin: theme.spacing(1),
-        width: 250,
+        width: 220,
     },
 
     button: {
@@ -127,8 +128,8 @@ export default makeStyles(theme => ({
 
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 250,
-        maxWidth: 250
+        minWidth: 220,
+        maxWidth: 220
     },
 
 
@@ -136,15 +137,6 @@ export default makeStyles(theme => ({
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
     },
-
-
-
-
-
-
-
-
-
 
 
 }));
