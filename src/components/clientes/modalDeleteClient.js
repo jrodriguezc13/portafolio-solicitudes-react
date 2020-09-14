@@ -16,8 +16,8 @@ const ModalDeleteClient = (props) => {
         console.log(id)
 
         const axiosInstance = axios.create({
-            baseURL: 'http://localhost:3050/api/v1/',
-            timeout: 2000,
+            baseURL: process.env.REACT_APP_BACK_URL,
+
             headers: { 'Accept': 'application/json' }
         });
 

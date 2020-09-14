@@ -7,7 +7,7 @@ export const useHttpGet = (url, dependencies, params = []) => {
     const [fetchedData, setFetchedData] = useState(null);
 
     const axiosInstance = axios.create({
-        baseURL: 'http://localhost:3050/api/v1/',
+        baseURL: process.env.REACT_APP_BACK_URL,
 
         headers: { 'Accept': 'application/json' },
 

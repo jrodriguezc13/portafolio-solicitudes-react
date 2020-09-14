@@ -5,7 +5,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
+import config from '../../bin/config/config';
 import Switch from '@material-ui/core/Switch';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -333,17 +333,19 @@ const ModalDetailPortafolio = (props) => {
                                     />
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12} sm={4}>
-                                <TextField 
-                                className={classes.margin} 
-                                label="Puntos a tratar en comité"
-                                value={props.dataPuntComite}
-                                multiline={true}
-                                rowsMax={2}
-                                inputProps={
-                                    { readOnly: true, }
-                                } />
-                            </Grid>
+                            {config.clients.includes(localStorage.email) ? null
+                             : <Grid item xs={12} sm={4}>
+                             <TextField 
+                             className={classes.margin} 
+                             label="Puntos a tratar en comité"
+                             value={props.dataPuntComite}
+                             multiline={true}
+                             rowsMax={2}
+                             inputProps={
+                                 { readOnly: true, }
+                             } />
+                         </Grid>}
+                            
                         </Grid>
                         <Grid container justify="center" alignItems="center" item xs={12}>
                             <Button onClick={props.onClose} color="primary" variant="contained">
