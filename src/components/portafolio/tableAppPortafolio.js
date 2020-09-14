@@ -18,6 +18,7 @@ import config from '../../bin/config/config';
 import ModalEditPortafolio from './modalEditPortafolio';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ModalDetailPortafolio from './modalDetailPortafolio';
 
 
 const TableAppPortafolio = (props) => {
@@ -27,6 +28,7 @@ const TableAppPortafolio = (props) => {
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [openDelete, setOpenDelete] = React.useState(false);
     const [openEdit, setOpenEdit] = React.useState(false);
+    const [openDatails, setOpenDatails] = React.useState(false);
     const [id, setId] = useState(null);
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
@@ -118,6 +120,34 @@ const TableAppPortafolio = (props) => {
       setDataPuntComite('')
 
     };
+    const handleCloseDetails = () => {
+      setOpenDatails(false);
+      setId(null);
+      setTitle('');      
+      setDesc('')
+      setSelectedRequestDate(moment(new Date()))
+      setDataUser('')
+      setDataPrioridad('')
+      setDataClient('')
+      setDataStatus('')
+      setDataComercialArea('')
+      setDataReqTyp('')
+      setDataTechnical('')
+      setSelectedInitialDate(moment(new Date()))
+      setSelectedFinalDate(moment(new Date()))
+      setSelectedRealFinalDate(moment(new Date()))
+      setDataPorAv('')
+      setDataPorDesv('')
+      setDataEntreCli('')
+      setDataActPenCli('')
+      setDataComCli('')
+      setDataEntreInt('')
+      setDataActPenInt('')
+      setDataComInt('')
+      setDataComite('')
+      setDataPuntComite('')
+
+    };
     
     const handleClickOpenEdit = (id) => {
       setOpen(true)
@@ -163,6 +193,50 @@ const TableAppPortafolio = (props) => {
         });
     }
 
+    const handleClickOpenDatails = (id) => {
+      setOpen(true)
+      console.log(id)
+
+      const axiosInstance = axios.create({
+        baseURL: 'http://localhost:3050/api/v1/',
+        headers: { 'Accept': 'application/json' }
+    });
+    axiosInstance 
+        .get("portfolio/" + id)
+        .then((res) => {
+          setId(res.data[0].reqId);
+          setTitle(res.data[0].reqTitle);
+          setDesc(res.data[0].reqDescription)
+          setSelectedRequestDate(moment(res.data[0].reqRequestDate))
+          setDataUser(res.data[0].user[0].userName)
+          setDataPrioridad(res.data[0].reqPriority)
+          setDataClient(res.data[0].cliId) 
+          setDataStatus(res.data[0].entityStatus[0].estName)
+          setDataComercialArea(res.data[0].comercialAreas[0].coaName)
+          setDataReqTyp(res.data[0].requestType[0].typName)
+          setDataTechnical(res.data[0].teaId === null ? '' : res.data[0].technicalArea[0].teaName)
+          setSelectedInitialDate(moment(res.data[0].reqInitialDate))
+          setSelectedFinalDate(moment(res.data[0].reqPlanFinalDate))
+          setSelectedRealFinalDate(moment(res.data[0].reqRealFinalDate))
+          setDataPorAv(res.data[0].reqAdvancePtge)
+          setDataPorDesv(res.data[0].reqDeviationsPtge)
+          setDataEntreCli(res.data[0].reqClientCompletedDeliverables)
+          setDataActPenCli(res.data[0].reqClientPendingActivities)
+          setDataComCli(res.data[0].reqClientComments)
+          setDataEntreInt(res.data[0].reqIntelixCompletedDeliverables)
+          setDataActPenInt(res.data[0].reqIntelixPendingActivities)
+          setDataComInt(res.data[0].reqIntelixComments)
+          setDataComite(res.data[0].reqSendToComitee)
+          setDataPuntComite(res.data[0].reqComiteeAgenda)
+          console.log(res.data)
+          setOpenDatails(true);
+          setOpen(false)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
     let content = (
   <Paper className={classes.table} elevation={0}>
       <Backdrop className={classes.backdrop} open={open}>
@@ -192,8 +266,8 @@ const TableAppPortafolio = (props) => {
                   ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   : data
                 ).filter(task => !props.search || task.reqTitle.toLowerCase().includes(props.search.toLowerCase())).map((task) => (
-                  <TableRow key={task.reqId} hover className={classes.tableRow}>
-                      <TableCell align="center" className={classes.cellSmall} size="small">
+                  <TableRow onClick={() => handleClickOpenDatails(task.reqId)} key={task.reqId} hover className={classes.tableRow}>
+                      <TableCell align="center" className={classes.cellSmall} size="small" onClick={(e) => e.stopPropagation()}>
                         <IconButton                        
                           color="primary"
                           className={classes.icons} onClick={() => handleClickOpenDelete(task.reqId)}
@@ -265,6 +339,30 @@ const TableAppPortafolio = (props) => {
                 dataPuntComite={dataPuntComite} setDataPuntComite={setDataPuntComite}
                 open={openEdit} onClose={handleCloseEdit} client={props.client} coa={props.coa} technical={props.technical} typeReq={props.typeReq} status={props.status}
                 user={props.user}/>
+                <ModalDetailPortafolio open={openDatails} onClose={handleCloseDetails}
+                title={title} setTitle={setTitle}
+                desc={desc} setDesc={setDesc}
+                selectedRequestDate={selectedRequestDate} setSelectedRequestDate={setSelectedRequestDate}
+                selectedInitialDate={selectedInitialDate} setSelectedInitialDate={setSelectedInitialDate}
+                selectedFinalDate={selectedFinalDate} setSelectedFinalDate={setSelectedFinalDate}
+                selectedRealFinalDate={selectedRealFinalDate} setSelectedRealFinalDate={setSelectedRealFinalDate}
+                dataClient={dataClient} setDataClient={setDataClient}
+                dataComercialArea={dataComercialArea} setDataComercialArea={setDataComercialArea}
+                dataTechnical={dataTechnical} setDataTechnical={setDataTechnical}
+                dataReqTyp={dataReqTyp} setDataReqTyp={setDataReqTyp}
+                dataUser={dataUser} setDataUser={setDataUser}
+                dataStatus={dataStatus} setDataStatus={setDataStatus}
+                dataPrioridad={dataPrioridad} setDataPrioridad={setDataPrioridad}
+                dataPorAv={dataPorAv} setDataPorAv={setDataPorAv}
+                dataPorDesv={dataPorDesv} setDataPorDesv={setDataPorDesv}
+                dataEntreCli={dataEntreCli} setDataEntreCli={setDataEntreCli}
+                dataActPenCli={dataActPenCli} setDataActPenCli={setDataActPenCli}
+                dataComCli={dataComCli} setDataComCli={setDataComCli}
+                dataEntreInt={dataEntreInt} setDataEntreInt={setDataEntreInt}
+                dataActPenInt={dataActPenInt} setDataActPenInt={setDataActPenInt}
+                dataComInt={dataComInt} setDataComInt={setDataComInt}
+                dataComite={dataComite} setDataComite={setDataComite}
+                dataPuntComite={dataPuntComite} setDataPuntComite={setDataPuntComite}/>
   </Paper>
     )
     return content;
