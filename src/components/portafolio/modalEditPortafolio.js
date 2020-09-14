@@ -23,10 +23,12 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import ModalRefuse from "../modalRefuse/modalRefuse";
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import config from '../../bin/config/config';
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import "moment/locale/es";
 import axios from "axios";
 import { useForm, Controller } from 'react-hook-form';
 
@@ -77,7 +79,7 @@ const ModalEditPortafolio = (props) => {
         data.fechaFinReal._d > data.fechaSol._d) {
             console.log('adentro')
             const axiosInstance = axios.create({
-                baseURL: 'http://localhost:3050/api/v1/',
+                baseURL: process.env.REACT_APP_BACK_URL,
                 headers: { 'Accept': 'application/json',
                       'Content-Type': 'application/json' }
                 });
@@ -161,6 +163,7 @@ const ModalEditPortafolio = (props) => {
                                     className={classes.margin}
                                     label="Título"
                                     name="titulo"
+                                    disabled={config.clients.includes(localStorage.email) || config.respns.includes(localStorage.email) || config.leaders.includes(localStorage.email) ? true : false}
                                     multiline
                                     rowsMax={2}
                                     onChange={(event) => props.setTitle(event.target.value)}
@@ -179,6 +182,7 @@ const ModalEditPortafolio = (props) => {
                                     className={classes.margin} 
                                     label="Descripción"
                                     name="descripcion"
+                                    disabled={config.clients.includes(localStorage.email) || config.respns.includes(localStorage.email) || config.leaders.includes(localStorage.email) ? true : false}
                                     multiline
                                     rowsMax={2}
                                     onChange={(event) => props.setDesc(event.target.value)}
@@ -193,13 +197,13 @@ const ModalEditPortafolio = (props) => {
                                     />
                             </Grid>
                             <Grid item xs={12} sm={4}>
-                                <MuiPickersUtilsProvider utils={MomentUtils}>
+                                <MuiPickersUtilsProvider utils={MomentUtils} locale="es">
                                     <Controller name="fechaSol"
                                             control={control}
                                             as={
                                                 
                                                     <KeyboardDatePicker
-                                                    invalidDateMessage= "Fecha no valida"
+                                                    invalidDateMessage= "Fecha no válida"
                                                     className={classes.margin}
                                                     name="fechaSol"
                                                     disableToolbar
@@ -228,7 +232,9 @@ const ModalEditPortafolio = (props) => {
                                 <InputLabel id="demo-simple-select-label">Cliente</InputLabel>
                                 <Controller name="client"  
                                             control={control}
-                                            
+                                            inputProps={
+                                                { readOnly: true, }
+                                            }
                                             as={
                                                 <Select defaultValue={props.dataClient}>
                                                 {data.map((data) => (
@@ -254,6 +260,7 @@ const ModalEditPortafolio = (props) => {
                                 <FormControl className={classes.formControl} error= {errors.coa !== undefined}>
                                 <InputLabel id="demo-simple-select-label">Área Comercial</InputLabel>
                                 <Controller name="coa"
+                                disabled={config.clients.includes(localStorage.email) || config.respns.includes(localStorage.email) || config.leaders.includes(localStorage.email) ? true : false}
                                         control={control}
                                         as={
                                             <Select >
@@ -276,6 +283,7 @@ const ModalEditPortafolio = (props) => {
                                 <FormControl className={classes.formControl} >
                                 <InputLabel id="demo-simple-select-label">Área Técnica</InputLabel>
                                 <Controller name="atech"
+                                disabled={config.clients.includes(localStorage.email) || config.respns.includes(localStorage.email) || config.leaders.includes(localStorage.email) ? true : false}
                                         control={control}
                                         as={
                                             <Select >
@@ -303,6 +311,7 @@ const ModalEditPortafolio = (props) => {
                                     className={classes.margin} 
                                     label="Prioridad"
                                     name="prioridad"
+                                    disabled={config.respns.includes(localStorage.email) ? true : false}
                                     onChange={(event) => props.setDataPrioridad(event.target.value)}
                                     type="number"
                                     inputProps={{ min: "0", max: "100", step: "1" }}
@@ -320,6 +329,7 @@ const ModalEditPortafolio = (props) => {
                                 <FormControl className={classes.formControl} error= {errors.resp !== undefined}>
                                 <InputLabel id="demo-simple-select-label">Responsable</InputLabel>
                                 <Controller name="resp"
+                                disabled={config.clients.includes(localStorage.email) ? true : false}
                                         control={control}
                                         as={
                                             <Select >
@@ -344,6 +354,7 @@ const ModalEditPortafolio = (props) => {
                             <FormControl className={classes.formControl} error= {errors.resp !== undefined}>
                                 <InputLabel id="demo-simple-select-label">Tipo de Solicitud</InputLabel>
                                     <Controller name="tips"
+                                    disabled={config.clients.includes(localStorage.email) || config.respns.includes(localStorage.email) || config.leaders.includes(localStorage.email) ? true : false}
                                             control={control}
                                             as={
                                                 <Select >
@@ -372,13 +383,14 @@ const ModalEditPortafolio = (props) => {
                         </Grid>
                         <Grid container item xs={12}>
                                 <Grid item xs={12} sm={4}>
-                                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    <MuiPickersUtilsProvider utils={MomentUtils} locale="es">
                                         <Controller name="fechaIn"
                                                 control={control}
                                                 as={
                                                     
                                                         <KeyboardDatePicker
-                                                        invalidDateMessage= "Fecha no valida"
+                                                        disabled={config.clients.includes(localStorage.email) || config.respns.includes(localStorage.email) || config.leaders.includes(localStorage.email) ? true : false}
+                                                        invalidDateMessage= "Fecha no válida"
                                                         className={classes.margin}
                                                         name="fechaIn"
                                                         disableToolbar
@@ -402,13 +414,14 @@ const ModalEditPortafolio = (props) => {
                                     </MuiPickersUtilsProvider>
                                 </Grid>
                                 <Grid item xs={12} sm={4}>
-                                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    <MuiPickersUtilsProvider utils={MomentUtils} locale="es">
                                         <Controller name="fechaFinPlan"
                                                 control={control}
                                                 as={
                                                     
                                                         <KeyboardDatePicker
-                                                        invalidDateMessage= "Fecha no valida"
+                                                        disabled={config.clients.includes(localStorage.email) || config.respns.includes(localStorage.email) || config.leaders.includes(localStorage.email) ? true : false}
+                                                        invalidDateMessage= "Fecha no válida"
                                                         className={classes.margin}
                                                         name="fechaFinPlan"
                                                         disableToolbar
@@ -432,13 +445,14 @@ const ModalEditPortafolio = (props) => {
                                     </MuiPickersUtilsProvider>
                                 </Grid>
                                 <Grid item xs={12} sm={4}>
-                                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    <MuiPickersUtilsProvider utils={MomentUtils} locale="es">
                                         <Controller name="fechaFinReal"
                                                 control={control}
                                                 as={
                                                     
                                                         <KeyboardDatePicker
-                                                        invalidDateMessage= "Fecha no valida"
+                                                        disabled={config.clients.includes(localStorage.email) ? true : false}
+                                                        invalidDateMessage= "Fecha no válida"
                                                         className={classes.margin}
                                                         name="fechaFinReal"
                                                         disableToolbar
@@ -468,6 +482,7 @@ const ModalEditPortafolio = (props) => {
                                 <InputLabel id="demo-simple-select-label">Estatus</InputLabel>
                                     <Controller name="status"
                                             control={control}
+                                            disabled={config.clients.includes(localStorage.email) ? true : false}
                                             as={
                                                 <Select >
                                                 {dataSta.map((data) => (
@@ -491,6 +506,7 @@ const ModalEditPortafolio = (props) => {
                                     className={classes.margin} 
                                     label="% de avance"
                                     name="porAvc"
+                                    disabled={config.clients.includes(localStorage.email) ? true : false}
                                     onChange={(event) => props.setDataPorAv(event.target.value)}
                                     type="number"
                                     inputProps={{ min: "0", max: "100", step: "1" }}
@@ -510,6 +526,7 @@ const ModalEditPortafolio = (props) => {
                                     className={classes.margin} 
                                     label="% de desviación"
                                     name="porDesv"
+                                    disabled={config.clients.includes(localStorage.email) ? true : false}
                                     onChange={(event) => props.setDataPorDesv(event.target.value)}
                                     type="number"
                                     inputProps={{ min: "0", step: "1" }}
@@ -537,6 +554,7 @@ const ModalEditPortafolio = (props) => {
                                     className={classes.margin} 
                                     label="Entregables del cliente"
                                     name="entreCli"
+                                    disabled={config.respns.includes(localStorage.email) || config.leaders.includes(localStorage.email) ? true : false}
                                     multiline
                                     rowsMax={4}
                                     onChange={(event) => props.setDataEntreCli(event.target.value)}
@@ -551,6 +569,7 @@ const ModalEditPortafolio = (props) => {
                                     className={classes.margin} 
                                     label="Act pendientes cliente"
                                     name="actPenCli"
+                                    disabled={config.respns.includes(localStorage.email) || config.leaders.includes(localStorage.email) ? true : false}
                                     multiline
                                     rowsMax={4}
                                     onChange={(event) => props.setDataActPenCli(event.target.value)}
@@ -565,6 +584,7 @@ const ModalEditPortafolio = (props) => {
                                     className={classes.margin} 
                                     label="Comentarios del cliente"
                                     name="comCli"
+                                    disabled={config.respns.includes(localStorage.email) || config.leaders.includes(localStorage.email) ? true : false}
                                     multiline
                                     rowsMax={4}
                                     onChange={(event) => props.setDataComCli(event.target.value)}
@@ -587,6 +607,7 @@ const ModalEditPortafolio = (props) => {
                                     className={classes.margin} 
                                     label="Entregables de Intelix"
                                     name="entreInt"
+                                    disabled={config.clients.includes(localStorage.email) ? true : false}
                                     multiline
                                     rowsMax={4}
                                     onChange={(event) => props.setDataEntreInt(event.target.value)}
@@ -601,6 +622,7 @@ const ModalEditPortafolio = (props) => {
                                     className={classes.margin} 
                                     label="Act pendientes Intelix"
                                     name="actPenInt"
+                                    disabled={config.clients.includes(localStorage.email) ? true : false}
                                     multiline
                                     rowsMax={4}
                                     onChange={(event) => props.setDataActPenInt(event.target.value)}
@@ -615,6 +637,7 @@ const ModalEditPortafolio = (props) => {
                                     className={classes.margin} 
                                     label="Comentarios de Intelix"
                                     name="comInt"
+                                    disabled={config.clients.includes(localStorage.email) ? true : false}
                                     multiline
                                     rowsMax={4}
                                     onChange={(event) => props.setDataComInt(event.target.value)}
@@ -629,27 +652,31 @@ const ModalEditPortafolio = (props) => {
                             <Grid item xs={12} sm={4}>
                                 <FormControl className={classes.formControl}>
                                     <FormLabel component="legend"> Llevar a Comité </FormLabel>
-                                    <FormControlLabel control={
+                                    <FormControlLabel 
+                                    disabled={config.respns.includes(localStorage.email) || config.leaders.includes(localStorage.email) ? true : false}
+                                    control={
                                     <Switch checked={props.dataComite === 0 ? false : true} 
                                     onChange={() => props.setDataComite(props.dataComite === 0 ? 1 : 0) } color="primary"/>} label="Sí"
                                     />
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12} sm={4}>
+                            {config.clients.includes(localStorage.email) ? null
+                             : <Grid item xs={12} sm={4}>
                                 <TextField 
                                     className={classes.margin} 
                                     label="Puntos a tratar en comité"
                                     name="puntComite"
                                     multiline
                                     rowsMax={4}
-                                    disabled={props.dataComite === 0 ? true : false}
+                                    disabled={props.dataComite === 0 || config.respns.includes(localStorage.email) ? true : false}
                                     onChange={(event) => props.setDataPuntComite(event.target.value)}
                                     value={props.dataPuntComite}
                                     inputRef= {
                                         register()
                                         }
                                     />
-                            </Grid>
+                            </Grid>}
+                            
                         </Grid>
                         <Grid container justify="center" alignItems="center" item xs={12}>
                             <Button onClick={props.onClose} color="primary">

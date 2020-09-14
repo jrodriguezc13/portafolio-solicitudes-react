@@ -21,6 +21,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import "moment/locale/es";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import axios from "axios";
@@ -88,7 +89,7 @@ const ModalAddPortafolio = (props) => {
         if (data.dateIn._d >= data.fechaSol._d && data.fechaFinPlan._d > data.dateIn._d) {
             console.log("Cumple")
             const axiosInstance = axios.create({
-                baseURL: 'http://localhost:3050/api/v1/',
+                baseURL: process.env.REACT_APP_BACK_URL,
                 headers: { 'Accept': 'application/json',
                       'Content-Type': 'application/json' }
                     });
@@ -147,6 +148,8 @@ const ModalAddPortafolio = (props) => {
                             className={classes.margin}
                             label="Título"
                             name="titulo"
+                            multiline
+                            rowsMax={2}
                             onChange={(event) => setTitulo(event.target.value)}
                             value={titulo}
                             error= {errors.titulo !== undefined}
@@ -163,6 +166,8 @@ const ModalAddPortafolio = (props) => {
                             className={classes.margin} 
                             label="Descripción"
                             name="descripcion"
+                            multiline
+                            rowsMax={2}
                             onChange={(event) => setDescription(event.target.value)}
                             value={description}
                             error= {errors.descripcion !== undefined}
@@ -175,13 +180,13 @@ const ModalAddPortafolio = (props) => {
                             />
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                            <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <MuiPickersUtilsProvider utils={MomentUtils} locale="es">
                                 <Controller name="fechaSol"
                                         control={control}
                                         as={
                                             
                                                 <KeyboardDatePicker
-                                                invalidDateMessage= "Fecha no valida"
+                                                invalidDateMessage= "Fecha no válida"
                                                 className={classes.margin}
                                                 name="fechaSol"
                                                 disableToolbar
@@ -330,13 +335,13 @@ const ModalAddPortafolio = (props) => {
                 </Grid>
                 <Grid container item xs={12}>
                     <Grid item xs={12} sm={4}>
-                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                        <MuiPickersUtilsProvider utils={MomentUtils} locale="es">
                                 <Controller name="dateIn"
                                     control={control}
                                     as={
                                         
                                             <KeyboardDatePicker
-                                            invalidDateMessage= "Fecha no valida"
+                                            invalidDateMessage= "Fecha no válida"
                                             className={classes.margin}
                                             name="fechaIn"
                                             disableToolbar
@@ -359,13 +364,13 @@ const ModalAddPortafolio = (props) => {
                         </MuiPickersUtilsProvider>
                     </Grid>
                     <Grid item xs={12} sm={4}>
-                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                        <MuiPickersUtilsProvider utils={MomentUtils} locale="es">
                                 <Controller name="fechaFinPlan"
                                     control={control}
                                     as={
                                         
                                             <KeyboardDatePicker
-                                            invalidDateMessage= "Fecha no valida"
+                                            invalidDateMessage= "Fecha no válida"
                                             className={classes.margin}
                                             name="fechaFinPlan"
                                             disableToolbar

@@ -23,7 +23,7 @@ const Login = (props) => {
         localStorage.setItem("email", response.profileObj.email);
         localStorage.setItem("name", response.profileObj.name);
         const axiosInstance = axios.create({
-            baseURL: 'http://localhost:3050/api/v1/',
+            baseURL: process.env.REACT_APP_BACK_URL,
 
             headers: { 'Accept': 'application/json' }
         });
@@ -42,12 +42,12 @@ const Login = (props) => {
             .catch((err) => {
                 
             });
-    } else if (config.respns.includes(response.profileObj.email)) {
+    } else if (config.respns.includes(response.profileObj.email) || config.leaders.includes(response.profileObj.email)) {
         localStorage.setItem("email", response.profileObj.email);
         localStorage.setItem("name", response.profileObj.name);
         console.log("Hola responsable")
         const axiosInstance = axios.create({
-            baseURL: 'http://localhost:3050/api/v1/',
+            baseURL: process.env.REACT_APP_BACK_URL,
 
             headers: { 'Accept': 'application/json' }
         });
@@ -89,13 +89,19 @@ const Login = (props) => {
         localStorage.setItem("respon", []);
         window.location.reload();
 
+    } else {
+        console.log('Hola Extranho')
+        localStorage.setItem("email", response.profileObj.email);
+        localStorage.setItem("name", response.profileObj.name);
+        localStorage.setItem("respon", []);
+        window.location.reload();
     }
     
 }
 const addUser = () => {
 
     const axiosInstance = axios.create({
-        baseURL: 'http://localhost:3050/api/v1/',
+        baseURL: process.env.REACT_APP_BACK_URL,
 
         headers: { 'Accept': 'application/json' }
     });
@@ -122,7 +128,7 @@ const addUser = () => {
 const getClienteById = (id) => {
 
     const axiosInstance = axios.create({
-        baseURL: 'http://localhost:3050/api/v1/',
+        baseURL: process.env.REACT_APP_BACK_URL,
 
         headers: { 'Accept': 'application/json' }
     });
@@ -181,41 +187,10 @@ const getClienteById = (id) => {
             <Typography component="h1" variant="h5">
                 Portafolio de Solicitudes
             </Typography>
-            <form className={classes.form} method="post">
-                <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                />
-                <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                />
-                <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                >
-                Sign In
-                </Button>
-               
+            <form className={classes.form} method="post">                              
                 <Box mt={2} mb={2}>
                 <GoogleLogin
+                className={classes.login}
                 clientId={config.clientId}
                 buttonText="Iniciar Sesión"
                 onSuccess={responseGoogle}
