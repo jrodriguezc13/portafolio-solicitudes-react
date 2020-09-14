@@ -5,7 +5,6 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import InputAdornment from '@material-ui/core/InputAdornment';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -21,9 +20,11 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import ModalRefuse from "../modalRefuse/modalRefuse";
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import axios from "axios";
@@ -34,18 +35,14 @@ const ModalEditPortafolio = (props) => {
     const classes = useStyles();
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
-
-
     const {register, errors, handleSubmit, control } = useForm();
-    console.log(props.dataClient)
-    
-
-
+ 
     const [selectedDate, setSelectedDate] = useState(moment(new Date()))
     const [selectedDate2, setSelectedDate2] = useState(moment(new Date()))
     const [selectedDate3, setSelectedDate3] = useState(moment(new Date()))
     const [selectedDate4, setSelectedDate4] = useState(moment(new Date()))
+    const [openRefuse, setOpenRefuse] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
     
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -54,7 +51,7 @@ const ModalEditPortafolio = (props) => {
         setSelectedDate2(date);
       };
 
-const handleDateChange3 = (date) => {
+    const handleDateChange3 = (date) => {
         setSelectedDate3(date);
       };
 
@@ -62,9 +59,70 @@ const handleDateChange3 = (date) => {
         setSelectedDate4(date);
       };
 
+      const handleClickOpenRefuse = () => {
+        setOpenRefuse(true);
+      };
+    
+      const handleCloseRefuse = () => {
+        setOpenRefuse(false);
+      };
+
 
       const onSubmit  = (data) => {
         console.log(data)
+        
+
+    if (data.fechaIn._d >= data.fechaSol._d  && data.fechaFinPlan._d > data.fechaIn._d &&
+        data.fechaFinReal._d >= data.fechaFinPlan._d  && data.fechaFinReal._d > data.fechaIn._d &&
+        data.fechaFinReal._d > data.fechaSol._d) {
+            console.log('adentro')
+            const axiosInstance = axios.create({
+                baseURL: 'http://localhost:3050/api/v1/',
+                headers: { 'Accept': 'application/json',
+                      'Content-Type': 'application/json' }
+                });
+                setOpen(true)
+                axiosInstance
+                    .put("portfolio", {
+                        reqId: props.id,
+                        cliId: data.client,
+                        coaId: data.coa,
+                        leaId: data.resp,
+                        typId: data.tips, 
+                        estId: data.status,                      
+                        teaId: data.atech,
+                        reqTitle: data.titulo,
+                        reqDescription: data.descripcion,
+                        reqRequestDate: data.fechaSol._d,
+                        reqInitialDate: data.fechaIn._d,
+                        reqPlanFinalDate: data.fechaFinPlan._d,
+                        reqRealFinalDate: data.fechaFinReal._d,
+                        reqAdvancePtge: data.porAvc,
+                        reqDeviationsPtge: data.porDesv,
+                        reqClientCompletedDeliverables: data.entreCli,
+                        reqClientComments: data.comCli,
+                        reqClientPendingActivities: data.actPenCli,
+                        reqIntelixCompletedDeliverables: data.entreInt,
+                        reqIntelixPendingActivities: data.actPenInt,
+                        reqIntelixComments: data.comInt,
+                        reqSendToComitee: props.dataComite,
+                        reqComiteeAgenda: data.puntComite
+                      
+                    })
+                    
+                    .then((res) => {
+                      setOpen(false)              
+                      props.setCb(!props.cb);
+                      props.onClose();
+                      console.log(res)
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+        } else {
+            console.log('Afuera')
+            handleClickOpenRefuse();
+        }
     }
 
     const data = props.client === null ? [] : props.client.data;
@@ -82,6 +140,9 @@ const handleDateChange3 = (date) => {
         onClose={props.onClose} 
         aria-labelledby="form-dialog-title"
        >
+           <Backdrop className={classes.backdrop} open={open}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <DialogTitle>
                 Solicitud de Portafolio
             </DialogTitle>
@@ -100,6 +161,8 @@ const handleDateChange3 = (date) => {
                                     className={classes.margin}
                                     label="Título"
                                     name="titulo"
+                                    multiline
+                                    rowsMax={2}
                                     onChange={(event) => props.setTitle(event.target.value)}
                                     value={props.title}
                                     error= {errors.titulo !== undefined}
@@ -117,7 +180,7 @@ const handleDateChange3 = (date) => {
                                     label="Descripción"
                                     name="descripcion"
                                     multiline
-                                    rowsMax={4}
+                                    rowsMax={2}
                                     onChange={(event) => props.setDesc(event.target.value)}
                                     value={props.desc}
                                     error= {errors.descripcion !== undefined}
@@ -447,7 +510,7 @@ const handleDateChange3 = (date) => {
                                     className={classes.margin} 
                                     label="% de desviación"
                                     name="porDesv"
-                                    onChange={(event) => props.setDataPorAv(event.target.value)}
+                                    onChange={(event) => props.setDataPorDesv(event.target.value)}
                                     type="number"
                                     inputProps={{ min: "0", step: "1" }}
                                     value={props.dataPorDesv}
@@ -486,7 +549,7 @@ const handleDateChange3 = (date) => {
                             <Grid item xs={12} sm={4}>
                                 <TextField 
                                     className={classes.margin} 
-                                    label="Actividades pendientes cliente"
+                                    label="Act pendientes cliente"
                                     name="actPenCli"
                                     multiline
                                     rowsMax={4}
@@ -536,7 +599,7 @@ const handleDateChange3 = (date) => {
                             <Grid item xs={12} sm={4}>
                                 <TextField 
                                     className={classes.margin} 
-                                    label="Actividades pendientes Intelix"
+                                    label="Act pendientes Intelix"
                                     name="actPenInt"
                                     multiline
                                     rowsMax={4}
@@ -602,7 +665,7 @@ const handleDateChange3 = (date) => {
                     </Grid>
                 </form>
             </DialogContent>
-
+            <ModalRefuse open={openRefuse} onClose={handleCloseRefuse} info={"Verifique las fechas"}/>
 
 
         </Dialog>
