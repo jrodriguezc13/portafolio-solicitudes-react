@@ -21,7 +21,6 @@ const AsignarCliente = (props) => {
     const [dataUser, setDataUser] = useState(null);
     const [clientShow, setClientShow] = useState(null);
     
-    console.log(process.env)
 
     useEffect(() => {
         setIsLoading(true);

@@ -31,14 +31,11 @@ const FilterPortafolio = (props) => {
 
     const onSearchChange = e => {
         props.setSearch(e.target.value);
-        console.log(props.search)
+ 
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(props.selectCoa)
-        console.log(props.selectCli)
-        console.log(props.selectEst)
         props.setCb(!props.cb);
         
     }

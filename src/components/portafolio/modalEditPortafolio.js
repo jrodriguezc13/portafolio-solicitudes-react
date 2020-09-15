@@ -71,9 +71,7 @@ const ModalEditPortafolio = (props) => {
 
 
       const onSubmit  = (data) => {
-        console.log(data)
         
-
     if (data.fechaIn._d >= data.fechaSol._d  && data.fechaFinPlan._d > data.fechaIn._d &&
         data.fechaFinReal._d >= data.fechaFinPlan._d  && data.fechaFinReal._d > data.fechaIn._d &&
         data.fechaFinReal._d > data.fechaSol._d) {
@@ -116,7 +114,6 @@ const ModalEditPortafolio = (props) => {
                       setOpen(false)              
                       props.setCb(!props.cb);
                       props.onClose();
-                      console.log(res)
                     })
                     .catch((err) => {
                       console.log(err);
@@ -212,7 +209,7 @@ const ModalEditPortafolio = (props) => {
                                                     format="DD/MM/yyyy"
                                                     margin="normal"
                                                     id="date-picker-inline"
-                                                    label="Fecha de Solicitud"
+                                                    label="Fecha Solicitud"
                                                     onChange={handleDateChange}
                                                     KeyboardButtonProps={{
                                                     'aria-label': 'change date',
@@ -399,7 +396,7 @@ const ModalEditPortafolio = (props) => {
                                                         format="DD/MM/yyyy"
                                                         margin="normal"
                                                         id="date-picker-inline2"
-                                                        label="Fecha de Inicio"
+                                                        label="Fecha Inicio"
                                                         
                                                         onChange={handleDateChange2}
                                                         KeyboardButtonProps={{

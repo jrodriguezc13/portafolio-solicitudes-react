@@ -73,7 +73,6 @@ const TableAppPortafolio = (props) => {
     
     const handleClickOpenDelete = (id) => {
       setOpenDelete(true);
-      console.log(id)
 
       const axiosInstance = axios.create({
         baseURL: process.env.REACT_APP_BACK_URL,
@@ -84,8 +83,7 @@ const TableAppPortafolio = (props) => {
         .then((res) => {
           setId(res.data[0].reqId);
           setTitle(res.data[0].reqTitle);         
-          console.log(res.data[0].reqTitle);
-          console.log(res.data[0].reqId);
+
         })
         .catch((err) => {
           console.log(err);
@@ -151,7 +149,7 @@ const TableAppPortafolio = (props) => {
     
     const handleClickOpenEdit = (id) => {
       setOpen(true)
-      console.log(id)
+
 
       const axiosInstance = axios.create({
         baseURL: process.env.REACT_APP_BACK_URL,
@@ -184,7 +182,6 @@ const TableAppPortafolio = (props) => {
           setDataComInt(res.data[0].reqIntelixComments)
           setDataComite(res.data[0].reqSendToComitee)
           setDataPuntComite(res.data[0].reqComiteeAgenda)
-          console.log(res.data)
           setOpenEdit(true);
           setOpen(false)
         })
@@ -195,7 +192,7 @@ const TableAppPortafolio = (props) => {
 
     const handleClickOpenDatails = (id) => {
       setOpen(true)
-      console.log(id)
+
 
       const axiosInstance = axios.create({
         baseURL: process.env.REACT_APP_BACK_URL,
@@ -228,7 +225,6 @@ const TableAppPortafolio = (props) => {
           setDataComInt(res.data[0].reqIntelixComments)
           setDataComite(res.data[0].reqSendToComitee)
           setDataPuntComite(res.data[0].reqComiteeAgenda)
-          console.log(res.data)
           setOpenDatails(true);
           setOpen(false)
         })

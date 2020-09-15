@@ -28,7 +28,6 @@ const TableAppClientes = (props) => {
 
     const handleClickOpenDelete = (id) => {
       setOpenDelete(true);
-      console.log(id)
 
       const axiosInstance = axios.create({
         baseURL: process.env.REACT_APP_BACK_URL,
@@ -40,7 +39,7 @@ const TableAppClientes = (props) => {
         .then((res) => {
           props.setId(res.data[0].cliId);
           props.setName(res.data[0].cliName);         
-          console.log(res.data[0].cliName);
+
         })
         .catch((err) => {
           console.log(err);
@@ -66,11 +65,10 @@ const TableAppClientes = (props) => {
   
     const handleOnOpen = (id) => {
       setOpen(true)
-      console.log(id)
 
       const axiosInstance = axios.create({
-        baseURL: 'http://localhost:3050/api/v1/',
-        timeout: 2000,
+        baseURL: process.env.REACT_APP_BACK_URL,
+
         headers: { 'Accept': 'application/json' }
     });
     axiosInstance
@@ -82,7 +80,7 @@ const TableAppClientes = (props) => {
           props.setContactEmail(res.data[0].cliContactEmail);
           props.setHolisticManagerName(res.data[0].cliHolisticManagerName);
           props.setHolisticManagerEmail(res.data[0].cliHolisticManagerEmail);
-          console.log(res.data[0].cliName);
+
         })
         .catch((err) => {
           console.log(err);

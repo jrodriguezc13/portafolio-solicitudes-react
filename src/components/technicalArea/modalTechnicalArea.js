@@ -16,7 +16,6 @@ const ModalTechnicalArea = (props) => {
     const {register, errors, handleSubmit} = useForm();
 
     const onSubmit  = (data) => {
-        console.log(errors);
         const axiosInstance = axios.create({
           baseURL: process.env.REACT_APP_BACK_URL,
 

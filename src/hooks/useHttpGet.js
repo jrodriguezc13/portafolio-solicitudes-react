@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-const qs = require('qs');
 
 export const useHttpGet = (url, dependencies, params = []) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -16,13 +15,11 @@ export const useHttpGet = (url, dependencies, params = []) => {
 
     let httpParams = new URLSearchParams();
     params.forEach(p => {
-        console.log(p.value)
         if (p.value !== null) {
             httpParams.append(p.key, p.value);
 
         }
     });
-    console.log(httpParams.toString())
 
     useEffect(() => {
         setIsLoading(true);

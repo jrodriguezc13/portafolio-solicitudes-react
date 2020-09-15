@@ -28,7 +28,6 @@ const TableAppTechnicalArea = (props) => {
 
     const handleClickOpenDelete = (id) => {
       setOpenDelete(true);
-      console.log(id)
 
       const axiosInstance = axios.create({
         baseURL: process.env.REACT_APP_BACK_URL,
@@ -40,7 +39,6 @@ const TableAppTechnicalArea = (props) => {
         .then((res) => {
           props.setId(res.data[0].teaId);
           props.setName(res.data[0].teaName);         
-          console.log(res.data[0].teaName);
         })
         .catch((err) => {
           console.log(err);
@@ -62,7 +60,6 @@ const TableAppTechnicalArea = (props) => {
 
     const handleOnOpen = (id) => {
       setOpen(true)
-      console.log(id)
 
       const axiosInstance = axios.create({
         baseURL: process.env.REACT_APP_BACK_URL,
@@ -74,7 +71,6 @@ const TableAppTechnicalArea = (props) => {
         .then((res) => {
           props.setId(res.data[0].teaId);
           props.setName(res.data[0].teaName);
-          console.log(res.data[0].teaName);
         })
         .catch((err) => {
           console.log(err);

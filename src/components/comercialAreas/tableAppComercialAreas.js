@@ -28,7 +28,6 @@ const TableAppComercialAreas = (props) => {
 
     const handleClickOpenDelete = (id) => {
       setOpenDelete(true);
-      console.log(id)
 
       const axiosInstance = axios.create({
         baseURL: process.env.REACT_APP_BACK_URL,
@@ -40,7 +39,6 @@ const TableAppComercialAreas = (props) => {
         .then((res) => {
           props.setId(res.data[0].coaId);
           props.setName(res.data[0].coaName);         
-          console.log(res.data[0].coaName);
         })
         .catch((err) => {
           console.log(err);
@@ -62,7 +60,6 @@ const TableAppComercialAreas = (props) => {
 
     const handleOnOpen = (id) => {
       setOpen(true)
-      console.log(id)
 
       const axiosInstance = axios.create({
         baseURL: process.env.REACT_APP_BACK_URL,
@@ -74,7 +71,6 @@ const TableAppComercialAreas = (props) => {
         .then((res) => {
           props.setId(res.data[0].coaId);
           props.setName(res.data[0].coaName);
-          console.log(res.data[0].coaName);
         })
         .catch((err) => {
           console.log(err);

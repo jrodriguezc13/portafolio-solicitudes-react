@@ -80,10 +80,6 @@ const ModalAddPortafolio = (props) => {
     const dataU = props.user === null ? [] : props.user.data;
 
     const onSubmit  = (data) => {
-        console.log(data)
-        console.log(data.client)
-        console.log(dataClient)
-        console.log(data.fechaSol._d)
 
 
         if (data.dateIn._d >= data.fechaSol._d && data.fechaFinPlan._d > data.dateIn._d) {
@@ -113,7 +109,7 @@ const ModalAddPortafolio = (props) => {
                        setDescription("")              
                       props.setCb(!props.cb);
                       props.onClose();
-                      console.log(res)
+
                     })
                     .catch((err) => {
                       console.log(err);
