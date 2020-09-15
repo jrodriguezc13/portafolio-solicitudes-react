@@ -1,9 +1,7 @@
 import React from 'react';
 import useStyles from './login.styles';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -12,9 +10,19 @@ import Typography from '@material-ui/core/Typography';
 import GoogleLogin from 'react-google-login';
 import config from '../../bin/config/config';
 import axios from "axios";
+import ModalRefuse from '../modalRefuse/modalRefuse';
 
 const Login = (props) => {
     const classes = useStyles();
+    const [openRefuse, setOpenRefuse] = React.useState(false);
+
+    const handleClickOpenRefuse = () => {
+        setOpenRefuse(true);
+      };
+    
+      const handleCloseRefuse = () => {
+        setOpenRefuse(false);
+      };
 
     const responseGoogle = (response) => {
 
@@ -35,7 +43,6 @@ const Login = (props) => {
                     console.log("No existe")
                     addUser()
                 } else {
-                    console.log(data.data[0].userId)
                     getClienteById(data.data[0].userId)
                 }
             })
@@ -74,7 +81,6 @@ const Login = (props) => {
                         });
                     
                 } else {
-                    console.log(data.data[0].userId)
                     localStorage.setItem("respon", data.data[0].userId);
                     window.location.reload();
                 }
@@ -91,10 +97,8 @@ const Login = (props) => {
 
     } else {
         console.log('Hola Extranho')
-        localStorage.setItem("email", response.profileObj.email);
-        localStorage.setItem("name", response.profileObj.name);
-        localStorage.setItem("respon", []);
-        window.location.reload();
+        handleClickOpenRefuse();
+        
     }
     
 }
@@ -201,6 +205,7 @@ const getClienteById = (id) => {
             </form>
             </div>
         </Grid>
+        <ModalRefuse open={openRefuse} onClose={handleCloseRefuse} info={"Usted no posee rol asignado"}/>
     </Grid>
 
 

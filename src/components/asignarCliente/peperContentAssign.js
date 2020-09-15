@@ -1,6 +1,6 @@
 import React from 'react';
 import useStyles from './asignarCliente.styles';
-import { Typography, Paper } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -16,7 +16,6 @@ const PeperContentAssign = (props) => {
     
     const handleChange = (event) => {
         props.setId(event.target.value);
-        console.log(event.target.value)
         const axiosInstance = axios.create({
             baseURL: process.env.REACT_APP_BACK_URL,
 
@@ -27,7 +26,7 @@ const PeperContentAssign = (props) => {
             .then((data) => {
                 if (data.data.type === 'Not Data') {
                     props.setShowClient(null);
-                    console.log('aqui23')
+
                 } else {
 
                     props.setShowClient(data);
@@ -62,7 +61,7 @@ const PeperContentAssign = (props) => {
                             cliId: props.id2
                         }) 
                         .then((data2) => {
-                            console.log(data2)
+
                             axiosInstance
                                 .get('userClient/' + props.id)
                                 .then((data) => {
@@ -84,7 +83,7 @@ const PeperContentAssign = (props) => {
 
       const handleDelete = (id) => {
         if (props.id !== "" && props.id2 !== "") {
-          console.log(id)
+
           const axiosInstance = axios.create({
             baseURL: process.env.REACT_APP_BACK_URL,
 
@@ -109,9 +108,7 @@ const PeperContentAssign = (props) => {
                                         } else {
                                             props.setShowClient(data3);
                                         }
-                                        
-                                        
-                                        console.log(data3)
+
                                     })
                                     .catch((err) => {
                                         

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -81,7 +81,7 @@ const ModalDetailPortafolio = (props) => {
                                 format="MM/DD/yyyy"
                                 margin="normal"
                                 id="date-picker-inline"
-                                label="Fecha de Solicitud"
+                                label="Fecha Solicitud"
                                 value={props.selectedRequestDate}
                                 inputProps={
                                     { readOnly: true, }
@@ -156,7 +156,7 @@ const ModalDetailPortafolio = (props) => {
                                 format="MM/DD/yyyy"
                                 margin="normal"
                                 id="date-picker-inline2"
-                                label="Fecha de Inicio"
+                                label="Fecha Inicio"
                                 value={props.selectedInitialDate}
                                 inputProps={
                                     { readOnly: true, }

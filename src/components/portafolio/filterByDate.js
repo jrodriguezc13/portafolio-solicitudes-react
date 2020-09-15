@@ -11,7 +11,6 @@ import Grid from '@material-ui/core/Grid';
 import MomentUtils from '@date-io/moment';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 

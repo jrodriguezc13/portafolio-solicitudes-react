@@ -83,7 +83,6 @@ const Portafolio = (props) => {
             .then((data) => {
                 
                 setDataClient(data);
-                console.log(data)
             })
             .catch((err) => {
                 
@@ -94,7 +93,6 @@ const Portafolio = (props) => {
             .then((data) => {
                 
                 setDataStatus(data);
-                console.log(data)
             })
             .catch((err) => {
                 
@@ -105,7 +103,6 @@ const Portafolio = (props) => {
             .then((data) => {
                 
                 setDataComercialArea(data);
-                console.log(data)
                 setOpen(!open)
             })
             .catch((err) => {
@@ -116,7 +113,6 @@ const Portafolio = (props) => {
             .get('technical')
             .then((data)=> {
                 setDataTechnical(data);
-                console.log(data)
             })
             .catch((err) => {
 
@@ -126,7 +122,6 @@ const Portafolio = (props) => {
             .get('request')
             .then((data) => {
                 setDataReqTyp(data);
-                console.log(data)
             })
             .catch((err) => {
 
@@ -136,7 +131,6 @@ const Portafolio = (props) => {
             .get('user')
             .then((data) => {
                 setDataUser(data);
-                console.log(data)
             })
             .catch((err) => {
 

@@ -28,7 +28,6 @@ const TableAppRequestStatus = (props) => {
 
     const handleClickOpenDelete = (id) => {
       setOpenDelete(true);
-      console.log(id)
 
       const axiosInstance = axios.create({
         baseURL: process.env.REACT_APP_BACK_URL,
@@ -40,7 +39,6 @@ const TableAppRequestStatus = (props) => {
         .then((res) => {
           props.setId(res.data[0].estId);
           props.setName(res.data[0].estName);         
-          console.log(res.data[0].estName);
         })
         .catch((err) => {
           console.log(err);
@@ -62,7 +60,6 @@ const TableAppRequestStatus = (props) => {
 
     const handleOnOpen = (id) => {
       setOpen(true)
-      console.log(id)
 
       const axiosInstance = axios.create({
         baseURL: process.env.REACT_APP_BACK_URL,
@@ -74,7 +71,6 @@ const TableAppRequestStatus = (props) => {
         .then((res) => {
           props.setId(res.data[0].estId);
           props.setName(res.data[0].estName);
-          console.log(res.data[0].estName);
         })
         .catch((err) => {
           console.log(err);
