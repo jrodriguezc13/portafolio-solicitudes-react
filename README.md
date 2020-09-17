@@ -1,68 +1,128 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Logo](https://cs.intelix.biz/logo/pic.png "InteliX")
 
-## Available Scripts
+# Portafolio de Solicitudes
+## v-0.0.1
 
-In the project directory, you can run:
 
-### `yarn start`
+## 1. Introducción.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+El aplicativo se utiliza para llevar a cabo seguimientos y evaluación de avances de todas las solicitudes y proyectos por parte de los clientes de Intelix.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## 2. Funcionalidad.
 
-### `yarn test`
+De que se trata funcionalmente la aplicación así como enlace a documentación externa en caso que se cuente con ella.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 3. Tipos de conexión.
 
-### `yarn build`
+- Conexión: 
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Comunicación: json
+- Puertos:
+-   Aplicación: 
+-   Backend:   
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## 4. Generalidades sobre la implementación.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Acá se cubren aspectos como:
 
-### `yarn eject`
+- Tecnología Usada:
+- - React.js
+- - Node.js
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Arbol de la aplicación.
+	+ src/
+	+   bin/
+    +   components/
+    +   hooks/
+    +   images/
+	+   
+- Nivel de conocimiento que se requiere para esta aplicación.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 5. Configuración y Despliegue.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Aspectos a considerar:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Se describe el proceso de instalación y despliegue para la aplicación.
+- Seguirlo paso a paso debería garantizar la correcta instalación y posterior despliegue o puesta en funcionamiento de los servicios. 
+- Cualquier tipo de contingencia o caso atípico que se pudiera presentar durante el despliegue en un ambiente determinado será documentado en esta fase en el punto **5.4 Resolución de problemas**.
 
-## Learn More
+### 5.1. Prerrequisitos.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Aspectos a considerar:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Dependencias a instalar, paquetes adicionales, configuraciones, aplicaciones adicionales como servidor web, servidor de base de datos, etc.
 
-### Code Splitting
+### 5.2. Instalación y configuración.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+Paso a paso a seguir para la instalación propiamente de la aplicación, como por ejemplo:
 
-### Analyzing the Bundle Size
+1. Clonar el repositorio con `git`.
+2. Acceder a la carpeta donde se haya descargado todo el código fuente del servicio.
+3. Ejecutar `npm install` para instalar todas las dependencias necesarias del servicio.
+Tómese en cuenta que **Serve** y **Yarn** deben ser instalados con anterioridad. Además,
+**Serve** es una dependencia global de Node JS la cual debe ser instalada con la orden
+`npm install serve -g` en  tanto que **Yarn**, se suele instalar siguiendo algunos de
+los métodos recomendados para el sistema operativo base que tendrá el ambiente de
+despliegue. Para más información visitar este [enlace](https://google.com/).
+4. Editar los archivos `uno.js` y `dos.js` que se encuentran en la
+ruta `path/to/source/aplicacion_ejemplo/src/config` con los que se configurarán.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Crear archivo .env en la raiz del proyecto con la siguiente configuración:
 
-### Making a Progressive Web App
+    ```
+    REACT_APP_BACK_URL=http://localhost:3050/api/v1/
+    ```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```javascript
+  // uno.js
 
-### Advanced Configuration
+  export const secretKey = some_string_token
+  export const expirationTime = some_integer_value;
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+  en donde `some_string_token` es una cadena de caracteres generada con el módulo `jsonwebtoken`
+  o JWT, y `some_integer_value` es el tiempo de expiración del token expresado en segundos. Por
+  otro lado se tiene
 
-### Deployment
+```javascript
+  // dos.js
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+  const serviceHost = some_URI;
+  const servicePort = some_PORT;
 
-### `yarn build` fails to minify
+  export const serviceHostPort = serviceHost + ":" + servicePort;
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+  en donde `some_URI` puede ser una dirección IP o una alias asignado por un DNS, y `some_PORT` un
+  número entero que indica el puerto a través del cual se puede acceder al servicio. Por defecto
+  este valor será el **8020**.
+
+### 5.3. Configuración de base de datos.
+
+En esta sección se especificará cualquier cambio, configuración, instalación que se requiera a nivel de base de datos, permisos especiales, acceso a scripts de cración y llenado de datos, etc.
+
+### 5.4. Ejecución.
+
+En esta sección se deben considerar los siguientes pasos:
+
+- Pasos a seguir para la ejecución de la aplicación.
+- Usuario con el que debe ser ejecutada la aplicación en caso que aplique.
+- Permisología con la que debe contar el usuario en caso que aplique.
+- Línea de código o procedimiento para ejecución de la aplicación.
+- Tareas automáticas que deban crearse para garantizar la ejecución del mismo. 
+- No debe ser una especificación técnica si no se tiene, por ejemplo:
+	- Se debe crear un script que garantice la ejecución diaria automática de la aplicación.
+	- Se debe crear una tarea planificada a tal hora, de tal día a tal día.
+	- Se debe realizar el llamado al script que se suministra a continuación bajo permisología de **root**, **administrador**, **qsecofr**, etc.
+
+### 5.5. Resolución de problemas.
+
+Como se comentó en un punto anterior, acá se especificará información adicional que considere el área de desarrollo que se deba tener en cuenta en caso que al momento de la ejecución de cualquiera de las etapas se obtenga algún error, por ejemplo:
+
+- Fallo en la instalación de algún paquete.
+- Fallo en la configuración de la aplicación.
+- Fallo al realizar el arranque de la aplicación.
+- Cualquier otro problema que haya tenido el área de desarrollo durante el ciclo de vida del mismo. 
+
+---
+_(c) 2020 Intelix Synergy C.A. Documentación técnica de aplicación **v1.0.0**_
